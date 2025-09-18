@@ -1,0 +1,31 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MovieHub.API.Models
+{
+    public class Booking
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; } // Primary Key
+
+        [Required]
+        public DateTime BookingTime { get; set; } = DateTime.UtcNow;
+
+        [Required]
+        [MaxLength(256)]
+        public string UserEmail { get; set; } = string.Empty; // Foreign Key to User
+
+        [Required]
+        public int ShowTimeId { get; set; } // Foreign Key to ShowTime
+
+        // Navigation Properties
+        // [ForeignKey("UserEmail")]
+        // public User User { get; set; } = null!; // Navigation property to related User
+
+        [ForeignKey("ShowTimeId")]
+        public ShowTime ShowTime { get; set; } = null!; // Navigation property to related ShowTime
+
+        public ICollection<BookingSeat> BookedSeats { get; set; } = new List<BookingSeat>(); // Navigation property to related BookingSeats
+    }
+}
