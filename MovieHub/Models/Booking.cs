@@ -12,16 +12,14 @@ namespace MovieHub.API.Models
         [Required]
         public DateTime BookingTime { get; set; } = DateTime.UtcNow;
 
-        [Required]
-        [MaxLength(256)]
-        public string UserEmail { get; set; } = string.Empty; // Foreign Key to User
+        public Guid? UserId { get; set; } // Foreign Key to User
 
         [Required]
         public int ShowTimeId { get; set; } // Foreign Key to ShowTime
 
         // Navigation Properties
-        // [ForeignKey("UserEmail")]
-        // public User User { get; set; } = null!; // Navigation property to related User
+        // [ForeignKey("UserId")]
+        // public User? User { get; set; } // Navigation property to related User
 
         [ForeignKey("ShowTimeId")]
         public ShowTime ShowTime { get; set; } = null!; // Navigation property to related ShowTime

@@ -36,8 +36,8 @@ namespace MovieHub.API.Data
             //modelBuilder.Entity<Booking>()
             //    .HasOne(b => b.User)
             //    .WithMany(u => u.Bookings)
-            //    .HasForeignKey(b => b.UserEmail)
-            //    .OnDelete(DeleteBehavior.Restrict); // Prevent deletion of User if it has associated Bookings
+            //    .HasForeignKey(b => b.UserId)
+            //    .OnDelete(DeleteBehavior.SetNull); // Prevent deletion of User if it has associated Bookings
             #endregion
 
             #region BookingSeat

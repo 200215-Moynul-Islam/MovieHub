@@ -22,6 +22,9 @@ namespace MovieHub.API.Models
         public int TotalColumns { get; set; }
 
         [Required]
+        public bool IsActive { get; set; } = true;
+
+        [Required]
         public int BranchId { get; set; } // Foreign Key to Branch
 
         // Navigation Properties

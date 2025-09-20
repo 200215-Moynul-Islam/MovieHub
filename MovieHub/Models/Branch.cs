@@ -17,12 +17,14 @@ namespace MovieHub.API.Models
         [MaxLength(250)]
         public string Location { get; set; } = string.Empty;
 
-        [MaxLength(256)]
-        public string? ManagerEmail { get; set; } // Foreign Key to User (Manager)
+        [Required]
+        public bool IsActive { get; set; } = true;
+
+        public Guid? ManagerId { get; set; } // Foreign Key to User (Manager)
 
         // Navigation Properties
-        // [ForeignKey("ManagerEmail")]
-        // public User Manager { get; set; } = null!; // Navigation property to related User (Manager)
+        // [ForeignKey("ManagerId")]
+        // public User? Manager { get; set; } // Navigation property to related User (Manager)
         public ICollection<Hall> Halls { get; set; } = new List<Hall>(); // Navigation property to related Halls
     }
 }

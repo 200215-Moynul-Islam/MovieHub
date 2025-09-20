@@ -37,6 +37,9 @@ namespace MovieHub.API.Models
         [MaxLength(500)]
         public string Actors { get; set; } = string.Empty;
 
+        [Required]
+        public bool IsActive { get; set; } = true;
+
         // Navigation Properties
         public ICollection<ShowTime> ShowTimes { get; set; } = new List<ShowTime>(); // Navigation property to related Showtimes
     }
