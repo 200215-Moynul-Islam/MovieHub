@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using MovieHub.API.Data;
+using MovieHub.API.Mappings;
+using MovieHub.API.Middleware;
+using MovieHub.API.Repositories;
+using MovieHub.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +16,15 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<MovieHubDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+// Register AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+// Register all the service class
+builder.Services.AddScoped<IBranchService, BranchService>();
+
+//Register all the repository class
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -27,6 +40,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 #endregion
