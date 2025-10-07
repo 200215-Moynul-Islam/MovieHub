@@ -1,16 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MovieHub.API.Constants;
+using MovieHub.API.Models.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieHub.API.Models
 {
-    public class Seat
+    public class Seat : EntityBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } // Primary Key
-
         [Required]
-        [StringLength(3, MinimumLength = 2)]
+        [StringLength(ValidationConstants.MaxSeatNumberLength, MinimumLength = ValidationConstants.MinSeatNumberLength)]
         public string SeatNumber { get; set; } = string.Empty;
 
         [Required]
