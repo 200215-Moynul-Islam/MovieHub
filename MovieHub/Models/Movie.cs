@@ -7,31 +7,31 @@ namespace MovieHub.API.Models
     public class Movie : SoftDeletableEntityBase
     {
         [Required]
-        [MaxLength(ValidationConstants.MaxMovieTitleLength)]
+        [MaxLength(ValidationConstants.Movie.MaxTitleLength)]
         public string Title { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(ValidationConstants.MaxMovieGenreLength)]
+        [MaxLength(ValidationConstants.Movie.MaxGenreLength)]
         public string Genre { get; set; } = string.Empty;
 
         [Required]
-        [Range(ValidationConstants.MinMovieDuration, ValidationConstants.MaxMovieDuration)] // Duration in minutes
+        [Range(ValidationConstants.Movie.MinDuration, ValidationConstants.Movie.MaxDuration)] // Duration in minutes
         public int Duration { get; set; }
 
         [Required]
-        [MaxLength(ValidationConstants.MaxMovieDirectorLength)]
+        [MaxLength(ValidationConstants.Movie.MaxDirectorLength)]
         public string Director { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(ValidationConstants.MaxMovieDescriptionLength)]
+        [MaxLength(ValidationConstants.Movie.MaxDescriptionLength)]
         public string Description { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(ValidationConstants.MaxMoviePosterUrlLength)]
+        [MaxLength(ValidationConstants.Movie.MaxPosterUrlLength)]
         public string PosterUrl { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(ValidationConstants.MaxMovieActorsLength)]
+        [MaxLength(ValidationConstants.Movie.MaxActorsLength)]
         public string Actors { get; set; } = string.Empty;
 
         // Navigation Properties

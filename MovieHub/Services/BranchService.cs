@@ -1,4 +1,6 @@
+using AutoMapper;
 using MovieHub.API.DTOs;
+using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
 namespace MovieHub.API.Services
@@ -6,15 +8,16 @@ namespace MovieHub.API.Services
     public class BranchService : IBranchService
     {
         private readonly IBranchRepository _branchRepository;
-        public BranchService(IBranchRepository branchRepository)
+        private readonly IMapper _mapper;
+        public BranchService(IBranchRepository branchRepository, IMapper mapper)
         {
             _branchRepository = branchRepository;
+            _mapper = mapper;
         }
 
-        #region Create
         public async Task<BranchReadDto> CreateBranchAsync(BranchCreateDto branchCreateDto)
         {
-            // ToDo: Validate if manager exists in User module when it's done
+            // TODO: Validate if manager exists in User module when it's done
             var branchNameExists = _branchRepository.BranchNameExistsAsync(branchCreateDto.Name);
             var isManagerAssigned = branchCreateDto.ManagerId == null 
                 ? Task.FromResult(false) 
@@ -24,23 +27,24 @@ namespace MovieHub.API.Services
             
             if (branchNameExists.Result)
             {
-                throw new Exception($"Branch with name '{branchCreateDto.Name}' already exists."); // Use specific exception.
+                throw new Exception($"Branch with name '{branchCreateDto.Name}' already exists."); // Use specific exception and avoid magic exception message.
             }
 
             if (isManagerAssigned.Result)
             {
-                throw new Exception($"Manager with ID '{branchCreateDto.ManagerId}' is already assigned to another branch."); // Use specific exception.
+                throw new Exception($"Manager with ID '{branchCreateDto.ManagerId}' is already assigned to another branch."); // Use specific exception and avoid magic exception message.
             }
 
-            return await _branchRepository.CreateBranchAsync(branchCreateDto);
+            var branch = _mapper.Map<Branch>(branchCreateDto);
+            await _branchRepository.CreateAsync(branch);
+            await _branchRepository.SaveChangesAync();
+            return _mapper.Map<BranchReadDto>(branch);
         }
-        #endregion
 
-        #region Read
         public async Task<BranchReadDto?> GetBranchByIdAsync(int id)
         {
-            return await _branchRepository.GetBranchByIdAsync(id);
+            var branch = await _branchRepository.GetByIdAsync(id);
+            return _mapper.Map<BranchReadDto>(branch);
         }
-        #endregion
     }
 }

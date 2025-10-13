@@ -1,19 +1,10 @@
-using MovieHub.API.DTOs;
+using MovieHub.API.Models;
+using MovieHub.Repositories;
 
 namespace MovieHub.API.Repositories
 {
-    public interface IBranchRepository
+    public interface IBranchRepository : IRepository<Branch>
     {
-
-        #region CRUD Operations
-        #region Create
-        Task<BranchReadDto> CreateBranchAsync(BranchCreateDto branchCreateDto);
-        #endregion
-        #region Read
-        Task<BranchReadDto?> GetBranchByIdAsync(int id);
-        #endregion
-        #endregion
-
         #region Existence Checks
         Task<bool> BranchNameExistsAsync(string branchName);
         Task<bool> IsManagerAssignedAsync(Guid managerId);

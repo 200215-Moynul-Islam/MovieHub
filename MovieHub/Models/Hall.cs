@@ -8,11 +8,11 @@ namespace MovieHub.API.Models
     public class Hall : SoftDeletableNamedEntityBase
     {
         [Required]
-        [Range(ValidationConstants.MinRows, ValidationConstants.MaxRows)]
+        [Range(ValidationConstants.Hall.MinRows, ValidationConstants.Hall.MaxRows)]
         public int TotalRows { get; set; }
 
         [Required]
-        [Range(ValidationConstants.MinColumns, ValidationConstants.MaxColumns)]
+        [Range(ValidationConstants.Hall.MinColumns, ValidationConstants.Hall.MaxColumns)]
         public int TotalColumns { get; set; }
 
         [Required]

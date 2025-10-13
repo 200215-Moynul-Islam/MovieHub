@@ -8,7 +8,7 @@ namespace MovieHub.API.Models
     public class Seat : EntityBase
     {
         [Required]
-        [StringLength(ValidationConstants.MaxSeatNumberLength, MinimumLength = ValidationConstants.MinSeatNumberLength)]
+        [StringLength(ValidationConstants.Seat.MaxSeatNumberLength, MinimumLength = ValidationConstants.Seat.MinSeatNumberLength)]
         public string SeatNumber { get; set; } = string.Empty;
 
         [Required]

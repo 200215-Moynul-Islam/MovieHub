@@ -7,7 +7,7 @@ namespace MovieHub.API.Models
     public class Branch : SoftDeletableNamedEntityBase
     {
         [Required]
-        [MaxLength(ValidationConstants.MaxLocationLength)]
+        [MaxLength(ValidationConstants.Branch.MaxLocationLength)]
         public string Location { get; set; } = string.Empty;
 
         public Guid? ManagerId { get; set; } // Foreign Key to User (Manager)
