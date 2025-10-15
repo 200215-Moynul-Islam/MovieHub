@@ -25,7 +25,6 @@
             public const int MaxGenreLength = 200;
             public const int MinDuration = 1; // in minutes
             public const int MaxDuration = 500; // in minutes
-            public const int MaxDirectorLength = 100;
             public const int MaxDescriptionLength = 1000;
             public const int MaxPosterUrlLength = 500;
             public const int MaxActorsLength = 500;

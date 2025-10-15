@@ -19,7 +19,7 @@ namespace MovieHub.API.Models
         public int Duration { get; set; }
 
         [Required]
-        [MaxLength(ValidationConstants.Movie.MaxDirectorLength)]
+        [MaxLength(ValidationConstants.MaxNameLength)]
         public string Director { get; set; } = string.Empty;
 
         [Required]

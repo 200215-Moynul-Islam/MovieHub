@@ -1,16 +1,18 @@
-﻿namespace MovieHub.API.Constants
+﻿using MovieHub.API.Resources;
+
+namespace MovieHub.API.Constants
 {
     public static class ErrorMessages
     {
-        public const string NameRequired = "Name is required.";
-        public const string NameMaxLengthExceeded = "Name cannot exceed 100 characters.";
-        public const string InvalidNameFormat = "Name must start with a letter and contain only letters, numbers, spaces, and . , ' - &.";
+        public const string NameRequired = TextConstants.NameRequired_ErrorMessage;
+        public const string NameMaxLengthExceeded = TextConstants.NameMaxLengthExceeded_ErrorMessage;
+        public const string InvalidNameFormat = TextConstants.InvalidNameFormat_ErrorMessage;
 
         public static class Branch
         {
-            public const string LocationRequired = "Location is required.";
-            public const string LocationMaxLengthExceeded = "Location cannot exceed 250 characters.";
-            public const string InvalidLocationFormat = "Location can only contain letters, numbers, spaces, and . / , ' - &.";
+            public const string LocationRequired = TextConstants.Branch_LocationRequired_ErrorMessage;
+            public const string LocationMaxLengthExceeded = TextConstants.Branch_LocationMaxLengthExceeded_ErrorMessage;
+            public const string InvalidLocationFormat = TextConstants.Branch_InvalidLocationFormat_ErrorMessage;
         }
     }
 }

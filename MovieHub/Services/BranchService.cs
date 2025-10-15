@@ -18,7 +18,7 @@ namespace MovieHub.API.Services
         public async Task<BranchReadDto> CreateBranchAsync(BranchCreateDto branchCreateDto)
         {
             // TODO: Validate if manager exists in User module when it's done
-            var branchNameExists = _branchRepository.BranchNameExistsAsync(branchCreateDto.Name);
+            var branchNameExists = _branchRepository.NameExistsCaseInsensitiveAsync(branchCreateDto.Name);
             var isManagerAssigned = branchCreateDto.ManagerId == null 
                 ? Task.FromResult(false) 
                 : _branchRepository.IsManagerAssignedAsync(branchCreateDto.ManagerId.Value);
