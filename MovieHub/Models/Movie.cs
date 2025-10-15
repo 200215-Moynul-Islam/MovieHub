@@ -1,44 +1,38 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using MovieHub.API.Constants;
+using MovieHub.API.Models.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieHub.API.Models
 {
-    public class Movie
+    public class Movie : SoftDeletableEntityBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } // Primary Key
-
         [Required]
-        [MaxLength(200)]
+        [MaxLength(ValidationConstants.Movie.MaxTitleLength)]
         public string Title { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(ValidationConstants.Movie.MaxGenreLength)]
         public string Genre { get; set; } = string.Empty;
 
         [Required]
-        [Range(1, 500)] // Duration in minutes
+        [Range(ValidationConstants.Movie.MinDuration, ValidationConstants.Movie.MaxDuration)] // Duration in minutes
         public int Duration { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(ValidationConstants.MaxNameLength)]
         public string Director { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(1000)]
+        [MaxLength(ValidationConstants.Movie.MaxDescriptionLength)]
         public string Description { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(500)]
+        [MaxLength(ValidationConstants.Movie.MaxPosterUrlLength)]
         public string PosterUrl { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(500)]
+        [MaxLength(ValidationConstants.Movie.MaxActorsLength)]
         public string Actors { get; set; } = string.Empty;
-
-        [Required]
-        public bool IsActive { get; set; } = true;
 
         // Navigation Properties
         public ICollection<ShowTime> ShowTimes { get; set; } = new List<ShowTime>(); // Navigation property to related Showtimes

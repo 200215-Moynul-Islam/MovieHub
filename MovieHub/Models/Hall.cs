@@ -1,28 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MovieHub.API.Constants;
+using MovieHub.API.Models.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieHub.API.Models
 {
-    public class Hall
+    public class Hall : SoftDeletableNamedEntityBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } // Primary Key
-
         [Required]
-        [MaxLength(100)]
-        public string Name { get; set; } = string.Empty;
-
-        [Required]
-        [Range(1, 20)]
+        [Range(ValidationConstants.Hall.MinRows, ValidationConstants.Hall.MaxRows)]
         public int TotalRows { get; set; }
 
         [Required]
-        [Range(1, 50)]
+        [Range(ValidationConstants.Hall.MinColumns, ValidationConstants.Hall.MaxColumns)]
         public int TotalColumns { get; set; }
-
-        [Required]
-        public bool IsActive { get; set; } = true;
 
         [Required]
         public int BranchId { get; set; } // Foreign Key to Branch

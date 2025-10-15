@@ -1,24 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using MovieHub.API.Constants;
+using MovieHub.API.Models.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieHub.API.Models
 {
-    public class Branch
+    public class Branch : SoftDeletableNamedEntityBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } // Primary Key
-
         [Required]
-        [MaxLength(100)]
-        public string Name { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(250)]
+        [MaxLength(ValidationConstants.Branch.MaxLocationLength)]
         public string Location { get; set; } = string.Empty;
-
-        [Required]
-        public bool IsActive { get; set; } = true;
 
         public Guid? ManagerId { get; set; } // Foreign Key to User (Manager)
 
