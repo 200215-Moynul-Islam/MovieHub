@@ -2,7 +2,6 @@
 using MovieHub.API.Constants;
 using MovieHub.API.Data;
 using MovieHub.API.Models.Base;
-using MovieHub.Repositories;
 
 namespace MovieHub.API.Repositories
 {

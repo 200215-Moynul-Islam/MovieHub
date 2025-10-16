@@ -1,4 +1,4 @@
-namespace MovieHub.Repositories
+namespace MovieHub.API.Repositories
 {
     public interface IRepository<T> where T : class
     {

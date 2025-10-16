@@ -1,5 +1,4 @@
 using MovieHub.API.Models;
-using MovieHub.Repositories;
 
 namespace MovieHub.API.Repositories
 {

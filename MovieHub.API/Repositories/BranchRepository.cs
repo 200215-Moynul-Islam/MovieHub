@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieHub.API.Data;
 using MovieHub.API.Models;
-using MovieHub.Repositories;
 
 namespace MovieHub.API.Repositories
 {

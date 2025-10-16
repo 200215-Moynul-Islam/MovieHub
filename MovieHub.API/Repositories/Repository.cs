@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieHub.API.Data;
 using MovieHub.API.Models.Base;
 
-namespace MovieHub.Repositories
+namespace MovieHub.API.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
