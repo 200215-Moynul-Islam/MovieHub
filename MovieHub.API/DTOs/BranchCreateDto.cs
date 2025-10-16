@@ -1,5 +1,5 @@
-﻿using MovieHub.API.DTOs.Base;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using MovieHub.API.DTOs.Base;
 
 namespace MovieHub.API.DTOs
 {

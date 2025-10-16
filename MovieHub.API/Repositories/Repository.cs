@@ -4,7 +4,8 @@ using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T>
+        where T : class
     {
         protected readonly MovieHubDbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
@@ -24,14 +25,20 @@ namespace MovieHub.API.Repositories
         public async Task<T?> GetByIdAsync(int id)
         {
             IQueryable<T> query = _dbSet;
-            var isDeletedProperty = typeof(T).GetProperty(nameof(SoftDeletableEntityBase.IsDeleted));
+            var isDeletedProperty = typeof(T).GetProperty(
+                nameof(SoftDeletableEntityBase.IsDeleted)
+            );
             if (isDeletedProperty != null && isDeletedProperty.PropertyType == typeof(bool))
             {
                 // Filter out soft-deleted records if IsDeleted property exists
-                query = query.Where(e => EF.Property<bool>(e, nameof(SoftDeletableEntityBase.IsDeleted)) == false);
+                query = query.Where(e =>
+                    EF.Property<bool>(e, nameof(SoftDeletableEntityBase.IsDeleted)) == false
+                );
             }
             // Filter by Id property
-            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, nameof(EntityBase.Id)) == id);
+            return await query.FirstOrDefaultAsync(e =>
+                EF.Property<int>(e, nameof(EntityBase.Id)) == id
+            );
         }
 
         public void Update(T entity)

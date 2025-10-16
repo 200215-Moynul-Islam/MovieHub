@@ -1,5 +1,5 @@
-﻿using MovieHub.API.Constants;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using MovieHub.API.Constants;
 
 namespace MovieHub.API.Models.Base
 {

@@ -1,6 +1,6 @@
-﻿using MovieHub.API.Models.Base;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Models
 {

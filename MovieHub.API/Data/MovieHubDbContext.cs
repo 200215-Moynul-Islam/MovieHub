@@ -5,9 +5,8 @@ namespace MovieHub.API.Data
 {
     public class MovieHubDbContext : DbContext
     {
-        public MovieHubDbContext(DbContextOptions<MovieHubDbContext> options) : base(options)
-        {
-        }
+        public MovieHubDbContext(DbContextOptions<MovieHubDbContext> options)
+            : base(options) { }
 
         #region DbSets
         public DbSet<Branch> Branches { get; set; }
@@ -26,7 +25,8 @@ namespace MovieHub.API.Data
 
             #region Booking
             // Configure relationships for Booking with ShowTime
-            modelBuilder.Entity<Booking>()
+            modelBuilder
+                .Entity<Booking>()
                 .HasOne(b => b.ShowTime)
                 .WithMany(st => st.Bookings)
                 .HasForeignKey(b => b.ShowTimeId)
@@ -42,18 +42,19 @@ namespace MovieHub.API.Data
 
             #region BookingSeat
             // Configure composite primary key for BookingSeat
-            modelBuilder.Entity<BookingSeat>()
-                .HasKey(bs => new { bs.BookingId, bs.SeatId });
+            modelBuilder.Entity<BookingSeat>().HasKey(bs => new { bs.BookingId, bs.SeatId });
 
             // Configure relationships for BookingSeat with Booking
-            modelBuilder.Entity<BookingSeat>()
+            modelBuilder
+                .Entity<BookingSeat>()
                 .HasOne(bs => bs.Booking)
                 .WithMany(b => b.BookedSeats)
                 .HasForeignKey(bs => bs.BookingId)
                 .OnDelete(DeleteBehavior.Cascade); // Delete all associated BookingSeats when a Booking is deleted
 
             // Configure relationships for BookingSeat with Seat
-            modelBuilder.Entity<BookingSeat>()
+            modelBuilder
+                .Entity<BookingSeat>()
                 .HasOne(bs => bs.Seat)
                 .WithMany(s => s.BookingSeats)
                 .HasForeignKey(bs => bs.SeatId)
@@ -62,14 +63,16 @@ namespace MovieHub.API.Data
 
             #region ShowTime
             // Configure relationships for ShowTime and Movie
-            modelBuilder.Entity<ShowTime>()
+            modelBuilder
+                .Entity<ShowTime>()
                 .HasOne(st => st.Movie)
                 .WithMany(m => m.ShowTimes)
                 .HasForeignKey(st => st.MovieId)
                 .OnDelete(DeleteBehavior.Cascade); // Delete all associated ShowTimes when a Movie is deleted
 
             // Configure relationships for ShowTime and Hall
-            modelBuilder.Entity<ShowTime>()
+            modelBuilder
+                .Entity<ShowTime>()
                 .HasOne(st => st.Hall)
                 .WithMany(h => h.ShowTimes)
                 .HasForeignKey(st => st.HallId)

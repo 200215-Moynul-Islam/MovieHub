@@ -1,0 +1,9 @@
+﻿# Ignore compiled folders
+bin/
+obj/
+
+# Ignore EF migrations(auto generated)
+Migrations/
+
+# Ignore git folder
+.git/

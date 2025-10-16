@@ -1,6 +1,7 @@
 namespace MovieHub.API.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T>
+        where T : class
     {
         Task CreateAsync(T entity);
         Task<T?> GetByIdAsync(int id);

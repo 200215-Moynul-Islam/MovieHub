@@ -17,7 +17,9 @@ namespace MovieHub.API.Controllers
 
         // POST: api/branches
         [HttpPost]
-        public async Task<ActionResult<BranchReadDto>> CreateBranchAsync([FromBody] BranchCreateDto branchCreateDto)
+        public async Task<ActionResult<BranchReadDto>> CreateBranchAsync(
+            [FromBody] BranchCreateDto branchCreateDto
+        )
         {
             if (!ModelState.IsValid)
             {

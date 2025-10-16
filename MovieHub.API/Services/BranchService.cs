@@ -9,6 +9,7 @@ namespace MovieHub.API.Services
     {
         private readonly IBranchRepository _branchRepository;
         private readonly IMapper _mapper;
+
         public BranchService(IBranchRepository branchRepository, IMapper mapper)
         {
             _branchRepository = branchRepository;
@@ -18,13 +19,16 @@ namespace MovieHub.API.Services
         public async Task<BranchReadDto> CreateBranchAsync(BranchCreateDto branchCreateDto)
         {
             // TODO: Validate if manager exists in User module when it's done
-            var branchNameExists = _branchRepository.NameExistsCaseInsensitiveAsync(branchCreateDto.Name);
-            var isManagerAssigned = branchCreateDto.ManagerId == null 
-                ? Task.FromResult(false) 
-                : _branchRepository.IsManagerAssignedAsync(branchCreateDto.ManagerId.Value);
+            var branchNameExists = _branchRepository.NameExistsCaseInsensitiveAsync(
+                branchCreateDto.Name
+            );
+            var isManagerAssigned =
+                branchCreateDto.ManagerId == null
+                    ? Task.FromResult(false)
+                    : _branchRepository.IsManagerAssignedAsync(branchCreateDto.ManagerId.Value);
             // Wait for both tasks to be completed
             await Task.WhenAll(branchNameExists, isManagerAssigned);
-            
+
             if (branchNameExists.Result)
             {
                 throw new Exception($"Branch with name '{branchCreateDto.Name}' already exists."); // Use specific exception and avoid magic exception message.
@@ -32,7 +36,9 @@ namespace MovieHub.API.Services
 
             if (isManagerAssigned.Result)
             {
-                throw new Exception($"Manager with ID '{branchCreateDto.ManagerId}' is already assigned to another branch."); // Use specific exception and avoid magic exception message.
+                throw new Exception(
+                    $"Manager with ID '{branchCreateDto.ManagerId}' is already assigned to another branch."
+                ); // Use specific exception and avoid magic exception message.
             }
 
             var branch = _mapper.Map<Branch>(branchCreateDto);

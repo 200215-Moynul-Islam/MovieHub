@@ -16,7 +16,7 @@
             public const int MinRows = 1;
             public const int MaxRows = 20;
             public const int MinColumns = 1;
-            public const int MaxColumns = 50; 
+            public const int MaxColumns = 50;
         }
 
         public static class Movie
@@ -29,7 +29,7 @@
             public const int MaxPosterUrlLength = 500;
             public const int MaxActorsLength = 500;
         }
-        
+
         public static class Seat
         {
             public const int MinSeatNumberLength = 2;
