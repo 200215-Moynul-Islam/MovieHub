@@ -9,11 +9,17 @@ namespace MovieHub.API.Services
     {
         private readonly IBranchRepository _branchRepository;
         private readonly IMapper _mapper;
+        private readonly IHallService _hallService;
 
-        public BranchService(IBranchRepository branchRepository, IMapper mapper)
+        public BranchService(
+            IBranchRepository branchRepository,
+            IMapper mapper,
+            IHallService hallService
+        )
         {
             _branchRepository = branchRepository;
             _mapper = mapper;
+            _hallService = hallService;
         }
 
         public async Task<BranchReadDto> CreateBranchAsync(BranchCreateDto branchCreateDto)
@@ -51,6 +57,22 @@ namespace MovieHub.API.Services
         {
             var branch = await _branchRepository.GetByIdAsync(id);
             return _mapper.Map<BranchReadDto>(branch);
+        }
+
+        public async Task DeactivateBranchByIdAsync(int id)
+        {
+            bool exists = await _branchRepository.ExistsByIdAsync(id);
+            if (!exists)
+            {
+                throw new Exception($"Branch with id {id} does not exist.");
+            }
+
+            await _branchRepository.ExecuteInTransactionAsync(async () =>
+            {
+                Task t1 = _branchRepository.DeactivateByIdAsync(id);
+                Task t2 = _hallService.DeactivateByBranchIdAsync(id);
+                await Task.WhenAll(t1, t2);
+            });
         }
     }
 }

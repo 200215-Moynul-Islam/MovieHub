@@ -41,5 +41,13 @@ namespace MovieHub.API.Controllers
             }
             return Ok(branch);
         }
+
+        // DELETE: api/branches/{id:int}
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteBranchByIdAsync(int id)
+        {
+            await _branchService.DeactivateBranchByIdAsync(id);
+            return Ok();
+        }
     }
 }
