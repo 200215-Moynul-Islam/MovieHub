@@ -4,7 +4,7 @@ using MovieHub.API.Models;
 
 namespace MovieHub.API.Repositories
 {
-    public class BranchRepository : NamedRepository<Branch>, IBranchRepository
+    public class BranchRepository : SoftDeletableNamedRepository<Branch>, IBranchRepository
     {
         public BranchRepository(MovieHubDbContext dbContext)
             : base(dbContext) { }

@@ -5,7 +5,7 @@ using MovieHub.API.Models.Base;
 namespace MovieHub.API.Repositories
 {
     public class Repository<T> : IRepository<T>
-        where T : class
+        where T : EntityBase
     {
         protected readonly MovieHubDbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
@@ -22,23 +22,9 @@ namespace MovieHub.API.Repositories
             return;
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
-            IQueryable<T> query = _dbSet;
-            var isDeletedProperty = typeof(T).GetProperty(
-                nameof(SoftDeletableEntityBase.IsDeleted)
-            );
-            if (isDeletedProperty != null && isDeletedProperty.PropertyType == typeof(bool))
-            {
-                // Filter out soft-deleted records if IsDeleted property exists
-                query = query.Where(e =>
-                    EF.Property<bool>(e, nameof(SoftDeletableEntityBase.IsDeleted)) == false
-                );
-            }
-            // Filter by Id property
-            return await query.FirstOrDefaultAsync(e =>
-                EF.Property<int>(e, nameof(EntityBase.Id)) == id
-            );
+            return await _dbSet.FindAsync(id);
         }
 
         public void Update(T entity)
@@ -57,6 +43,18 @@ namespace MovieHub.API.Repositories
         {
             await _dbContext.SaveChangesAsync();
             return;
+        }
+
+        public async Task ExecuteInTransactionAsync(Func<Task> operation)
+        {
+            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
+            await operation();
+            await transaction.CommitAsync();
+        }
+
+        public virtual async Task<bool> ExistsByIdAsync(int id)
+        {
+            return await _dbSet.AnyAsync(e => e.Id == id);
         }
     }
 }

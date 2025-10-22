@@ -22,9 +22,11 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Register all the service class
 builder.Services.AddScoped<IBranchService, BranchService>();
+builder.Services.AddScoped<IHallService, HallService>();
 
 //Register all the repository class
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IHallRepository, HallRepositoriy>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
