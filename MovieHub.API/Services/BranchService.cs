@@ -74,5 +74,29 @@ namespace MovieHub.API.Services
                 await Task.WhenAll(t1, t2);
             });
         }
+
+        public async Task UpdateBranchByIdAsync(int id, BranchUpdateDto branchUpdateDto)
+        {
+            var branch = await _branchRepository.GetByIdAsync(id);
+            // Validate branch existence with a private method for this and DeactivateBranchByIdAsync methods.
+
+            if (branchUpdateDto.Name is not null)
+            {
+                // Validate branch name with a private mehtod for this and CreateBranchAsync methods.
+                branch.Name = branchUpdateDto.Name;
+            }
+            if (branchUpdateDto.Location is not null)
+            {
+                branch.Location = branchUpdateDto.Location;
+            }
+            if (branchUpdateDto.ManagerId is not null)
+            {
+                // Validate ManagerId with a private mehtod for this and CreateBranchAsync methods.
+                branch.ManagerId = branchUpdateDto.ManagerId;
+            }
+
+            await _branchRepository.SaveChangesAync();
+            return;
+        }
     }
 }
