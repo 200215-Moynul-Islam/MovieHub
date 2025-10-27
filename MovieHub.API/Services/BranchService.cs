@@ -87,7 +87,7 @@ namespace MovieHub.API.Services
 
         private void EnsureBranchExists(Branch? branch, int id)
         {
-            if(branch is null)
+            if (branch is null)
             {
                 throw new Exception($"Branch with id '{id}' does not exists.");
             }

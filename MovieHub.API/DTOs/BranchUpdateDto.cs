@@ -22,6 +22,6 @@ namespace MovieHub.API.DTOs
             set => _location = value?.Trim();
         }
 
-        public Guid? ManagerId{ get; set; }
+        public Guid? ManagerId { get; set; }
     }
 }

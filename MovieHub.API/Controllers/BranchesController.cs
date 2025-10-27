@@ -52,7 +52,10 @@ namespace MovieHub.API.Controllers
 
         // PATCH: api/branches/{id:int}
         [HttpPatch("{id:int}")]
-        public async Task<IActionResult> UpdateBranchByIdAsync(int id, [FromBody] BranchUpdateDto branchUpdateDto)
+        public async Task<IActionResult> UpdateBranchByIdAsync(
+            int id,
+            [FromBody] BranchUpdateDto branchUpdateDto
+        )
         {
             if (!ModelState.IsValid)
             {
