@@ -24,8 +24,8 @@ namespace MovieHub.API.Services
 
         public async Task<BranchReadDto> CreateBranchAsync(BranchCreateDto branchCreateDto)
         {
-            await EnsureBranchNameIsUniqueAsync(branchCreateDto.Name);
-            await EnsureManagerExistsAndAvailableByIdAsync(branchCreateDto.ManagerId);
+            await EnsureBranchNameIsUniqueOrThrowAsync(branchCreateDto.Name);
+            await EnsureManagerExistsAndAvailableByIdOrThrowAsync(branchCreateDto.ManagerId);
 
             var branch = _mapper.Map<Branch>(branchCreateDto);
             await _branchRepository.CreateAsync(branch);
@@ -41,7 +41,7 @@ namespace MovieHub.API.Services
 
         public async Task DeactivateBranchByIdAsync(int id)
         {
-            await EnsureBranchExistsByIdAsync(id);
+            await EnsureBranchExistsByIdOrThrowAsync(id);
 
             await _branchRepository.ExecuteInTransactionAsync(async () =>
             {
@@ -53,16 +53,15 @@ namespace MovieHub.API.Services
 
         public async Task UpdateBranchByIdAsync(int id, BranchUpdateDto branchUpdateDto)
         {
-            var branch = await _branchRepository.GetByIdAsync(id);
-            EnsureBranchExists(branch, id);
+            var branch = await GetBranchByIdOrThrowAsync(id);
 
             if (branchUpdateDto.Name is not null)
             {
-                await EnsureBranchNameIsUniqueAsync(branchUpdateDto.Name);
+                await EnsureBranchNameIsUniqueOrThrowAsync(branchUpdateDto.Name);
             }
             if (branchUpdateDto.ManagerId is not null)
             {
-                await EnsureManagerExistsAndAvailableByIdAsync(branchUpdateDto.ManagerId);
+                await EnsureManagerExistsAndAvailableByIdOrThrowAsync(branchUpdateDto.ManagerId);
             }
 
             _mapper.Map(branchUpdateDto, branch);
@@ -72,7 +71,7 @@ namespace MovieHub.API.Services
         }
 
         #region Private Methods
-        private async Task EnsureBranchExistsByIdAsync(int id)
+        private async Task EnsureBranchExistsByIdOrThrowAsync(int id)
         {
             bool exists = await _branchRepository.ExistsByIdAsync(id);
             if (!exists)
@@ -81,15 +80,17 @@ namespace MovieHub.API.Services
             }
         }
 
-        private void EnsureBranchExists(Branch? branch, int id)
+        private async Task<Branch> GetBranchByIdOrThrowAsync(int id)
         {
+            var branch = await _branchRepository.GetByIdAsync(id);
             if (branch is null)
             {
                 throw new Exception($"Branch with id '{id}' does not exists.");
             }
+            return branch;
         }
 
-        private async Task EnsureBranchNameIsUniqueAsync(string name)
+        private async Task EnsureBranchNameIsUniqueOrThrowAsync(string name)
         {
             if (await _branchRepository.NameExistsCaseInsensitiveAsync(name))
             {
@@ -97,7 +98,7 @@ namespace MovieHub.API.Services
             }
         }
 
-        private async Task EnsureManagerExistsAndAvailableByIdAsync(Guid? managerId)
+        private async Task EnsureManagerExistsAndAvailableByIdOrThrowAsync(Guid? managerId)
         {
             if (managerId is null)
             {
