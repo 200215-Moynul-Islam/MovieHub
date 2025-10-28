@@ -70,6 +70,11 @@ namespace MovieHub.API.Services
             return;
         }
 
+        public async Task<IEnumerable<BranchReadDto>> GetAllBranchesAsync()
+        {
+            return _mapper.Map<IEnumerable<BranchReadDto>>(await _branchRepository.GetAllAsync());
+        }
+
         #region Private Methods
         private async Task EnsureBranchExistsByIdOrThrowAsync(int id)
         {

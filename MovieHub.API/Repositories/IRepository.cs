@@ -12,5 +12,6 @@ namespace MovieHub.API.Repositories
         Task SaveChangesAync();
         Task ExecuteInTransactionAsync(Func<Task> operation);
         Task<bool> ExistsByIdAsync(int id);
+        Task<IEnumerable<T>> GetAllAsync();
     }
 }

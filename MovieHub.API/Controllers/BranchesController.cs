@@ -65,5 +65,12 @@ namespace MovieHub.API.Controllers
             await _branchService.UpdateBranchByIdAsync(id, branchUpdateDto);
             return Ok();
         }
+
+        // GET: api/branches
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BranchReadDto>>> GetAllBranchesAsync()
+        {
+            return Ok(await _branchService.GetAllBranchesAsync());
+        }
     }
 }
