@@ -59,17 +59,13 @@ namespace MovieHub.API.Services
             if (branchUpdateDto.Name is not null)
             {
                 await EnsureBranchNameIsUniqueAsync(branchUpdateDto.Name);
-                branch!.Name = branchUpdateDto.Name;
-            }
-            if (branchUpdateDto.Location is not null)
-            {
-                branch!.Location = branchUpdateDto.Location;
             }
             if (branchUpdateDto.ManagerId is not null)
             {
                 await EnsureManagerExistsAndAvailableByIdAsync(branchUpdateDto.ManagerId);
-                branch!.ManagerId = branchUpdateDto.ManagerId;
             }
+
+            _mapper.Map(branchUpdateDto, branch);
 
             await _branchRepository.SaveChangesAync();
             return;

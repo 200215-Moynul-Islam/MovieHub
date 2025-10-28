@@ -11,6 +11,10 @@ namespace MovieHub.API.Mappings
             #region Branch Mappings
             CreateMap<BranchCreateDto, Branch>();
             CreateMap<Branch, BranchReadDto>();
+            CreateMap<BranchUpdateDto, Branch>()
+                .ForAllMembers(opts =>
+                    opts.Condition((src, dest, srcMember) => srcMember is not null)
+                );
             #endregion
         }
     }
