@@ -56,5 +56,10 @@ namespace MovieHub.API.Repositories
         {
             return await _dbSet.AnyAsync(e => e.Id == id);
         }
+
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
     }
 }

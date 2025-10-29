@@ -8,6 +8,7 @@ namespace MovieHub.API.Services
         Task<BranchReadDto?> GetBranchByIdAsync(int id);
         Task DeactivateBranchByIdAsync(int id);
         Task UpdateBranchByIdAsync(int id, BranchUpdateDto branchUpdateDto);
+        Task<IEnumerable<BranchReadDto>> GetAllBranchesAsync();
         Task ResetManagerByIdAsync(int id);
     }
 }

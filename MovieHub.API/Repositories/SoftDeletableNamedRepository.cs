@@ -34,5 +34,10 @@ namespace MovieHub.API.Repositories
                 .Where(e => e.Id == id)
                 .ExecuteUpdateAsync(s => s.SetProperty(e => e.IsDeleted, true));
         }
+
+        public override async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _dbSet.Where(e => e.IsDeleted == false).ToListAsync();
+        }
     }
 }
