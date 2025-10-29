@@ -72,5 +72,13 @@ namespace MovieHub.API.Controllers
         {
             return Ok(await _branchService.GetAllBranchesAsync());
         }
+
+        // PATCH: api/branches/{id:int}
+        [HttpPatch("{id:int}/reset-manager")]
+        public async Task<IActionResult> ResetManagerByIdAsync(int id)
+        {
+            await _branchService.ResetManagerByIdAsync(id);
+            return Ok();
+        }
     }
 }

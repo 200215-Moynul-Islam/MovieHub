@@ -13,5 +13,12 @@ namespace MovieHub.API.Repositories
         {
             return await _dbContext.Branches.AnyAsync(b => b.ManagerId == managerId);
         }
+
+        public async Task ResetManagerByIdAsync(int id)
+        {
+            await _dbContext
+                .Branches.Where(b => b.Id == id)
+                .ExecuteUpdateAsync(s => s.SetProperty(b => b.ManagerId, (Guid?)null));
+        }
     }
 }
