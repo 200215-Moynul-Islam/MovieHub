@@ -42,12 +42,7 @@ namespace MovieHub.API.Controllers
             int id
         )
         {
-            var branch = await _branchService.GetBranchByIdAsync(id);
-            if (branch == null)
-            {
-                return NotFound();
-            }
-            return Ok(branch);
+            return Ok(await _branchService.GetBranchByIdAsync(id));
         }
 
         // DELETE: api/branches/{id:int}

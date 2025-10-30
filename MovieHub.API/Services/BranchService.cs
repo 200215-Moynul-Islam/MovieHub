@@ -39,7 +39,7 @@ namespace MovieHub.API.Services
 
         public async Task<BranchReadDto?> GetBranchByIdAsync(int id)
         {
-            var branch = await _branchRepository.GetByIdAsync(id);
+            var branch = await GetBranchByIdOrThrowAsync(id);
             return _mapper.Map<BranchReadDto>(branch);
         }
 
