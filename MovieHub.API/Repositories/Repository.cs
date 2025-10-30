@@ -27,18 +27,6 @@ namespace MovieHub.API.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public void Update(T entity)
-        {
-            _dbSet.Update(entity);
-            return;
-        }
-
-        public void Delete(T entity)
-        {
-            _dbSet.Remove(entity);
-            return;
-        }
-
         public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();
