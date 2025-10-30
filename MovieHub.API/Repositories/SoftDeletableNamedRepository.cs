@@ -5,7 +5,7 @@ using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Repositories
 {
-    public class SoftDeletableNamedRepository<T>
+    public abstract class SoftDeletableNamedRepository<T>
         : Repository<T>,
             ISoftDeletableNamedRepository<T>
         where T : SoftDeletableNamedEntityBase

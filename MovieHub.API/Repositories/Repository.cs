@@ -4,7 +4,7 @@ using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Repositories
 {
-    public class Repository<T> : IRepository<T>
+    public abstract class Repository<T> : IRepository<T>
         where T : EntityBase
     {
         protected readonly MovieHubDbContext _dbContext;
