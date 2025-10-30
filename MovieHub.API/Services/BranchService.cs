@@ -81,10 +81,13 @@ namespace MovieHub.API.Services
             return;
         }
 
-        public async Task<IEnumerable<BranchReadDto>> GetAllBranchesAsync()
+        public async Task<IEnumerable<BranchReadDto>> GetAllBranchesAsync(
+            int offset,
+            int limit
+        )
         {
             return _mapper.Map<IEnumerable<BranchReadDto>>(
-                await _branchRepository.GetAllAsync()
+                await _branchRepository.GetAllAsync(offset, limit)
             );
         }
 
@@ -135,7 +138,9 @@ namespace MovieHub.API.Services
             }
             // TODO: Validate if manager exists in User table when User table is created and throw exception if not found
             else if (
-                !await _branchRepository.IsManagerAvailableAsync(managerId.Value)
+                !await _branchRepository.IsManagerAvailableAsync(
+                    managerId.Value
+                )
             )
             {
                 throw new Exception(

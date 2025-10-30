@@ -1,3 +1,4 @@
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 
 namespace MovieHub.API.Services
@@ -8,7 +9,10 @@ namespace MovieHub.API.Services
         Task<BranchReadDto?> GetBranchByIdAsync(int id);
         Task DeactivateBranchByIdAsync(int id);
         Task UpdateBranchByIdAsync(int id, BranchUpdateDto branchUpdateDto);
-        Task<IEnumerable<BranchReadDto>> GetAllBranchesAsync();
+        Task<IEnumerable<BranchReadDto>> GetAllBranchesAsync(
+            int offset,
+            int limit
+        );
         Task ResetBranchManagerByIdAsync(int id);
     }
 }

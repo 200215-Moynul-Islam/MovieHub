@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
 
@@ -73,9 +74,12 @@ namespace MovieHub.API.Controllers
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<BranchReadDto>>
-        > GetAllBranchesAsync()
+        > GetAllBranchesAsync(
+            int offset = DefaultConstants.Offset,
+            int limit = DefaultConstants.Limit
+        )
         {
-            return Ok(await _branchService.GetAllBranchesAsync());
+            return Ok(await _branchService.GetAllBranchesAsync(offset, limit));
         }
 
         // PATCH: api/branches/{id:int}

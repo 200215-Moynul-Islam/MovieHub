@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MovieHub.API.Constants;
 using MovieHub.API.Data;
 using MovieHub.API.Models.Base;
 
@@ -46,9 +47,12 @@ namespace MovieHub.API.Repositories
             return await _dbSet.AnyAsync(e => e.Id == id);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(
+            int offset,
+            int limit
+        )
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.Skip(offset).Take(limit).ToListAsync();
         }
     }
 }
