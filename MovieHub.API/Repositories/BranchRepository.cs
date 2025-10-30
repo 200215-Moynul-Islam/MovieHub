@@ -11,14 +11,15 @@ namespace MovieHub.API.Repositories
         public BranchRepository(MovieHubDbContext dbContext)
             : base(dbContext) { }
 
-        public async Task<bool> IsManagerAssignedAsync(Guid managerId)
+        // TODO: Move this method to UserRepository.
+        public async Task<bool> IsManagerAvailableAsync(Guid managerId)
         {
-            return await _dbContext.Branches.AnyAsync(b =>
+            return !await _dbContext.Branches.AnyAsync(b =>
                 b.ManagerId == managerId
             );
         }
 
-        public async Task ResetManagerByIdAsync(int id)
+        public async Task ResetBranchManagerByIdAsync(int id)
         {
             await _dbContext
                 .Branches.Where(b => b.Id == id)

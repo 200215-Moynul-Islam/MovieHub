@@ -39,7 +39,7 @@ namespace MovieHub.API.Repositories
             return;
         }
 
-        public async Task SaveChangesAync()
+        public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();
             return;

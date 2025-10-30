@@ -33,7 +33,7 @@ namespace MovieHub.API.Services
 
             var branch = _mapper.Map<Branch>(branchCreateDto);
             await _branchRepository.CreateAsync(branch);
-            await _branchRepository.SaveChangesAync();
+            await _branchRepository.SaveChangesAsync();
             return _mapper.Map<BranchReadDto>(branch);
         }
 
@@ -50,7 +50,7 @@ namespace MovieHub.API.Services
             await _branchRepository.ExecuteInTransactionAsync(async () =>
             {
                 Task t1 = _branchRepository.DeactivateByIdAsync(id);
-                Task t2 = _hallService.DeactivateByBranchIdAsync(id);
+                Task t2 = _hallService.DeactivateHallsByBranchIdAsync(id);
                 await Task.WhenAll(t1, t2);
             });
         }
@@ -77,7 +77,7 @@ namespace MovieHub.API.Services
 
             _mapper.Map(branchUpdateDto, branch);
 
-            await _branchRepository.SaveChangesAync();
+            await _branchRepository.SaveChangesAsync();
             return;
         }
 
@@ -88,10 +88,10 @@ namespace MovieHub.API.Services
             );
         }
 
-        public async Task ResetManagerByIdAsync(int id)
+        public async Task ResetBranchManagerByIdAsync(int id)
         {
             await EnsureBranchExistsByIdOrThrowAsync(id);
-            await _branchRepository.ResetManagerByIdAsync(id);
+            await _branchRepository.ResetBranchManagerByIdAsync(id);
             return;
         }
 
@@ -135,7 +135,7 @@ namespace MovieHub.API.Services
             }
             // TODO: Validate if manager exists in User table when User table is created and throw exception if not found
             else if (
-                await _branchRepository.IsManagerAssignedAsync(managerId.Value)
+                !await _branchRepository.IsManagerAvailableAsync(managerId.Value)
             )
             {
                 throw new Exception(

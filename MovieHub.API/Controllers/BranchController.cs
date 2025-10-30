@@ -6,11 +6,11 @@ namespace MovieHub.API.Controllers
 {
     [ApiController]
     [Route("api/branches")]
-    public class BranchesController : ControllerBase
+    public class BranchController : ControllerBase
     {
         private readonly IBranchService _branchService;
 
-        public BranchesController(IBranchService branchService)
+        public BranchController(IBranchService branchService)
         {
             _branchService = branchService;
         }
@@ -85,9 +85,9 @@ namespace MovieHub.API.Controllers
 
         // PATCH: api/branches/{id:int}
         [HttpPatch("{id:int}/reset-manager")]
-        public async Task<IActionResult> ResetManagerByIdAsync(int id)
+        public async Task<IActionResult> ResetBranchManagerByIdAsync(int id)
         {
-            await _branchService.ResetManagerByIdAsync(id);
+            await _branchService.ResetBranchManagerByIdAsync(id);
             return Ok();
         }
     }
