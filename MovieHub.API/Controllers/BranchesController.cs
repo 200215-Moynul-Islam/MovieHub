@@ -26,13 +26,21 @@ namespace MovieHub.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var createdBranch = await _branchService.CreateBranchAsync(branchCreateDto);
-            return CreatedAtRoute("GetBranchById", new { id = createdBranch.Id }, createdBranch);
+            var createdBranch = await _branchService.CreateBranchAsync(
+                branchCreateDto
+            );
+            return CreatedAtRoute(
+                "GetBranchById",
+                new { id = createdBranch.Id },
+                createdBranch
+            );
         }
 
         // GET: api/branches/{id:int}
         [HttpGet("{id:int}", Name = "GetBranchById")]
-        public async Task<ActionResult<BranchReadDto>> GetBranchByIdAsync(int id)
+        public async Task<ActionResult<BranchReadDto>> GetBranchByIdAsync(
+            int id
+        )
         {
             var branch = await _branchService.GetBranchByIdAsync(id);
             if (branch == null)
@@ -68,7 +76,9 @@ namespace MovieHub.API.Controllers
 
         // GET: api/branches
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BranchReadDto>>> GetAllBranchesAsync()
+        public async Task<
+            ActionResult<IEnumerable<BranchReadDto>>
+        > GetAllBranchesAsync()
         {
             return Ok(await _branchService.GetAllBranchesAsync());
         }

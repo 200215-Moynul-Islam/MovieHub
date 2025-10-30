@@ -8,11 +8,17 @@ namespace MovieHub.API.Models
     public class Hall : SoftDeletableNamedEntityBase
     {
         [Required]
-        [Range(ValidationConstants.Hall.MinRows, ValidationConstants.Hall.MaxRows)]
+        [Range(
+            ValidationConstants.Hall.MinRows,
+            ValidationConstants.Hall.MaxRows
+        )]
         public int TotalRows { get; set; }
 
         [Required]
-        [Range(ValidationConstants.Hall.MinColumns, ValidationConstants.Hall.MaxColumns)]
+        [Range(
+            ValidationConstants.Hall.MinColumns,
+            ValidationConstants.Hall.MaxColumns
+        )]
         public int TotalColumns { get; set; }
 
         [Required]
@@ -24,6 +30,7 @@ namespace MovieHub.API.Models
 
         public ICollection<Seat> Seats { get; set; } = new List<Seat>(); // Navigation property to related Seats
 
-        public ICollection<ShowTime> ShowTimes { get; set; } = new List<ShowTime>(); // Navigation property to related Showtimes
+        public ICollection<ShowTime> ShowTimes { get; set; } =
+            new List<ShowTime>(); // Navigation property to related Showtimes
     }
 }

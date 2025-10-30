@@ -47,7 +47,8 @@ namespace MovieHub.API.Repositories
 
         public async Task ExecuteInTransactionAsync(Func<Task> operation)
         {
-            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
+            await using var transaction =
+                await _dbContext.Database.BeginTransactionAsync();
             await operation();
             await transaction.CommitAsync();
         }

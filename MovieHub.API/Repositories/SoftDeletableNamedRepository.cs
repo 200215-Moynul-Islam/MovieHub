@@ -5,7 +5,9 @@ using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Repositories
 {
-    public class SoftDeletableNamedRepository<T> : Repository<T>, ISoftDeletableNamedRepository<T>
+    public class SoftDeletableNamedRepository<T>
+        : Repository<T>,
+            ISoftDeletableNamedRepository<T>
         where T : SoftDeletableNamedEntityBase
     {
         public SoftDeletableNamedRepository(MovieHubDbContext dbContext)
@@ -14,18 +16,23 @@ namespace MovieHub.API.Repositories
         public async Task<bool> NameExistsCaseInsensitiveAsync(string name)
         {
             return await _dbSet.AnyAsync(e =>
-                EF.Functions.Collate(e.Name, DatabaseCollations.CaseInsensitive) == name
+                EF.Functions.Collate(e.Name, DatabaseCollations.CaseInsensitive)
+                == name
             );
         }
 
         public override async Task<T?> GetByIdAsync(int id)
         {
-            return await _dbSet.FirstOrDefaultAsync(e => e.Id == id && e.IsDeleted == false);
+            return await _dbSet.FirstOrDefaultAsync(e =>
+                e.Id == id && e.IsDeleted == false
+            );
         }
 
         public override async Task<bool> ExistsByIdAsync(int id)
         {
-            return await _dbSet.AnyAsync(e => e.Id == id && e.IsDeleted == false);
+            return await _dbSet.AnyAsync(e =>
+                e.Id == id && e.IsDeleted == false
+            );
         }
 
         public async Task DeactivateByIdAsync(int id)

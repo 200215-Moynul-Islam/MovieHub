@@ -4,10 +4,12 @@ namespace MovieHub.API.Constants
 {
     public static class ErrorMessages
     {
-        public const string NameRequired = TextConstants.NameRequired_ErrorMessage;
+        public const string NameRequired =
+            TextConstants.NameRequired_ErrorMessage;
         public const string NameMaxLengthExceeded =
             TextConstants.NameMaxLengthExceeded_ErrorMessage;
-        public const string InvalidNameFormat = TextConstants.InvalidNameFormat_ErrorMessage;
+        public const string InvalidNameFormat =
+            TextConstants.InvalidNameFormat_ErrorMessage;
 
         public static class Branch
         {

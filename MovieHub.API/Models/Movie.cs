@@ -15,7 +15,10 @@ namespace MovieHub.API.Models
         public string Genre { get; set; } = string.Empty;
 
         [Required]
-        [Range(ValidationConstants.Movie.MinDuration, ValidationConstants.Movie.MaxDuration)] // Duration in minutes
+        [Range(
+            ValidationConstants.Movie.MinDuration,
+            ValidationConstants.Movie.MaxDuration
+        )] // Duration in minutes
         public int Duration { get; set; }
 
         [Required]
@@ -35,6 +38,7 @@ namespace MovieHub.API.Models
         public string Actors { get; set; } = string.Empty;
 
         // Navigation Properties
-        public ICollection<ShowTime> ShowTimes { get; set; } = new List<ShowTime>(); // Navigation property to related Showtimes
+        public ICollection<ShowTime> ShowTimes { get; set; } =
+            new List<ShowTime>(); // Navigation property to related Showtimes
     }
 }

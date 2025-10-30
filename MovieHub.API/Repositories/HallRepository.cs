@@ -4,7 +4,9 @@ using MovieHub.API.Models;
 
 namespace MovieHub.API.Repositories
 {
-    public class HallRepositoriy : SoftDeletableNamedRepository<Hall>, IHallRepository
+    public class HallRepositoriy
+        : SoftDeletableNamedRepository<Hall>,
+            IHallRepository
     {
         public HallRepositoriy(MovieHubDbContext dbContext)
             : base(dbContext) { }

@@ -1,5 +1,5 @@
 ﻿{
-    "maxLineLength": 120,
+    "printWidth": 80,
     "useTabs": false,
     "tabWidth": 4,
     "endOfLine": "crlf"

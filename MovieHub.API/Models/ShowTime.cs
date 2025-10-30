@@ -22,6 +22,7 @@ namespace MovieHub.API.Models
         [ForeignKey("HallId")]
         public Hall Hall { get; set; } = null!; // Navigation property to related Hall
 
-        public ICollection<Booking> Bookings { get; set; } = new List<Booking>(); // Navigation property to related Bookings
+        public ICollection<Booking> Bookings { get; set; } =
+            new List<Booking>(); // Navigation property to related Bookings
     }
 }
