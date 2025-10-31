@@ -17,9 +17,12 @@
             }
             catch (Exception ex)
             {
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError; // Change the status code later.
+                context.Response.StatusCode =
+                    StatusCodes.Status500InternalServerError; // Change the status code later.
                 context.Response.ContentType = "application/json";
-                await context.Response.WriteAsJsonAsync(new { error = ex.Message });
+                await context.Response.WriteAsJsonAsync(
+                    new { error = ex.Message }
+                );
             }
         }
     }

@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using MovieHub.API.Constants;
 using MovieHub.API.Data;
 using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Repositories
 {
-    public class Repository<T> : IRepository<T>
+    public abstract class Repository<T> : IRepository<T>
         where T : EntityBase
     {
         protected readonly MovieHubDbContext _dbContext;
@@ -27,19 +28,7 @@ namespace MovieHub.API.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public void Update(T entity)
-        {
-            _dbSet.Update(entity);
-            return;
-        }
-
-        public void Delete(T entity)
-        {
-            _dbSet.Remove(entity);
-            return;
-        }
-
-        public async Task SaveChangesAync()
+        public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();
             return;
@@ -47,7 +36,8 @@ namespace MovieHub.API.Repositories
 
         public async Task ExecuteInTransactionAsync(Func<Task> operation)
         {
-            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
+            await using var transaction =
+                await _dbContext.Database.BeginTransactionAsync();
             await operation();
             await transaction.CommitAsync();
         }
@@ -57,9 +47,12 @@ namespace MovieHub.API.Repositories
             return await _dbSet.AnyAsync(e => e.Id == id);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(
+            int offset,
+            int limit
+        )
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.Skip(offset).Take(limit).ToListAsync();
         }
     }
 }

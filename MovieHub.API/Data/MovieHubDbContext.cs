@@ -42,7 +42,9 @@ namespace MovieHub.API.Data
 
             #region BookingSeat
             // Configure composite primary key for BookingSeat
-            modelBuilder.Entity<BookingSeat>().HasKey(bs => new { bs.BookingId, bs.SeatId });
+            modelBuilder
+                .Entity<BookingSeat>()
+                .HasKey(bs => new { bs.BookingId, bs.SeatId });
 
             // Configure relationships for BookingSeat with Booking
             modelBuilder

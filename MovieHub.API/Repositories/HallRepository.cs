@@ -4,12 +4,14 @@ using MovieHub.API.Models;
 
 namespace MovieHub.API.Repositories
 {
-    public class HallRepositoriy : SoftDeletableNamedRepository<Hall>, IHallRepository
+    public class HallRepositoriy
+        : SoftDeletableNamedRepository<Hall>,
+            IHallRepository
     {
         public HallRepositoriy(MovieHubDbContext dbContext)
             : base(dbContext) { }
 
-        public async Task DeactivateByBranchIdAsync(int branchId)
+        public async Task DeactivateHallsByBranchIdAsync(int branchId)
         {
             await _dbContext
                 .Halls.Where(h => h.BranchId == branchId)

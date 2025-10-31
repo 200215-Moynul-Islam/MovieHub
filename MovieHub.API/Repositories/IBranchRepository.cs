@@ -4,7 +4,7 @@ namespace MovieHub.API.Repositories
 {
     public interface IBranchRepository : ISoftDeletableNamedRepository<Branch>
     {
-        Task<bool> IsManagerAssignedAsync(Guid managerId);
-        Task ResetManagerByIdAsync(int id);
+        Task<bool> IsManagerAvailableAsync(Guid managerId);
+        Task ResetBranchManagerByIdAsync(int id);
     }
 }

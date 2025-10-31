@@ -11,9 +11,9 @@ namespace MovieHub.API.Services
             _hallRepository = hallRepository;
         }
 
-        public async Task DeactivateByBranchIdAsync(int branchId)
+        public async Task DeactivateHallsByBranchIdAsync(int branchId)
         {
-            await _hallRepository.DeactivateByBranchIdAsync(branchId);
+            await _hallRepository.DeactivateHallsByBranchIdAsync(branchId);
         }
     }
 }

@@ -14,7 +14,9 @@ builder.Services.AddControllers();
 
 // Register DbContext with SQL Server
 builder.Services.AddDbContext<MovieHubDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    )
 );
 
 // Register AutoMapper

@@ -21,6 +21,7 @@ namespace MovieHub.API.Models
         [ForeignKey("ShowTimeId")]
         public ShowTime ShowTime { get; set; } = null!; // Navigation property to related ShowTime
 
-        public ICollection<BookingSeat> BookedSeats { get; set; } = new List<BookingSeat>(); // Navigation property to related BookingSeats
+        public ICollection<BookingSeat> BookedSeats { get; set; } =
+            new List<BookingSeat>(); // Navigation property to related BookingSeats
     }
 }

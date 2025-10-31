@@ -7,11 +7,9 @@ namespace MovieHub.API.Repositories
     {
         Task CreateAsync(T entity);
         Task<T?> GetByIdAsync(int id);
-        void Update(T entity);
-        void Delete(T entity);
-        Task SaveChangesAync();
+        Task SaveChangesAsync();
         Task ExecuteInTransactionAsync(Func<Task> operation);
         Task<bool> ExistsByIdAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(int offset, int limit);
     }
 }

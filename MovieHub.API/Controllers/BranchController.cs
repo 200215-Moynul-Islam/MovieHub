@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
 
@@ -6,11 +7,11 @@ namespace MovieHub.API.Controllers
 {
     [ApiController]
     [Route("api/branches")]
-    public class BranchesController : ControllerBase
+    public class BranchController : ControllerBase
     {
         private readonly IBranchService _branchService;
 
-        public BranchesController(IBranchService branchService)
+        public BranchController(IBranchService branchService)
         {
             _branchService = branchService;
         }
@@ -26,20 +27,23 @@ namespace MovieHub.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var createdBranch = await _branchService.CreateBranchAsync(branchCreateDto);
-            return CreatedAtRoute("GetBranchById", new { id = createdBranch.Id }, createdBranch);
+            var createdBranch = await _branchService.CreateBranchAsync(
+                branchCreateDto
+            );
+            return CreatedAtRoute(
+                "GetBranchById",
+                new { id = createdBranch.Id },
+                createdBranch
+            );
         }
 
         // GET: api/branches/{id:int}
         [HttpGet("{id:int}", Name = "GetBranchById")]
-        public async Task<ActionResult<BranchReadDto>> GetBranchByIdAsync(int id)
+        public async Task<ActionResult<BranchReadDto>> GetBranchByIdAsync(
+            int id
+        )
         {
-            var branch = await _branchService.GetBranchByIdAsync(id);
-            if (branch == null)
-            {
-                return NotFound();
-            }
-            return Ok(branch);
+            return Ok(await _branchService.GetBranchByIdAsync(id));
         }
 
         // DELETE: api/branches/{id:int}
@@ -68,16 +72,21 @@ namespace MovieHub.API.Controllers
 
         // GET: api/branches
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BranchReadDto>>> GetAllBranchesAsync()
+        public async Task<
+            ActionResult<IEnumerable<BranchReadDto>>
+        > GetAllBranchesAsync(
+            int offset = DefaultConstants.Offset,
+            int limit = DefaultConstants.Limit
+        )
         {
-            return Ok(await _branchService.GetAllBranchesAsync());
+            return Ok(await _branchService.GetAllBranchesAsync(offset, limit));
         }
 
         // PATCH: api/branches/{id:int}
         [HttpPatch("{id:int}/reset-manager")]
-        public async Task<IActionResult> ResetManagerByIdAsync(int id)
+        public async Task<IActionResult> ResetBranchManagerByIdAsync(int id)
         {
-            await _branchService.ResetManagerByIdAsync(id);
+            await _branchService.ResetBranchManagerByIdAsync(id);
             return Ok();
         }
     }
