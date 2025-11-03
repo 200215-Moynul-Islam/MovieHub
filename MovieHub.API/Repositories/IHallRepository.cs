@@ -5,5 +5,9 @@ namespace MovieHub.API.Repositories
     public interface IHallRepository : ISoftDeletableNamedRepository<Hall>
     {
         Task DeactivateHallsByBranchIdAsync(int branchId);
+        Task<bool> HallNameExistsForBranchCaseInsensitiveAsync(
+            string name,
+            int branchId
+        );
     }
 }
