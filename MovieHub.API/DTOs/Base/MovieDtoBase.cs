@@ -66,8 +66,15 @@ namespace MovieHub.API.DTOs.Base
         }
 
         private string _description = String.Empty;
-        [MinLength(ValidationConstants.Movie.MinDescriptionLength, ErrorMessage = ErrorMessages.Movie.DescriptionMinLengthRequired)]
-        [MaxLength(ValidationConstants.Movie.MaxDescriptionLength, ErrorMessage = ErrorMessages.Movie.DescriptionMaxLengthExceeded)]
+
+        [MinLength(
+            ValidationConstants.Movie.MinDescriptionLength,
+            ErrorMessage = ErrorMessages.Movie.DescriptionMinLengthRequired
+        )]
+        [MaxLength(
+            ValidationConstants.Movie.MaxDescriptionLength,
+            ErrorMessage = ErrorMessages.Movie.DescriptionMaxLengthExceeded
+        )]
         public string Description
         {
             get => _description;
@@ -75,6 +82,7 @@ namespace MovieHub.API.DTOs.Base
         }
 
         private string _posterUrl = String.Empty;
+
         [Required(ErrorMessage = ErrorMessages.Movie.PosterUrlRequired)]
         [MaxLength(
             ValidationConstants.Movie.MaxPosterUrlLength,
@@ -90,7 +98,10 @@ namespace MovieHub.API.DTOs.Base
         private string _actors = String.Empty;
 
         [Required(ErrorMessage = ErrorMessages.Movie.ActorsRequired)]
-        [MaxLength(ValidationConstants.Movie.MaxActorsLength, ErrorMessage = ErrorMessages.Movie.ActorsMaxLengthExceeded)]
+        [MaxLength(
+            ValidationConstants.Movie.MaxActorsLength,
+            ErrorMessage = ErrorMessages.Movie.ActorsMaxLengthExceeded
+        )]
         [RegularExpression(
             ValidationConstants.Movie.ActorsRegex,
             ErrorMessage = ErrorMessages.Movie.InvalidActorsFormat
