@@ -25,6 +25,12 @@ namespace MovieHub.API.Services
             return movie.Id;
         }
 
+        public async Task<MovieReadDto> GetMovieByIdAsync(int id)
+        {
+            var movie = await GetMovieByIdOrThrowAsync(id);
+            return _mapper.Map<MovieReadDto>(movie);
+        }
+
         #region Private Methods
         private async Task EnsureMovieTitleIsUniqueOrThrowAsync(string title)
         {
@@ -34,6 +40,16 @@ namespace MovieHub.API.Services
                     $"Movie with title '{title}' already exists."
                 );
             }
+        }
+
+        private async Task<Movie> GetMovieByIdOrThrowAsync(int id)
+        {
+            var movie = await _movieRepository.GetByIdAsync(id);
+            if (movie is null)
+            {
+                throw new Exception($"Movie with id '{id}' does not exists.");
+            }
+            return movie;
         }
         #endregion
     }

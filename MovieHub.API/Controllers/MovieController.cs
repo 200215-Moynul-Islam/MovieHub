@@ -29,5 +29,12 @@ namespace MovieHub.API.Controllers
             var movieId = await _movieService.CreateMovieAsync(movieCreateDto);
             return Created(String.Empty, movieId);
         }
+
+        // GET: api/movies/{id:int}
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<MovieReadDto>> GetMovieByIdAsync(int id)
+        {
+            return Ok(await _movieService.GetMovieByIdAsync(id));
+        }
     }
 }
