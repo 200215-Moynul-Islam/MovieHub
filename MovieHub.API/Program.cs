@@ -25,6 +25,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 // Register all the service class
 builder.Services.AddScoped<IBranchService, BranchService>();
 builder.Services.AddScoped<IHallService, HallService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 //Register all the repository class
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
