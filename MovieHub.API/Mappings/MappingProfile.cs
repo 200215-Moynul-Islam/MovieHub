@@ -26,6 +26,12 @@ namespace MovieHub.API.Mappings
             #region Movie Mappings
             CreateMap<MovieCreateDto, Movie>();
             CreateMap<Movie, MovieReadDto>();
+            CreateMap<MovieUpdateDto, Movie>()
+                .ForAllMembers(opts =>
+                    opts.Condition(
+                        (src, dest, srcMember) => srcMember is not null
+                    )
+                );
             #endregion
         }
     }

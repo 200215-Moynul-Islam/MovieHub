@@ -41,6 +41,24 @@ namespace MovieHub.API.Services
             );
         }
 
+        public async Task UpdateMovieByIdAsync(
+            int id,
+            MovieUpdateDto movieUpdateDto
+        )
+        {
+            if (movieUpdateDto.Title is not null)
+            {
+                await EnsureMovieTitleIsUniqueOrThrowAsync(
+                    movieUpdateDto.Title
+                );
+            }
+
+            var movie = await GetMovieByIdOrThrowAsync(id);
+            _mapper.Map(movieUpdateDto, movie);
+            await _movieRepository.SaveChangesAsync();
+            return;
+        }
+
         #region Private Methods
         private async Task EnsureMovieTitleIsUniqueOrThrowAsync(string title)
         {

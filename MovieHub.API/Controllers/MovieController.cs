@@ -49,5 +49,21 @@ namespace MovieHub.API.Controllers
         {
             return Ok(await _movieService.GetAllMoviesAsync(offset, limit));
         }
+
+        // PATCH: api/moivies/{id:int}
+        [HttpPatch("{id:int}")]
+        public async Task<IActionResult> UpdateMovieByIdAsync(
+            int id,
+            [FromBody] MovieUpdateDto movieUpdateDto
+        )
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _movieService.UpdateMovieByIdAsync(id, movieUpdateDto);
+            return Ok();
+        }
     }
 }

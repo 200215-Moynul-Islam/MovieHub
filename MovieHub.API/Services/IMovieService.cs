@@ -10,5 +10,6 @@ namespace MovieHub.API.Services
             int offset,
             int limit
         );
+        Task UpdateMovieByIdAsync(int id, MovieUpdateDto movieUpdateDto);
     }
 }
