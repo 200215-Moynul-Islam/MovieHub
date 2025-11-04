@@ -23,6 +23,11 @@ namespace MovieHub.API.Repositories
             return;
         }
 
+        public async Task CreateAsync(IEnumerable<T> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
+        }
+
         public virtual async Task<T?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
