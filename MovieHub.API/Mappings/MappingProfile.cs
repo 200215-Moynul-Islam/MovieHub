@@ -25,6 +25,7 @@ namespace MovieHub.API.Mappings
 
             #region Movie Mappings
             CreateMap<MovieCreateDto, Movie>();
+            CreateMap<Movie, MovieReadDto>();
             #endregion
         }
     }
