@@ -30,6 +30,7 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 //Register all the repository class
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IHallRepository, HallRepositoriy>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
