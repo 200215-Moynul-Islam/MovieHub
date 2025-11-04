@@ -31,6 +31,16 @@ namespace MovieHub.API.Services
             return _mapper.Map<MovieReadDto>(movie);
         }
 
+        public async Task<IEnumerable<MovieReadDto>> GetAllMoviesAsync(
+            int offset,
+            int limit
+        )
+        {
+            return _mapper.Map<IEnumerable<MovieReadDto>>(
+                await _movieRepository.GetAllAsync(offset, limit)
+            );
+        }
+
         #region Private Methods
         private async Task EnsureMovieTitleIsUniqueOrThrowAsync(string title)
         {
