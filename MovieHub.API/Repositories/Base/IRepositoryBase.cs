@@ -6,6 +6,7 @@ namespace MovieHub.API.Repositories.Base
         where T : EntityBase
     {
         Task CreateAsync(T entity);
+        Task CreateAsync(IEnumerable<T> entities);
         Task<T?> GetByIdAsync(int id);
         Task SaveChangesAsync();
         Task ExecuteInTransactionAsync(Func<Task> operation);

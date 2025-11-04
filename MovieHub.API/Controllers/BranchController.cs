@@ -10,10 +10,15 @@ namespace MovieHub.API.Controllers
     public class BranchController : ControllerBase
     {
         private readonly IBranchService _branchService;
+        private readonly IBranchHallService _branchHallService;
 
-        public BranchController(IBranchService branchService)
+        public BranchController(
+            IBranchService branchService,
+            IBranchHallService branchHallService
+        )
         {
             _branchService = branchService;
+            _branchHallService = branchHallService;
         }
 
         // POST: api/branches
@@ -50,7 +55,9 @@ namespace MovieHub.API.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteBranchByIdAsync(int id)
         {
-            await _branchService.DeactivateBranchByIdAsync(id);
+            await _branchHallService.DeactivateBranchWithHallsByBranchIdAsync(
+                id
+            );
             return Ok();
         }
 
