@@ -18,6 +18,10 @@ namespace MovieHub.API.Mappings
                     )
                 );
             #endregion
+
+            #region Movie Mappings
+            CreateMap<MovieCreateDto, Movie>();
+            #endregion
         }
     }
 }
