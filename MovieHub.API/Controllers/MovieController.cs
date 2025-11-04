@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
 
@@ -35,6 +36,18 @@ namespace MovieHub.API.Controllers
         public async Task<ActionResult<MovieReadDto>> GetMovieByIdAsync(int id)
         {
             return Ok(await _movieService.GetMovieByIdAsync(id));
+        }
+
+        // GET: api/movies
+        [HttpGet]
+        public async Task<
+            ActionResult<IEnumerable<MovieReadDto>>
+        > GetAllMoviesAsync(
+            int offset = DefaultConstants.Offset,
+            int limit = DefaultConstants.Limit
+        )
+        {
+            return Ok(await _movieService.GetAllMoviesAsync(offset, limit));
         }
     }
 }
