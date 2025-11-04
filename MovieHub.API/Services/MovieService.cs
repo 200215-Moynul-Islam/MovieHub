@@ -1,0 +1,40 @@
+using AutoMapper;
+using MovieHub.API.DTOs;
+using MovieHub.API.Models;
+using MovieHub.API.Repositories;
+
+namespace MovieHub.API.Services
+{
+    public class MovieService : IMovieService
+    {
+        private readonly IMapper _mapper;
+        private readonly IMovieRepository _movieRepository;
+
+        public MovieService(IMapper mapper, IMovieRepository movieRepository)
+        {
+            _mapper = mapper;
+            _movieRepository = movieRepository;
+        }
+
+        public async Task<int> CreateMovieAsync(MovieCreateDto movieCreateDto)
+        {
+            await EnsureMovieTitleIsUniqueOrThrowAsync(movieCreateDto.Title);
+            var movie = _mapper.Map<Movie>(movieCreateDto);
+            await _movieRepository.CreateAsync(movie);
+            await _movieRepository.SaveChangesAsync();
+            return movie.Id;
+        }
+
+        #region Private Methods
+        private async Task EnsureMovieTitleIsUniqueOrThrowAsync(string title)
+        {
+            if (await _movieRepository.TitleExistsCaseInsensitiveAsync(title))
+            {
+                throw new Exception(
+                    $"Movie with title '{title}' already exists."
+                );
+            }
+        }
+        #endregion
+    }
+}

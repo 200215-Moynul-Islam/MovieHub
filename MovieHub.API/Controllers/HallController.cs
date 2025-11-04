@@ -10,9 +10,7 @@ namespace MovieHub.API.Controllers
     {
         private readonly IBranchHallSeatService _branchHallSeatService;
 
-        public HallController(
-            IBranchHallSeatService branchHallSeatService
-        )
+        public HallController(IBranchHallSeatService branchHallSeatService)
         {
             _branchHallSeatService = branchHallSeatService;
         }

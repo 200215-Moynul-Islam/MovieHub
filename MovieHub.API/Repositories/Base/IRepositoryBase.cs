@@ -1,8 +1,8 @@
 using MovieHub.API.Models.Base;
 
-namespace MovieHub.API.Repositories
+namespace MovieHub.API.Repositories.Base
 {
-    public interface IRepository<T>
+    public interface IRepositoryBase<T>
         where T : EntityBase
     {
         Task CreateAsync(T entity);

@@ -2,11 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using MovieHub.API.Constants;
 using MovieHub.API.Data;
 using MovieHub.API.Models;
+using MovieHub.API.Repositories.Base;
 
 namespace MovieHub.API.Repositories
 {
     public class HallRepositoriy
-        : SoftDeletableNamedRepository<Hall>,
+        : NamedSoftDeletableRepositoryBase<Hall>,
             IHallRepository
     {
         public HallRepositoriy(MovieHubDbContext dbContext)

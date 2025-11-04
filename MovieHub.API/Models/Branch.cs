@@ -4,7 +4,7 @@ using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Models
 {
-    public class Branch : SoftDeletableNamedEntityBase
+    public class Branch : NamedSoftDeletableEntityBase
     {
         [Required]
         [MaxLength(ValidationConstants.Branch.MaxLocationLength)]

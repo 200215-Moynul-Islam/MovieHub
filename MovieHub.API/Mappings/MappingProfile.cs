@@ -22,6 +22,10 @@ namespace MovieHub.API.Mappings
             #region Hall Mappings
             CreateMap<HallCreateDto, Hall>();
             #endregion
+
+            #region Movie Mappings
+            CreateMap<MovieCreateDto, Movie>();
+            #endregion
         }
     }
 }

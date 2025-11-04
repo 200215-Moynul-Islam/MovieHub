@@ -11,6 +11,13 @@ namespace MovieHub.API.Constants
         public const string InvalidNameFormat =
             TextConstants.InvalidNameFormat_ErrorMessage;
 
+        public const string PersonNameRequired =
+            TextConstants.PersonNameRequired_ErrorMessage;
+        public const string PersonNameMaxLenghtExceeded =
+            TextConstants.PersonNameMaxLenghtExceeded_ErrorMessage;
+        public const string InvalidPersonNameFormat =
+            TextConstants.InvalidPersonNameFormat_ErrorMessage;
+
         public static class Branch
         {
             public const string LocationRequired =
@@ -19,6 +26,47 @@ namespace MovieHub.API.Constants
                 TextConstants.Branch_LocationMaxLengthExceeded_ErrorMessage;
             public const string InvalidLocationFormat =
                 TextConstants.Branch_InvalidLocationFormat_ErrorMessage;
+        }
+
+        public static class Movie
+        {
+            public const string TitleRequired =
+                TextConstants.Movie_TitleRequired_ErrorMessage;
+            public const string TitleMaxLengthExceeded =
+                TextConstants.Movie_TitleMaxLengthExceeded_ErrorMessage;
+            public const string InvalidTitleFormat =
+                TextConstants.Movie_InvalidTitleFormat_ErrorMessage;
+
+            public const string GenreRequired =
+                TextConstants.Movie_GenreRequired_ErrorMessage;
+            public const string GenreMaxLengthExceeded =
+                TextConstants.Movie_GenreMaxLengthExceeded_ErrorMessage;
+            public const string InvalidGenreFormat =
+                TextConstants.Movie_InvalidGenreFormat_ErrorMessage;
+
+            public const string DurationRequired =
+                TextConstants.Movie_DurationRequired_ErrorMessage;
+            public const string DurationOutOfRange =
+                TextConstants.Movie_DurationOutOfRange_ErrorMessage;
+
+            public const string DescriptionMinLengthRequired =
+                TextConstants.Movie_DescriptionMinLengthRequired_ErrorMessage;
+            public const string DescriptionMaxLengthExceeded =
+                TextConstants.Movie_DescriptionMaxLengthExceeded_ErrorMessage;
+
+            public const string PosterUrlRequired =
+                TextConstants.Movie_PosterUrlRequired_ErrorMessage;
+            public const string PosterUrlMaxLengthExceeded =
+                TextConstants.Movie_PosterUrlMaxLengthExceeded_ErrorMessage;
+            public const string InvalidPosterUrlFormat =
+                TextConstants.Movie_InvalidPosterUrlFormat_ErrorMessage;
+
+            public const string ActorsRequired =
+                TextConstants.Movie_ActorsRequired_ErrorMessage;
+            public const string ActorsMaxLengthExceeded =
+                TextConstants.Movie_ActorsMaxLengthExceeded_ErrorMessage;
+            public const string InvalidActorsFormat =
+                TextConstants.Movie_InvalidActorsFormat_ErrorMessage;
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieHub.API.Data;
 using MovieHub.API.Models;
+using MovieHub.API.Repositories.Base;
 
 namespace MovieHub.API.Repositories
 {
     public class BranchRepository
-        : SoftDeletableNamedRepository<Branch>,
+        : NamedSoftDeletableRepositoryBase<Branch>,
             IBranchRepository
     {
         public BranchRepository(MovieHubDbContext dbContext)
