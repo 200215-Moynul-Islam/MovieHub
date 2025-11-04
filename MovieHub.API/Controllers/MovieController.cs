@@ -10,10 +10,15 @@ namespace MovieHub.API.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IMovieService _movieService;
+        private readonly IMovieShowTimeService _movieShowTimeService;
 
-        public MovieController(IMovieService movieService)
+        public MovieController(
+            IMovieService movieService,
+            IMovieShowTimeService movieShowTimeService
+        )
         {
             _movieService = movieService;
+            _movieShowTimeService = movieShowTimeService;
         }
 
         // POST api/movies
@@ -50,7 +55,7 @@ namespace MovieHub.API.Controllers
             return Ok(await _movieService.GetAllMoviesAsync(offset, limit));
         }
 
-        // PATCH: api/moivies/{id:int}
+        // PATCH: api/movies/{id:int}
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> UpdateMovieByIdAsync(
             int id,
@@ -63,6 +68,14 @@ namespace MovieHub.API.Controllers
             }
 
             await _movieService.UpdateMovieByIdAsync(id, movieUpdateDto);
+            return Ok();
+        }
+
+        // DELETE: api/movies/{id:int}
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteMovieByIdAsync(int id)
+        {
+            await _movieShowTimeService.DeactivateMovieByIdAsync(id);
             return Ok();
         }
     }
