@@ -3,15 +3,15 @@ using MovieHub.API.Constants;
 using MovieHub.API.Data;
 using MovieHub.API.Models.Base;
 
-namespace MovieHub.API.Repositories
+namespace MovieHub.API.Repositories.Base
 {
-    public abstract class Repository<T> : IRepository<T>
+    public abstract class RepositoryBase<T> : IRepositoryBase<T>
         where T : EntityBase
     {
         protected readonly MovieHubDbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
 
-        public Repository(MovieHubDbContext dbContext)
+        public RepositoryBase(MovieHubDbContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();

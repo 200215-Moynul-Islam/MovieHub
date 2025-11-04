@@ -1,25 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MovieHub.API.Constants;
+using Microsoft.EntityFrameworkCore;
 using MovieHub.API.Data;
 using MovieHub.API.Models.Base;
 
-namespace MovieHub.API.Repositories
+namespace MovieHub.API.Repositories.Base
 {
-    public abstract class SoftDeletableNamedRepository<T>
-        : Repository<T>,
-            ISoftDeletableNamedRepository<T>
-        where T : SoftDeletableNamedEntityBase
+    public abstract class SoftDeletableRepositoryBase<T>
+        : RepositoryBase<T>,
+            ISoftDeletableRepositoryBase<T>
+        where T : SoftDeletableEntityBase
     {
-        public SoftDeletableNamedRepository(MovieHubDbContext dbContext)
+        public SoftDeletableRepositoryBase(MovieHubDbContext dbContext)
             : base(dbContext) { }
-
-        public async Task<bool> NameExistsCaseInsensitiveAsync(string name)
-        {
-            return await _dbSet.AnyAsync(e =>
-                EF.Functions.Collate(e.Name, DatabaseCollations.CaseInsensitive)
-                == name
-            );
-        }
 
         public override async Task<T?> GetByIdAsync(int id)
         {

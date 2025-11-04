@@ -5,7 +5,7 @@ using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Models
 {
-    public class Hall : SoftDeletableNamedEntityBase
+    public class Hall : NamedSoftDeletableEntityBase
     {
         [Required]
         [Range(

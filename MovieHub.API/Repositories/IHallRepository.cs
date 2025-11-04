@@ -1,8 +1,9 @@
 using MovieHub.API.Models;
+using MovieHub.API.Repositories.Base;
 
 namespace MovieHub.API.Repositories
 {
-    public interface IHallRepository : ISoftDeletableNamedRepository<Hall>
+    public interface IHallRepository : INamedSoftDeletableRepositoryBase<Hall>
     {
         Task DeactivateHallsByBranchIdAsync(int branchId);
     }
