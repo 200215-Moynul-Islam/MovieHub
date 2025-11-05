@@ -34,5 +34,18 @@ namespace MovieHub.API.Repositories
                 ) == name
             );
         }
+
+        public async Task<IEnumerable<Hall>> GetHallsByBranchIdAsync(
+            int branchId,
+            int offset,
+            int limit
+        )
+        {
+            return await _dbSet
+                .Where(h => h.IsDeleted == false && h.BranchId == branchId)
+                .Skip(offset)
+                .Take(limit)
+                .ToListAsync();
+        }
     }
 }
