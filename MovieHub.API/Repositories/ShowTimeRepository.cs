@@ -20,5 +20,12 @@ namespace MovieHub.API.Repositories
                 e.MovieId == movieId && e.StartTime >= DateTime.UtcNow
             );
         }
+
+        public async Task<bool> HasAnyUpcomingShowTimesByHallIdAsync(int hallId)
+        {
+            return await _dbSet.AnyAsync(e =>
+                e.HallId == hallId && e.StartTime >= DateTime.UtcNow
+            );
+        }
     }
 }
