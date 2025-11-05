@@ -62,7 +62,7 @@ namespace MovieHub.API.Controllers
             await _hallService.UpdateHallByIdAsync(id, hallUpdateDto);
             return Ok();
         }
-        
+
         //GET: api/halls/?branchId=123
         [HttpGet]
         public async Task<
