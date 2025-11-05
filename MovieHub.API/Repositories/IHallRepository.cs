@@ -10,5 +10,10 @@ namespace MovieHub.API.Repositories
             string name,
             int branchId
         );
+        Task<IEnumerable<Hall>> GetHallsByBranchIdAsync(
+            int branchId,
+            int offset,
+            int limit
+        );
     }
 }
