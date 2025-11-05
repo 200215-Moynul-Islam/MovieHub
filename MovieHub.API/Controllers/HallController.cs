@@ -10,14 +10,17 @@ namespace MovieHub.API.Controllers
     {
         private readonly IHallService _hallService;
         private readonly IBranchHallSeatService _branchHallSeatService;
+        private readonly IHallShowTimeService _hallShowTimeService;
 
         public HallController(
             IHallService hallService,
-            IBranchHallSeatService branchHallSeatService
+            IBranchHallSeatService branchHallSeatService,
+            IHallShowTimeService hallShowTimeService
         )
         {
             _hallService = hallService;
             _branchHallSeatService = branchHallSeatService;
+            _hallShowTimeService = hallShowTimeService;
         }
 
         // POST api/halls
@@ -56,6 +59,14 @@ namespace MovieHub.API.Controllers
                 return BadRequest(ModelState);
             }
             await _hallService.UpdateHallByIdAsync(id, hallUpdateDto);
+            return Ok();
+        }
+
+        //DELETE: api/halls/{id:int}
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteHallByIdAsync(int id)
+        {
+            await _hallShowTimeService.DeactivateHallByIdAsync(id);
             return Ok();
         }
     }

@@ -6,5 +6,6 @@ namespace MovieHub.API.Repositories
     public interface IShowTimeRepository : IRepositoryBase<ShowTime>
     {
         Task<bool> HasAnyUpcomingShowTimesByMovieIdAsync(int movieId);
+        Task<bool> HasAnyUpcomingShowTimesByHallIdAsync(int hallId);
     }
 }
