@@ -8,10 +8,15 @@ namespace MovieHub.API.Controllers
     [Route("api/halls")]
     public class HallController : ControllerBase
     {
+        private readonly IHallService _hallService;
         private readonly IBranchHallSeatService _branchHallSeatService;
 
-        public HallController(IBranchHallSeatService branchHallSeatService)
+        public HallController(
+            IHallService hallService,
+            IBranchHallSeatService branchHallSeatService
+        )
         {
+            _hallService = hallService;
             _branchHallSeatService = branchHallSeatService;
         }
 
@@ -30,6 +35,13 @@ namespace MovieHub.API.Controllers
                 hallCreateDto
             );
             return Created(String.Empty, hallId);
+        }
+
+        //GET: api/halls/{id:int}
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<HallReadDto>> GetHallByIdAsync(int id)
+        {
+            return Ok(await _hallService.GetHallByIdAsync(id));
         }
     }
 }
