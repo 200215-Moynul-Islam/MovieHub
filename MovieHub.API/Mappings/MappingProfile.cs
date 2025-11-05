@@ -22,6 +22,12 @@ namespace MovieHub.API.Mappings
             #region Hall Mappings
             CreateMap<HallCreateDto, Hall>();
             CreateMap<Hall, HallReadDto>();
+            CreateMap<HallUpdateDto, Hall>()
+                .ForAllMembers(opts =>
+                    opts.Condition(
+                        (src, dest, srcMember) => srcMember is not null
+                    )
+                );
             #endregion
 
             #region Movie Mappings

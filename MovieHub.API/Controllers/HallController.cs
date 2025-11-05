@@ -43,5 +43,20 @@ namespace MovieHub.API.Controllers
         {
             return Ok(await _hallService.GetHallByIdAsync(id));
         }
+
+        //PATCH: api/halls/{id:int}
+        [HttpPatch("{id:int}")]
+        public async Task<IActionResult> UpdateHallByIdAsync(
+            int id,
+            HallUpdateDto hallUpdateDto
+        )
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await _hallService.UpdateHallByIdAsync(id, hallUpdateDto);
+            return Ok();
+        }
     }
 }
