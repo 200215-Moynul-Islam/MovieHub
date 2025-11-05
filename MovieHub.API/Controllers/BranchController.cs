@@ -96,5 +96,24 @@ namespace MovieHub.API.Controllers
             await _branchService.ResetBranchManagerByIdAsync(id);
             return Ok();
         }
+
+        //GET: api/branches/{id:int}/halls
+        [HttpGet("{id:int}/halls")]
+        public async Task<
+            ActionResult<IEnumerable<HallReadDto>>
+        > GetHallsByBranchIdAsync(
+            int id,
+            int offset = DefaultConstants.Offset,
+            int limit = DefaultConstants.Limit
+        )
+        {
+            return Ok(
+                await _branchHallService.GetHallsByBranchIdAsync(
+                    id,
+                    offset,
+                    limit
+                )
+            );
+        }
     }
 }
