@@ -44,5 +44,11 @@
             public const int MinSeatNumberLength = 2;
             public const int MaxSeatNumberLength = 3;
         }
+
+        public static class ShowTime
+        {
+            public const int MinBufferMinutes = 20;
+            public const int MaxBufferMinutes = 60;
+        }
     }
 }
