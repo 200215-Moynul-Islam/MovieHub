@@ -30,6 +30,10 @@ builder.Services.AddScoped<IBranchHallSeatService, BranchHallSeatService>();
 builder.Services.AddScoped<IHallShowTimeService, HallShowTimeService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieShowTimeService, MovieShowTimeService>();
+builder.Services.AddScoped<
+    IMovieHallShowTimeService,
+    MovieHallShowTimeService
+>();
 
 //Register all the repository class
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
