@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MovieHub.API.Constants;
 using MovieHub.API.Models.Base;
 
 namespace MovieHub.API.Models
@@ -8,6 +9,13 @@ namespace MovieHub.API.Models
     {
         [Required]
         public DateTime StartTime { get; set; }
+
+        [Required]
+        [Range(
+            ValidationConstants.ShowTime.MinBufferMinutes,
+            ValidationConstants.ShowTime.MaxBufferMinutes
+        )]
+        public int BufferMinutes { get; set; }
 
         [Required]
         public int MovieId { get; set; } // Foreign Key to Movie
