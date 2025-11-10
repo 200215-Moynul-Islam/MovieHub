@@ -50,5 +50,10 @@
             public const int MinBufferMinutes = 20;
             public const int MaxBufferMinutes = 60;
         }
+
+        public static class Booking
+        {
+            public const int MinSeatIds = 1;
+        }
     }
 }

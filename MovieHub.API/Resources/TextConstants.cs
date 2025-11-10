@@ -69,6 +69,11 @@
             "Buffer minutes must be between 20 to 60.";
         #endregion
 
+        #region Booking
+        public const string Booking_MinSeatIdsRequired_ErrorMessage =
+            "At least one seat must be selected.";
+        #endregion
+
         #region CustomAttributes
         public const string CustomAttributes_FutureDate_DefaultErrorMessage =
             "{0} must be a future date/time.";

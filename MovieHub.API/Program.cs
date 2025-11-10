@@ -34,6 +34,10 @@ builder.Services.AddScoped<
     IMovieHallShowTimeService,
     MovieHallShowTimeService
 >();
+builder.Services.AddScoped<
+    IUserShowTimeBookingService,
+    UserShowTimeBookingService
+>();
 
 //Register all the repository class
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
@@ -41,6 +45,7 @@ builder.Services.AddScoped<IHallRepository, HallRepositoriy>();
 builder.Services.AddScoped<ISeatRepository, SeatRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IShowTimeRepository, ShowTimeRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
