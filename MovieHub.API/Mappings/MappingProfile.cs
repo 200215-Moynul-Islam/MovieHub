@@ -58,6 +58,14 @@ namespace MovieHub.API.Mappings
                                 .ToList()
                         )
                 );
+            CreateMap<Booking, BookingReadDto>()
+                .ForMember(
+                    dest => dest.SeatIds,
+                    opts =>
+                        opts.MapFrom(src =>
+                            src.BookedSeats.Select(bs => bs.SeatId).ToList()
+                        )
+                );
             #endregion
         }
     }
