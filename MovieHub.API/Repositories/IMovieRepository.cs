@@ -6,5 +6,6 @@ namespace MovieHub.API.Repositories
     public interface IMovieRepository : ISoftDeletableRepositoryBase<Movie>
     {
         Task<bool> TitleExistsCaseInsensitiveAsync(string title);
+        Task<int?> GetMovieDurationByMovieIdAsync(int movieId);
     }
 }

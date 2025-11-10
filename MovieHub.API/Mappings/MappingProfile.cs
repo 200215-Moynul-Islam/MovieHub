@@ -40,6 +40,10 @@ namespace MovieHub.API.Mappings
                     )
                 );
             #endregion
+
+            #region ShowTime Mappings
+            CreateMap<ShowTimeCreateDto, ShowTime>();
+            #endregion
         }
     }
 }

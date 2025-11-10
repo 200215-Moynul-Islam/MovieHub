@@ -68,5 +68,21 @@ namespace MovieHub.API.Constants
             public const string InvalidActorsFormat =
                 TextConstants.Movie_InvalidActorsFormat_ErrorMessage;
         }
+
+        public static class ShowTime
+        {
+            public const string BufferMinutesOutOfRange =
+                TextConstants.ShowTime_BufferMinutesOutOfRange_ErrorMessage;
+        }
+
+        public static class CustomAttributes
+        {
+            public const string FutureDate_Default =
+                TextConstants.CustomAttributes_FutureDate_DefaultErrorMessage;
+
+            // Consider removing this to a exception message specicic file.
+            public const string FutureDate_InvalidProperty =
+                TextConstants.CustomAttributes_FutureDate_InvalidProperty_ErrorMessage;
+        }
     }
 }

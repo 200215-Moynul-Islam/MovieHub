@@ -27,5 +27,24 @@ namespace MovieHub.API.Repositories
                 e.HallId == hallId && e.StartTime >= DateTime.UtcNow
             );
         }
+
+        public async Task<bool> HasAnyConflictingShowTimeInHallAsync(
+            DateTime startTime,
+            DateTime endTime,
+            int hallId
+        )
+        {
+            return await _dbSet
+                .Include(st => st.Movie)
+                .Where(st => st.HallId == hallId)
+                .AnyAsync(st =>
+                    !(
+                        st.StartTime >= endTime
+                        || st.StartTime.AddMinutes(
+                            st.Movie.Duration + st.BufferMinutes
+                        ) <= startTime
+                    )
+                );
+        }
     }
 }

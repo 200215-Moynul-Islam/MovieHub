@@ -7,5 +7,10 @@ namespace MovieHub.API.Repositories
     {
         Task<bool> HasAnyUpcomingShowTimesByMovieIdAsync(int movieId);
         Task<bool> HasAnyUpcomingShowTimesByHallIdAsync(int hallId);
+        Task<bool> HasAnyConflictingShowTimeInHallAsync(
+            DateTime startTime,
+            DateTime endTime,
+            int hallId
+        );
     }
 }

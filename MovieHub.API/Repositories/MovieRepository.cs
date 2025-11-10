@@ -23,5 +23,13 @@ namespace MovieHub.API.Repositories
                 ) == title
             );
         }
+
+        public async Task<int?> GetMovieDurationByMovieIdAsync(int movieId)
+        {
+            return await _dbSet
+                .Where(m => m.Id == movieId && m.IsDeleted == false)
+                .Select(m => (int?)m.Duration)
+                .SingleOrDefaultAsync();
+        }
     }
 }

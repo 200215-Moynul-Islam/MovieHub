@@ -63,5 +63,17 @@
         public const string Movie_InvalidActorsFormat_ErrorMessage =
             "Actors must be a comma-separated list of names using letters, spaces, apostrophes, hyphens, or periods.";
         #endregion
+
+        #region ShowTime
+        public const string ShowTime_BufferMinutesOutOfRange_ErrorMessage =
+            "Buffer minutes must be between 20 to 60.";
+        #endregion
+
+        #region CustomAttributes
+        public const string CustomAttributes_FutureDate_DefaultErrorMessage =
+            "{0} must be a future date/time.";
+        public const string CustomAttributes_FutureDate_InvalidProperty_ErrorMessage =
+            "{0} must be a DateTime property.";
+        #endregion
     }
 }
