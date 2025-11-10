@@ -75,6 +75,12 @@ namespace MovieHub.API.Constants
                 TextConstants.ShowTime_BufferMinutesOutOfRange_ErrorMessage;
         }
 
+        public static class Booking
+        {
+            public const string MinSeatIdsRequired =
+                TextConstants.Booking_MinSeatIdsRequired_ErrorMessage;
+        }
+
         public static class CustomAttributes
         {
             public const string FutureDate_Default =

@@ -44,6 +44,21 @@ namespace MovieHub.API.Mappings
             #region ShowTime Mappings
             CreateMap<ShowTimeCreateDto, ShowTime>();
             #endregion
+
+            #region Booking Mappings
+            CreateMap<BookingCreateDto, Booking>()
+                .ForMember(
+                    dest => dest.BookedSeats,
+                    opts =>
+                        opts.MapFrom(src =>
+                            src.SeatIds!.Select(sid => new BookingSeat
+                                {
+                                    SeatId = sid,
+                                })
+                                .ToList()
+                        )
+                );
+            #endregion
         }
     }
 }
