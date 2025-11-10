@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
 
@@ -8,12 +9,15 @@ namespace MovieHub.API.Controllers
     [Route("api/bookings")]
     public class BookingController : ControllerBase
     {
+        private readonly IUserBookingService _userBookingService;
         private readonly IUserShowTimeBookingService _userShowTimeBookingService;
 
         public BookingController(
+            IUserBookingService userBookingService,
             IUserShowTimeBookingService userShowTimeBookingService
         )
         {
+            _userBookingService = userBookingService;
             _userShowTimeBookingService = userShowTimeBookingService;
         }
 
@@ -26,6 +30,25 @@ namespace MovieHub.API.Controllers
             return Ok(
                 await _userShowTimeBookingService.CreateBookingAsync(
                     bookingCreateDto
+                )
+            );
+        }
+
+        // GET: api/bookings?userId=123
+        [HttpGet]
+        public async Task<
+            ActionResult<IEnumerable<BookingReadDto>>
+        > GetAllBookingsByUserIdAsync(
+            [FromQuery] Guid userId,
+            [FromQuery] int offset = DefaultConstants.Offset,
+            [FromQuery] int limit = DefaultConstants.Limit
+        )
+        {
+            return Ok(
+                await _userBookingService.GetAllBookingsByUserIdAsync(
+                    userId,
+                    offset,
+                    limit
                 )
             );
         }

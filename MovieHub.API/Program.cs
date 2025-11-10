@@ -34,6 +34,7 @@ builder.Services.AddScoped<
     IMovieHallShowTimeService,
     MovieHallShowTimeService
 >();
+builder.Services.AddScoped<IUserBookingService, UserBookingService>();
 builder.Services.AddScoped<
     IUserShowTimeBookingService,
     UserShowTimeBookingService
