@@ -9,12 +9,15 @@ namespace MovieHub.API.Controllers
     public class ShowTimeController : ControllerBase
     {
         private readonly IMovieHallShowTimeService _movieHallShowTimeService;
+        private readonly IShowTimeService _showTimeService;
 
         public ShowTimeController(
-            IMovieHallShowTimeService movieHallShowTimeService
+            IMovieHallShowTimeService movieHallShowTimeService,
+            IShowTimeService showTimeService
         )
         {
             _movieHallShowTimeService = movieHallShowTimeService;
+            _showTimeService = showTimeService;
         }
 
         // POST: api/showtimes
@@ -28,6 +31,15 @@ namespace MovieHub.API.Controllers
                     showTimeCreateDto
                 );
             return Ok(showTimeId);
+        }
+
+        // GET: api/showtimes/{id:int}
+        [HttpGet("{id:int}")]
+        public async Task<
+            ActionResult<ShowTimeDetailsReadDto>
+        > GetShowTimeDetailsByIdAsync(int id)
+        {
+            return Ok(await _showTimeService.GetShowTimeDetailsByIdAsync(id));
         }
     }
 }
