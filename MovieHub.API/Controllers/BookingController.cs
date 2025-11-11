@@ -38,14 +38,14 @@ namespace MovieHub.API.Controllers
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<BookingReadDto>>
-        > GetAllBookingsByUserIdAsync(
+        > GetAllBookingsWithSeatsByUserIdAsync(
             [FromQuery] Guid userId,
             [FromQuery] int offset = DefaultConstants.Offset,
             [FromQuery] int limit = DefaultConstants.Limit
         )
         {
             return Ok(
-                await _userBookingService.GetAllBookingsByUserIdAsync(
+                await _userBookingService.GetAllBookingsWithSeatsByUserIdAsync(
                     userId,
                     offset,
                     limit
