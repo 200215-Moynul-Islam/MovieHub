@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs.Base;
 
 namespace MovieHub.API.DTOs
@@ -7,5 +8,12 @@ namespace MovieHub.API.DTOs
     {
         [Required]
         public int Id { get; set; }
+
+        [Required]
+        [MinLength(
+            ValidationConstants.Booking.MinSeats,
+            ErrorMessage = ErrorMessages.Booking.MinSeatsRequired
+        )]
+        public ICollection<BookingSeatReadDto>? BookedSeats { get; set; }
     }
 }

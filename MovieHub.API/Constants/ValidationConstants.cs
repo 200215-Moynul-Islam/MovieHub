@@ -53,7 +53,7 @@
 
         public static class Booking
         {
-            public const int MinSeatIds = 1;
+            public const int MinSeats = 1;
         }
     }
 }
