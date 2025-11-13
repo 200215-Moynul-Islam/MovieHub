@@ -38,6 +38,7 @@ namespace MovieHub.API.Mappings
             #region Movie Mappings
             CreateMap<MovieCreateDto, Movie>();
             CreateMap<Movie, MovieReadDto>();
+            CreateMap<Movie, MovieWithShowTimesReadDto>();
             CreateMap<MovieUpdateDto, Movie>()
                 .ForAllMembers(opts =>
                     opts.Condition(
@@ -48,6 +49,7 @@ namespace MovieHub.API.Mappings
 
             #region ShowTime Mappings
             CreateMap<ShowTimeCreateDto, ShowTime>();
+            CreateMap<ShowTime, ShowTimeReadDto>();
             CreateMap<ShowTime, ShowTimeDetailsReadDto>();
             CreateMap<ShowTimeUpdateDto, ShowTime>()
                 .ForAllMembers(opts =>

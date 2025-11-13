@@ -10,5 +10,9 @@ namespace MovieHub.API.Repositories
         Task<IEnumerable<Movie>> GetScheduledMoviesByBranchIdAsync(
             int branchId
         );
+        Task<Movie> GetMovieWithUpcomingShowTimesByIdForBranchAsync(
+            int id,
+            int branchId
+        );
     }
 }

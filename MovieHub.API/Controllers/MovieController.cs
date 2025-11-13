@@ -46,6 +46,23 @@ namespace MovieHub.API.Controllers
             return Ok(await _movieService.GetMovieByIdAsync(id));
         }
 
+        // GET: api/movies/{id:int}/upcoming-showtimes?branchId=123
+        [HttpGet("{id:int}/upcoming-showtimes")]
+        public async Task<
+            ActionResult<MovieWithShowTimesReadDto>
+        > GetMovieWithUpcomingShowTimesByIdForBranchAsync(
+            int id,
+            [FromQuery] int branchId
+        )
+        {
+            return Ok(
+                await _branchMovieService.GetMovieWithUpcomingShowTimesByIdForBranchAsync(
+                    id,
+                    branchId
+                )
+            );
+        }
+
         // GET: api/movies
         [HttpGet]
         public async Task<

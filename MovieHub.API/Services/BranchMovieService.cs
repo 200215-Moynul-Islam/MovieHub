@@ -33,6 +33,21 @@ namespace MovieHub.API.Services
             );
         }
 
+        public async Task<MovieWithShowTimesReadDto> GetMovieWithUpcomingShowTimesByIdForBranchAsync(
+            int movieId,
+            int branchId
+        )
+        {
+            await EnsureMovieExistsByIdOrThrowAsync(movieId);
+            await EnsureBranchExistsByIdOrThrowAsync(branchId);
+            return _mapper.Map<MovieWithShowTimesReadDto>(
+                await _movieRepository.GetMovieWithUpcomingShowTimesByIdForBranchAsync(
+                    movieId,
+                    branchId
+                )
+            );
+        }
+
         #region Private Methods
         private async Task EnsureBranchExistsByIdOrThrowAsync(int branchId)
         {
@@ -41,6 +56,16 @@ namespace MovieHub.API.Services
             {
                 throw new Exception(
                     $"Branch with id '{branchId}' does not exist."
+                );
+            }
+        }
+
+        private async Task EnsureMovieExistsByIdOrThrowAsync(int movieId)
+        {
+            if (!await _movieRepository.ExistsByIdAsync(movieId))
+            {
+                throw new Exception(
+                    $"Movie with id '{movieId}' does not exists."
                 );
             }
         }
