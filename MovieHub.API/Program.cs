@@ -31,6 +31,7 @@ builder.Services.AddScoped<IBranchHallSeatService, BranchHallSeatService>();
 builder.Services.AddScoped<IHallShowTimeService, HallShowTimeService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieShowTimeService, MovieShowTimeService>();
+builder.Services.AddScoped<IBranchMovieService, BranchMovieService>();
 builder.Services.AddScoped<
     IMovieHallShowTimeService,
     MovieHallShowTimeService

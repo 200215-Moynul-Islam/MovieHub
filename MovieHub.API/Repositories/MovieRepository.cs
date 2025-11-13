@@ -31,5 +31,19 @@ namespace MovieHub.API.Repositories
                 .Select(m => (int?)m.Duration)
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<Movie>> GetScheduledMoviesByBranchIdAsync(
+            int branchId
+        )
+        {
+            return await _dbSet
+                .Where(m =>
+                    m.ShowTimes.Any(st =>
+                        st.StartTime > DateTime.UtcNow
+                        && st.Hall.BranchId == branchId
+                    )
+                )
+                .ToListAsync();
+        }
     }
 }

@@ -7,5 +7,8 @@ namespace MovieHub.API.Repositories
     {
         Task<bool> TitleExistsCaseInsensitiveAsync(string title);
         Task<int?> GetMovieDurationByMovieIdAsync(int movieId);
+        Task<IEnumerable<Movie>> GetScheduledMoviesByBranchIdAsync(
+            int branchId
+        );
     }
 }
