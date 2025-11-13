@@ -12,6 +12,12 @@ namespace MovieHub.API.Repositories
             DateTime endTime,
             int hallId
         );
+        Task<bool> HasAnyConflictingShowTimeInHallAsync(
+            DateTime startTime,
+            DateTime endTime,
+            int hallId,
+            int currentShowTimeId
+        );
         Task<ShowTime?> GetShowTimeWithHallAndBookedSeatsAsync(int showTimeId);
         Task<ShowTime?> GetShowTimeDetailsByIdAsync(int id);
     }

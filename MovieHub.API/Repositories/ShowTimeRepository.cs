@@ -40,8 +40,28 @@ namespace MovieHub.API.Repositories
                 .AnyAsync(st =>
                     !(
                         st.StartTime >= endTime
-                        || st.StartTime.AddMinutes(
-                            st.Movie.Duration + st.BufferMinutes
+                        || st.StartTime!.Value.AddMinutes(
+                            st.Movie.Duration + st.BufferMinutes!.Value
+                        ) <= startTime
+                    )
+                );
+        }
+
+        public async Task<bool> HasAnyConflictingShowTimeInHallAsync(
+            DateTime startTime,
+            DateTime endTime,
+            int hallId,
+            int currentShowTimeId
+        )
+        {
+            return await _dbSet
+                .Include(st => st.Movie)
+                .Where(st => st.HallId == hallId && st.Id != currentShowTimeId)
+                .AnyAsync(st =>
+                    !(
+                        st.StartTime >= endTime
+                        || st.StartTime!.Value.AddMinutes(
+                            st.Movie.Duration + st.BufferMinutes!.Value
                         ) <= startTime
                     )
                 );
