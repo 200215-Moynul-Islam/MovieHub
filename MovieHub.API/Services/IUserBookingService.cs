@@ -4,7 +4,7 @@ namespace MovieHub.API.Services
 {
     public interface IUserBookingService
     {
-        Task<IEnumerable<BookingReadDto>> GetAllBookingsByUserIdAsync(
+        Task<IEnumerable<BookingReadDto>> GetAllBookingsWithSeatsByUserIdAsync(
             Guid userId,
             int offset,
             int limit

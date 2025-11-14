@@ -5,7 +5,7 @@ namespace MovieHub.API.Repositories
 {
     public interface IBookingRepository : IRepositoryBase<Booking>
     {
-        Task<IEnumerable<Booking>> GetAllBookingsByUserIdAsync(
+        Task<IEnumerable<Booking>> GetAllBookingsWithSeatsByUserIdAsync(
             Guid userId,
             int offset,
             int limit

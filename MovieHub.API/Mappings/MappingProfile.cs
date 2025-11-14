@@ -28,6 +28,11 @@ namespace MovieHub.API.Mappings
                         (src, dest, srcMember) => srcMember is not null
                     )
                 );
+            CreateMap<Hall, HallWithSeatsReadDto>();
+            #endregion
+
+            #region Seat Mappings
+            CreateMap<Seat, SeatReadDto>();
             #endregion
 
             #region Movie Mappings
@@ -43,6 +48,7 @@ namespace MovieHub.API.Mappings
 
             #region ShowTime Mappings
             CreateMap<ShowTimeCreateDto, ShowTime>();
+            CreateMap<ShowTime, ShowTimeDetailsReadDto>();
             #endregion
 
             #region Booking Mappings
@@ -58,14 +64,11 @@ namespace MovieHub.API.Mappings
                                 .ToList()
                         )
                 );
-            CreateMap<Booking, BookingReadDto>()
-                .ForMember(
-                    dest => dest.SeatIds,
-                    opts =>
-                        opts.MapFrom(src =>
-                            src.BookedSeats.Select(bs => bs.SeatId).ToList()
-                        )
-                );
+            CreateMap<Booking, BookingReadDto>();
+            #endregion
+
+            #region BookingSeat Mappings
+            CreateMap<BookingSeat, BookingSeatReadDto>();
             #endregion
         }
     }

@@ -59,5 +59,17 @@ namespace MovieHub.API.Repositories
                 .Where(st => st.Id == showTimeId)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<ShowTime?> GetShowTimeDetailsByIdAsync(int id)
+        {
+            return await _dbSet
+                .Include(st => st.Movie)
+                .Include(st => st.Hall)
+                .ThenInclude(h => h.Seats)
+                .Include(st => st.Bookings)
+                .ThenInclude(b => b.BookedSeats)
+                .Where(st => st.Id == id)
+                .FirstOrDefaultAsync();
+        }
     }
 }

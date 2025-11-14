@@ -70,8 +70,8 @@
         #endregion
 
         #region Booking
-        public const string Booking_MinSeatIdsRequired_ErrorMessage =
-            "At least one seat must be selected.";
+        public const string Booking_MinSeatsRequired_ErrorMessage =
+            "Each booking must have at least one seat.";
         #endregion
 
         #region CustomAttributes

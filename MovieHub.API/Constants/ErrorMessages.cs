@@ -77,8 +77,8 @@ namespace MovieHub.API.Constants
 
         public static class Booking
         {
-            public const string MinSeatIdsRequired =
-                TextConstants.Booking_MinSeatIdsRequired_ErrorMessage;
+            public const string MinSeatsRequired =
+                TextConstants.Booking_MinSeatsRequired_ErrorMessage;
         }
 
         public static class CustomAttributes

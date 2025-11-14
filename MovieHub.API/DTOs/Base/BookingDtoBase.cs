@@ -10,12 +10,5 @@ namespace MovieHub.API.DTOs.Base
 
         [Required]
         public int? ShowTimeId { get; set; }
-
-        [Required]
-        [MinLength(
-            ValidationConstants.Booking.MinSeatIds,
-            ErrorMessage = ErrorMessages.Booking.MinSeatIdsRequired
-        )]
-        public IEnumerable<int>? SeatIds { get; set; }
     }
 }

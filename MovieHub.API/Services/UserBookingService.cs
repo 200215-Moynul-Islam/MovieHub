@@ -20,11 +20,15 @@ namespace MovieHub.API.Services
 
         public async Task<
             IEnumerable<BookingReadDto>
-        > GetAllBookingsByUserIdAsync(Guid userId, int offset, int limit)
+        > GetAllBookingsWithSeatsByUserIdAsync(
+            Guid userId,
+            int offset,
+            int limit
+        )
         {
             // TODO: Validate whether user exists when user table is ready.
             return _mapper.Map<IEnumerable<BookingReadDto>>(
-                await _bookingRepository.GetAllBookingsByUserIdAsync(
+                await _bookingRepository.GetAllBookingsWithSeatsByUserIdAsync(
                     userId,
                     offset,
                     limit
