@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using MovieHub.API.Constants;
 
 namespace MovieHub.API.DTOs.Base
 {
     public abstract class NamedDtoBase
     {
-        private string _name = String.Empty;
+        private string? _name;
 
         [Required(ErrorMessage = ErrorMessages.NameRequired)]
         [MaxLength(
@@ -16,10 +17,16 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.NameRegex,
             ErrorMessage = ErrorMessages.InvalidNameFormat
         )]
-        public string Name
+        public string? Name
         {
             get => _name;
-            set => _name = value?.Trim() ?? String.Empty;
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _name = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
     }
 }

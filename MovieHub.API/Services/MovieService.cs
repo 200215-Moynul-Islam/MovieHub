@@ -18,7 +18,7 @@ namespace MovieHub.API.Services
 
         public async Task<int> CreateMovieAsync(MovieCreateDto movieCreateDto)
         {
-            await EnsureMovieTitleIsUniqueOrThrowAsync(movieCreateDto.Title);
+            await EnsureMovieTitleIsUniqueOrThrowAsync(movieCreateDto.Title!);
             var movie = _mapper.Map<Movie>(movieCreateDto);
             await _movieRepository.CreateAsync(movie);
             await _movieRepository.SaveChangesAsync();

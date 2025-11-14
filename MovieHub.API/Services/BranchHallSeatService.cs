@@ -29,10 +29,12 @@ namespace MovieHub.API.Services
             HallCreateDto hallCreateDto
         )
         {
-            await EnsureBranchExistsByIdOrThrowAsync(hallCreateDto.BranchId);
+            await EnsureBranchExistsByIdOrThrowAsync(
+                hallCreateDto.BranchId!.Value
+            );
             await EnsureHallNameIsUniqueForBranchOrThrowAsync(
-                hallCreateDto.Name,
-                hallCreateDto.BranchId
+                hallCreateDto.Name!,
+                hallCreateDto.BranchId!.Value
             );
 
             // Prepare the hall.

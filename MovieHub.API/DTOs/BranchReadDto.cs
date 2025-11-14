@@ -1,10 +1,12 @@
-﻿using MovieHub.API.DTOs.Base;
+﻿using System.ComponentModel.DataAnnotations;
+using MovieHub.API.DTOs.Base;
 
 namespace MovieHub.API.DTOs
 {
     public class BranchReadDto : BranchDtoBase
     {
-        public int Id { get; set; }
+        [Required]
+        public int? Id { get; set; }
         public Guid? ManagerId { get; set; }
     }
 }

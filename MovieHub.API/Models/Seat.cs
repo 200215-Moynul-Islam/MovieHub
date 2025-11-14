@@ -12,10 +12,10 @@ namespace MovieHub.API.Models
             ValidationConstants.Seat.MaxSeatNumberLength,
             MinimumLength = ValidationConstants.Seat.MinSeatNumberLength
         )]
-        public string SeatNumber { get; set; } = string.Empty;
+        public string? SeatNumber { get; set; } = string.Empty;
 
         [Required]
-        public int HallId { get; set; } // Foreign Key to Hall
+        public int? HallId { get; set; } // Foreign Key to Hall
 
         // Navigation Properties
         [ForeignKey("HallId")]

@@ -20,7 +20,7 @@ namespace MovieHub.API.Services
             BranchCreateDto branchCreateDto
         )
         {
-            await EnsureBranchNameIsUniqueOrThrowAsync(branchCreateDto.Name);
+            await EnsureBranchNameIsUniqueOrThrowAsync(branchCreateDto.Name!);
             await EnsureManagerExistsAndAvailableByIdOrThrowAsync(
                 branchCreateDto.ManagerId
             );

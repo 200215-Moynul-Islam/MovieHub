@@ -7,6 +7,6 @@ namespace MovieHub.API.Models.Base
     {
         [Required]
         [MaxLength(ValidationConstants.MaxNameLength)]
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; } = string.Empty;
     }
 }

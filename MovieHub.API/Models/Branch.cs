@@ -8,7 +8,7 @@ namespace MovieHub.API.Models
     {
         [Required]
         [MaxLength(ValidationConstants.Branch.MaxLocationLength)]
-        public string Location { get; set; } = string.Empty;
+        public string? Location { get; set; } = string.Empty;
 
         public Guid? ManagerId { get; set; } // Foreign Key to User (Manager)
 

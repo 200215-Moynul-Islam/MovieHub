@@ -7,7 +7,7 @@ namespace MovieHub.API.DTOs
     public class BookingReadDto : BookingDtoBase
     {
         [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         [MinLength(

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using MovieHub.API.Constants;
 
 namespace MovieHub.API.DTOs.Base
@@ -18,7 +19,13 @@ namespace MovieHub.API.DTOs.Base
         public string? Name
         {
             get => _name;
-            set => _name = value?.Trim();
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _name = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
     }
 }
