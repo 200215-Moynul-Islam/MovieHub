@@ -11,14 +11,17 @@ namespace MovieHub.API.Controllers
     {
         private readonly IMovieService _movieService;
         private readonly IMovieShowTimeService _movieShowTimeService;
+        private readonly IBranchMovieService _branchMovieService;
 
         public MovieController(
             IMovieService movieService,
-            IMovieShowTimeService movieShowTimeService
+            IMovieShowTimeService movieShowTimeService,
+            IBranchMovieService branchMovieService
         )
         {
             _movieService = movieService;
             _movieShowTimeService = movieShowTimeService;
+            _branchMovieService = branchMovieService;
         }
 
         // POST api/movies
@@ -53,6 +56,19 @@ namespace MovieHub.API.Controllers
         )
         {
             return Ok(await _movieService.GetAllMoviesAsync(offset, limit));
+        }
+
+        //GET: api/movies/upcoming?branchId=123
+        [HttpGet("upcoming")]
+        public async Task<
+            ActionResult<IEnumerable<MovieReadDto>>
+        > GetScheduledMoviesByBranchIdAsync([FromQuery] int branchId)
+        {
+            return Ok(
+                await _branchMovieService.GetScheduledMoviesByBranchIdAsync(
+                    branchId
+                )
+            );
         }
 
         // PATCH: api/movies/{id:int}
