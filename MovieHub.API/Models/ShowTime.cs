@@ -8,20 +8,20 @@ namespace MovieHub.API.Models
     public class ShowTime : EntityBase
     {
         [Required]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
         [Required]
         [Range(
             ValidationConstants.ShowTime.MinBufferMinutes,
             ValidationConstants.ShowTime.MaxBufferMinutes
         )]
-        public int BufferMinutes { get; set; }
+        public int? BufferMinutes { get; set; }
 
         [Required]
-        public int MovieId { get; set; } // Foreign Key to Movie
+        public int? MovieId { get; set; } // Foreign Key to Movie
 
         [Required]
-        public int HallId { get; set; } // Foreign Key to Hall
+        public int? HallId { get; set; } // Foreign Key to Hall
 
         // Navigation Properties
         [ForeignKey("MovieId")]

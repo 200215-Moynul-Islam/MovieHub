@@ -49,6 +49,12 @@ namespace MovieHub.API.Mappings
             #region ShowTime Mappings
             CreateMap<ShowTimeCreateDto, ShowTime>();
             CreateMap<ShowTime, ShowTimeDetailsReadDto>();
+            CreateMap<ShowTimeUpdateDto, ShowTime>()
+                .ForAllMembers(opts =>
+                    opts.Condition(
+                        (src, dest, srcMember) => srcMember is not null
+                    )
+                );
             #endregion
 
             #region Booking Mappings
