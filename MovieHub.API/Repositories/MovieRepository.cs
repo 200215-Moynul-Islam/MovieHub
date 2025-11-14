@@ -45,5 +45,20 @@ namespace MovieHub.API.Repositories
                 )
                 .ToListAsync();
         }
+
+        public async Task<Movie> GetMovieWithUpcomingShowTimesByIdForBranchAsync(
+            int id,
+            int branchId
+        )
+        {
+            return await _dbSet
+                .Include(m =>
+                    m.ShowTimes.Where(st =>
+                        st.StartTime > DateTime.UtcNow
+                        && st.Hall.BranchId == branchId
+                    )
+                )
+                .FirstAsync(m => m.Id == id);
+        }
     }
 }
