@@ -33,11 +33,6 @@ namespace MovieHub.API.Controllers
             HallCreateDto hallCreateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var hallId = await _branchHallSeatService.CreateHallWithSeatsAsync(
                 hallCreateDto
             );
@@ -58,10 +53,6 @@ namespace MovieHub.API.Controllers
             HallUpdateDto hallUpdateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             await _hallService.UpdateHallByIdAsync(id, hallUpdateDto);
             return Ok();
         }

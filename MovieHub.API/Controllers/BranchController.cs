@@ -27,11 +27,6 @@ namespace MovieHub.API.Controllers
             [FromBody] BranchCreateDto branchCreateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var createdBranch = await _branchService.CreateBranchAsync(
                 branchCreateDto
             );
@@ -68,11 +63,6 @@ namespace MovieHub.API.Controllers
             [FromBody] BranchUpdateDto branchUpdateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             await _branchService.UpdateBranchByIdAsync(id, branchUpdateDto);
             return Ok();
         }

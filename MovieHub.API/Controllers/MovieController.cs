@@ -30,11 +30,6 @@ namespace MovieHub.API.Controllers
             MovieCreateDto movieCreateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var movieId = await _movieService.CreateMovieAsync(movieCreateDto);
             return Created(String.Empty, movieId);
         }
@@ -95,11 +90,6 @@ namespace MovieHub.API.Controllers
             [FromBody] MovieUpdateDto movieUpdateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             await _movieService.UpdateMovieByIdAsync(id, movieUpdateDto);
             return Ok();
         }
