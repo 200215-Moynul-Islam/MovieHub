@@ -30,7 +30,7 @@ namespace MovieHub.API.Controllers
         // POST api/halls
         [HttpPost]
         public async Task<ActionResult<int>> CreateHallAsync(
-            HallCreateDto hallCreateDto
+            [FromBody] HallCreateDto hallCreateDto
         )
         {
             var hallId = await _branchHallSeatService.CreateHallWithSeatsAsync(
@@ -41,7 +41,9 @@ namespace MovieHub.API.Controllers
 
         //GET: api/halls/{id:int}
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<HallReadDto>> GetHallByIdAsync(int id)
+        public async Task<ActionResult<HallReadDto>> GetHallByIdAsync(
+            [FromRoute] int id
+        )
         {
             return Ok(await _hallService.GetHallByIdAsync(id));
         }
@@ -49,22 +51,22 @@ namespace MovieHub.API.Controllers
         //PATCH: api/halls/{id:int}
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> UpdateHallByIdAsync(
-            int id,
-            HallUpdateDto hallUpdateDto
+            [FromRoute] int id,
+            [FromBody] HallUpdateDto hallUpdateDto
         )
         {
             await _hallService.UpdateHallByIdAsync(id, hallUpdateDto);
             return Ok();
         }
 
-        //GET: api/halls/?branchId=123
+        //GET: api/halls/?branchId={branchId}&offset={offset}&limit={limit}
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<HallReadDto>>
         > GetHallsByBranchIdAsync(
             [FromQuery] int branchId,
-            int offset = DefaultConstants.Offset,
-            int limit = DefaultConstants.Limit
+            [FromQuery] int offset = DefaultConstants.Offset,
+            [FromQuery] int limit = DefaultConstants.Limit
         )
         {
             return Ok(
@@ -78,7 +80,7 @@ namespace MovieHub.API.Controllers
 
         //DELETE: api/halls/{id:int}
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteHallByIdAsync(int id)
+        public async Task<IActionResult> DeleteHallByIdAsync([FromRoute] int id)
         {
             await _hallShowTimeService.DeactivateHallByIdAsync(id);
             return Ok();

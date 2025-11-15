@@ -24,7 +24,7 @@ namespace MovieHub.API.Controllers
         // POST: api/bookings
         [HttpPost]
         public async Task<ActionResult<int>> CreateBookingAsync(
-            BookingCreateDto bookingCreateDto
+            [FromBody] BookingCreateDto bookingCreateDto
         )
         {
             return Ok(
@@ -34,7 +34,7 @@ namespace MovieHub.API.Controllers
             );
         }
 
-        // GET: api/bookings?userId=123
+        // GET: api/bookings?userId={userId}&offset={offset}&limit={limit}
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<BookingReadDto>>

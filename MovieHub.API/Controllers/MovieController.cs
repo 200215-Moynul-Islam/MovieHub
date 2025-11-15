@@ -27,7 +27,7 @@ namespace MovieHub.API.Controllers
         // POST api/movies
         [HttpPost]
         public async Task<ActionResult<int>> CreateMovieAsync(
-            MovieCreateDto movieCreateDto
+            [FromBody] MovieCreateDto movieCreateDto
         )
         {
             var movieId = await _movieService.CreateMovieAsync(movieCreateDto);
@@ -36,17 +36,19 @@ namespace MovieHub.API.Controllers
 
         // GET: api/movies/{id:int}
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<MovieReadDto>> GetMovieByIdAsync(int id)
+        public async Task<ActionResult<MovieReadDto>> GetMovieByIdAsync(
+            [FromRoute] int id
+        )
         {
             return Ok(await _movieService.GetMovieByIdAsync(id));
         }
 
-        // GET: api/movies/{id:int}/upcoming-showtimes?branchId=123
+        // GET: api/movies/{id:int}/upcoming-showtimes?branchId={branchId}
         [HttpGet("{id:int}/upcoming-showtimes")]
         public async Task<
             ActionResult<MovieWithShowTimesReadDto>
         > GetMovieWithUpcomingShowTimesByIdForBranchAsync(
-            int id,
+            [FromRoute] int id,
             [FromQuery] int branchId
         )
         {
@@ -58,7 +60,7 @@ namespace MovieHub.API.Controllers
             );
         }
 
-        // GET: api/movies
+        // GET: api/movies?offset={offset}&limit={limit}
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<MovieReadDto>>
@@ -70,7 +72,7 @@ namespace MovieHub.API.Controllers
             return Ok(await _movieService.GetAllMoviesAsync(offset, limit));
         }
 
-        //GET: api/movies/upcoming?branchId=123
+        //GET: api/movies/upcoming?branchId={branchId}
         [HttpGet("upcoming")]
         public async Task<
             ActionResult<IEnumerable<MovieReadDto>>
@@ -86,7 +88,7 @@ namespace MovieHub.API.Controllers
         // PATCH: api/movies/{id:int}
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> UpdateMovieByIdAsync(
-            int id,
+            [FromRoute] int id,
             [FromBody] MovieUpdateDto movieUpdateDto
         )
         {
@@ -96,7 +98,9 @@ namespace MovieHub.API.Controllers
 
         // DELETE: api/movies/{id:int}
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteMovieByIdAsync(int id)
+        public async Task<IActionResult> DeleteMovieByIdAsync(
+            [FromRoute] int id
+        )
         {
             await _movieShowTimeService.DeactivateMovieByIdAsync(id);
             return Ok();

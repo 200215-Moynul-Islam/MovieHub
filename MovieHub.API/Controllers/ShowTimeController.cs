@@ -23,7 +23,7 @@ namespace MovieHub.API.Controllers
         // POST: api/showtimes
         [HttpPost]
         public async Task<ActionResult<int>> CreateShowTimeAsync(
-            ShowTimeCreateDto showTimeCreateDto
+            [FromBody] ShowTimeCreateDto showTimeCreateDto
         )
         {
             var showTimeId =
@@ -37,7 +37,7 @@ namespace MovieHub.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<
             ActionResult<ShowTimeDetailsReadDto>
-        > GetShowTimeDetailsByIdAsync(int id)
+        > GetShowTimeDetailsByIdAsync([FromRoute] int id)
         {
             return Ok(await _showTimeService.GetShowTimeDetailsByIdAsync(id));
         }
@@ -45,8 +45,8 @@ namespace MovieHub.API.Controllers
         // PATCH: api/showtimes/{id:int}
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> UpdateShowTimeByIdAsync(
-            int id,
-            ShowTimeUpdateDto showTimeUpdateDto
+            [FromRoute] int id,
+            [FromBody] ShowTimeUpdateDto showTimeUpdateDto
         )
         {
             await _movieHallShowTimeService.UpdateShowTimeByIdAsync(
