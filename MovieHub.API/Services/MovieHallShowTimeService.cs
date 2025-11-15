@@ -55,7 +55,7 @@ namespace MovieHub.API.Services
         )
         {
             var showTime = await GetShowTimeByIdOrThrowAsync(showTimeId);
-            await EnsureShowTimeHasNotStartedOrThrowAsync(showTime);
+            EnsureShowTimeHasNotStartedOrThrow(showTime);
 
             // Get the movie duration using the updated MovieId, or use the existing one if MovieId is not provided in the ShowTimeUpdateDto.
             var movieDuration = await GetMovieDurationByMovieIdOrThrowAsync(
@@ -172,9 +172,7 @@ namespace MovieHub.API.Services
             return showTime;
         }
 
-        private async Task EnsureShowTimeHasNotStartedOrThrowAsync(
-            ShowTime showTime
-        )
+        private void EnsureShowTimeHasNotStartedOrThrow(ShowTime showTime)
         {
             if (showTime.StartTime <= DateTime.UtcNow)
             {
