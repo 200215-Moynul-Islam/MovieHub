@@ -25,7 +25,7 @@ namespace MovieHub.API.Services
             _showTimeRepository = showTimeRepository;
         }
 
-        public async Task<int> CreateShowTimeAsync(
+        public async Task<ShowTimeReadDto> CreateShowTimeAsync(
             ShowTimeCreateDto showTimeCreateDto
         )
         {
@@ -46,7 +46,7 @@ namespace MovieHub.API.Services
             var showTime = _mapper.Map<ShowTime>(showTimeCreateDto);
             await _showTimeRepository.CreateAsync(showTime);
             await _showTimeRepository.SaveChangesAsync();
-            return showTime.Id;
+            return _mapper.Map<ShowTimeReadDto>(showTime);
         }
 
         public async Task UpdateShowTimeByIdAsync(

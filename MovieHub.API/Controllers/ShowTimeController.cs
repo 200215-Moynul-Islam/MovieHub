@@ -22,15 +22,16 @@ namespace MovieHub.API.Controllers
 
         // POST: api/showtimes
         [HttpPost]
-        public async Task<ActionResult<int>> CreateShowTimeAsync(
+        public async Task<ActionResult<ShowTimeReadDto>> CreateShowTimeAsync(
             [FromBody] ShowTimeCreateDto showTimeCreateDto
         )
         {
-            var showTimeId =
+            return Created(
+                String.Empty,
                 await _movieHallShowTimeService.CreateShowTimeAsync(
                     showTimeCreateDto
-                );
-            return Ok(showTimeId);
+                )
+            );
         }
 
         // GET: api/showtimes/{id:int}
