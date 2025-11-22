@@ -23,11 +23,12 @@ namespace MovieHub.API.Controllers
 
         // POST: api/bookings
         [HttpPost]
-        public async Task<ActionResult<int>> CreateBookingAsync(
+        public async Task<ActionResult<BookingReadDto>> CreateBookingAsync(
             [FromBody] BookingCreateDto bookingCreateDto
         )
         {
-            return Ok(
+            return Created(
+                String.Empty,
                 await _userShowTimeBookingService.CreateBookingAsync(
                     bookingCreateDto
                 )

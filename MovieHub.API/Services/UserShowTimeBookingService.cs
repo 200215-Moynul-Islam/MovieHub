@@ -22,7 +22,7 @@ namespace MovieHub.API.Services
             _bookingRepository = bookingRepository;
         }
 
-        public async Task<int> CreateBookingAsync(
+        public async Task<BookingReadDto> CreateBookingAsync(
             BookingCreateDto bookingCreateDto
         )
         {
@@ -40,7 +40,7 @@ namespace MovieHub.API.Services
             var booking = _mapper.Map<Booking>(bookingCreateDto);
             await _bookingRepository.CreateAsync(booking);
             await _bookingRepository.SaveChangesAsync();
-            return booking.Id;
+            return _mapper.Map<BookingReadDto>(booking);
         }
 
         #region Private Methods
