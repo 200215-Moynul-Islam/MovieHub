@@ -4,6 +4,6 @@ namespace MovieHub.API.Services
 {
     public interface IBranchHallSeatService
     {
-        Task<int> CreateHallWithSeatsAsync(HallCreateDto hallCreateDto);
+        Task<HallReadDto> CreateHallWithSeatsAsync(HallCreateDto hallCreateDto);
     }
 }

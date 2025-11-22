@@ -29,14 +29,16 @@ namespace MovieHub.API.Controllers
 
         // POST api/halls
         [HttpPost]
-        public async Task<ActionResult<int>> CreateHallAsync(
+        public async Task<ActionResult<HallReadDto>> CreateHallAsync(
             [FromBody] HallCreateDto hallCreateDto
         )
         {
-            var hallId = await _branchHallSeatService.CreateHallWithSeatsAsync(
-                hallCreateDto
+            return Created(
+                String.Empty,
+                await _branchHallSeatService.CreateHallWithSeatsAsync(
+                    hallCreateDto
+                )
             );
-            return Created(String.Empty, hallId);
         }
 
         //GET: api/halls/{id:int}
