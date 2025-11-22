@@ -52,13 +52,14 @@ namespace MovieHub.API.Controllers
 
         //PATCH: api/halls/{id:int}
         [HttpPatch("{id:int}")]
-        public async Task<IActionResult> UpdateHallByIdAsync(
+        public async Task<ActionResult<HallReadDto>> UpdateHallByIdAsync(
             [FromRoute] int id,
             [FromBody] HallUpdateDto hallUpdateDto
         )
         {
-            await _hallService.UpdateHallByIdAsync(id, hallUpdateDto);
-            return Ok();
+            return Ok(
+                await _hallService.UpdateHallByIdAsync(id, hallUpdateDto)
+            );
         }
 
         //GET: api/halls/?branchId={branchId}&offset={offset}&limit={limit}

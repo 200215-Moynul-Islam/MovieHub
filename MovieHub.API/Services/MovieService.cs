@@ -43,7 +43,7 @@ namespace MovieHub.API.Services
             );
         }
 
-        public async Task UpdateMovieByIdAsync(
+        public async Task<MovieReadDto> UpdateMovieByIdAsync(
             int id,
             MovieUpdateDto movieUpdateDto
         )
@@ -58,7 +58,7 @@ namespace MovieHub.API.Services
             var movie = await GetMovieByIdOrThrowAsync(id);
             _mapper.Map(movieUpdateDto, movie);
             await _movieRepository.SaveChangesAsync();
-            return;
+            return _mapper.Map<MovieReadDto>(movie);
         }
 
         #region Private Methods

@@ -7,7 +7,7 @@ namespace MovieHub.API.Services
         Task<ShowTimeReadDto> CreateShowTimeAsync(
             ShowTimeCreateDto showTimeCreateDto
         );
-        Task UpdateShowTimeByIdAsync(
+        Task<ShowTimeReadDto> UpdateShowTimeByIdAsync(
             int id,
             ShowTimeUpdateDto showTimeUpdateDto
         );

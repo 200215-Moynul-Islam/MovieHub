@@ -60,13 +60,14 @@ namespace MovieHub.API.Controllers
 
         // PATCH: api/branches/{id:int}
         [HttpPatch("{id:int}")]
-        public async Task<IActionResult> UpdateBranchByIdAsync(
+        public async Task<ActionResult<BranchReadDto>> UpdateBranchByIdAsync(
             [FromRoute] int id,
             [FromBody] BranchUpdateDto branchUpdateDto
         )
         {
-            await _branchService.UpdateBranchByIdAsync(id, branchUpdateDto);
-            return Ok();
+            return Ok(
+                await _branchService.UpdateBranchByIdAsync(id, branchUpdateDto)
+            );
         }
 
         // GET: api/branches?offset={offset}&limit={limit}
@@ -83,9 +84,9 @@ namespace MovieHub.API.Controllers
 
         // PATCH: api/branches/{id:int}/reset-manager
         [HttpPatch("{id:int}/reset-manager")]
-        public async Task<IActionResult> ResetBranchManagerByIdAsync(
-            [FromRoute] int id
-        )
+        public async Task<
+            ActionResult<ShowTimeReadDto>
+        > ResetBranchManagerByIdAsync([FromRoute] int id)
         {
             await _branchService.ResetBranchManagerByIdAsync(id);
             return Ok();

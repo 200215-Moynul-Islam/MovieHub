@@ -89,13 +89,14 @@ namespace MovieHub.API.Controllers
 
         // PATCH: api/movies/{id:int}
         [HttpPatch("{id:int}")]
-        public async Task<IActionResult> UpdateMovieByIdAsync(
+        public async Task<ActionResult<MovieReadDto>> UpdateMovieByIdAsync(
             [FromRoute] int id,
             [FromBody] MovieUpdateDto movieUpdateDto
         )
         {
-            await _movieService.UpdateMovieByIdAsync(id, movieUpdateDto);
-            return Ok();
+            return Ok(
+                await _movieService.UpdateMovieByIdAsync(id, movieUpdateDto)
+            );
         }
 
         // DELETE: api/movies/{id:int}

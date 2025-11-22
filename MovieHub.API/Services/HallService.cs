@@ -21,7 +21,7 @@ namespace MovieHub.API.Services
             return _mapper.Map<HallReadDto>(await GetHallByIdOrThrowAsync(id));
         }
 
-        public async Task UpdateHallByIdAsync(
+        public async Task<HallReadDto> UpdateHallByIdAsync(
             int id,
             HallUpdateDto hallUpdateDto
         )
@@ -29,7 +29,7 @@ namespace MovieHub.API.Services
             var hall = await GetHallByIdOrThrowAsync(id);
             _mapper.Map(hallUpdateDto, hall);
             await _hallRepository.SaveChangesAsync();
-            return;
+            return _mapper.Map<HallReadDto>(hall);
         }
 
         #region Private Methods

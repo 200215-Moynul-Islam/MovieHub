@@ -49,7 +49,7 @@ namespace MovieHub.API.Services
             return _mapper.Map<ShowTimeReadDto>(showTime);
         }
 
-        public async Task UpdateShowTimeByIdAsync(
+        public async Task<ShowTimeReadDto> UpdateShowTimeByIdAsync(
             int showTimeId,
             ShowTimeUpdateDto showTimeUpdateDto
         )
@@ -91,7 +91,7 @@ namespace MovieHub.API.Services
 
             _mapper.Map(showTimeUpdateDto, showTime);
             await _showTimeRepository.SaveChangesAsync();
-            return;
+            return _mapper.Map<ShowTimeReadDto>(showTime);
         }
 
         #region Private Methods

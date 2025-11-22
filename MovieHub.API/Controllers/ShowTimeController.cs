@@ -45,16 +45,19 @@ namespace MovieHub.API.Controllers
 
         // PATCH: api/showtimes/{id:int}
         [HttpPatch("{id:int}")]
-        public async Task<IActionResult> UpdateShowTimeByIdAsync(
+        public async Task<
+            ActionResult<ShowTimeReadDto>
+        > UpdateShowTimeByIdAsync(
             [FromRoute] int id,
             [FromBody] ShowTimeUpdateDto showTimeUpdateDto
         )
         {
-            await _movieHallShowTimeService.UpdateShowTimeByIdAsync(
-                id,
-                showTimeUpdateDto
+            return Ok(
+                await _movieHallShowTimeService.UpdateShowTimeByIdAsync(
+                    id,
+                    showTimeUpdateDto
+                )
             );
-            return Ok();
         }
     }
 }
