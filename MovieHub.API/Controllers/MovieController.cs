@@ -26,12 +26,14 @@ namespace MovieHub.API.Controllers
 
         // POST api/movies
         [HttpPost]
-        public async Task<ActionResult<int>> CreateMovieAsync(
+        public async Task<ActionResult<MovieReadDto>> CreateMovieAsync(
             [FromBody] MovieCreateDto movieCreateDto
         )
         {
-            var movieId = await _movieService.CreateMovieAsync(movieCreateDto);
-            return Created(String.Empty, movieId);
+            return Created(
+                String.Empty,
+                await _movieService.CreateMovieAsync(movieCreateDto)
+            );
         }
 
         // GET: api/movies/{id:int}
