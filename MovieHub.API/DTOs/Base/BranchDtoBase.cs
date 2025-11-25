@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using MovieHub.API.Constants;
 
 namespace MovieHub.API.DTOs.Base
 {
     public abstract class BranchDtoBase : NamedDtoBase
     {
-        private string _location = String.Empty;
+        private string? _location;
 
         [Required(ErrorMessage = ErrorMessages.Branch.LocationRequired)]
         [MaxLength(
@@ -16,10 +17,16 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.Branch.LocationRegex,
             ErrorMessage = ErrorMessages.Branch.InvalidLocationFormat
         )]
-        public string Location
+        public string? Location
         {
             get => _location;
-            set => _location = value?.Trim() ?? String.Empty;
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _location = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
     }
 }

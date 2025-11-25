@@ -4,6 +4,8 @@ namespace MovieHub.API.Services
 {
     public interface IUserShowTimeBookingService
     {
-        Task<int> CreateBookingAsync(BookingCreateDto bookingCreateDto);
+        Task<BookingReadDto> CreateBookingAsync(
+            BookingCreateDto bookingCreateDto
+        );
     }
 }

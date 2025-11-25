@@ -7,12 +7,12 @@ namespace MovieHub.API.Models
     public class Booking : EntityBase
     {
         [Required]
-        public DateTime BookingTime { get; set; } = DateTime.UtcNow;
+        public DateTime? BookingTime { get; set; } = DateTime.UtcNow;
 
         public Guid? UserId { get; set; } // Foreign Key to User
 
         [Required]
-        public int ShowTimeId { get; set; } // Foreign Key to ShowTime
+        public int? ShowTimeId { get; set; } // Foreign Key to ShowTime
 
         // Navigation Properties
         // [ForeignKey("UserId")]

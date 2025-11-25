@@ -20,7 +20,7 @@ namespace MovieHub.API.Services
             BranchCreateDto branchCreateDto
         )
         {
-            await EnsureBranchNameIsUniqueOrThrowAsync(branchCreateDto.Name);
+            await EnsureBranchNameIsUniqueOrThrowAsync(branchCreateDto.Name!);
             await EnsureManagerExistsAndAvailableByIdOrThrowAsync(
                 branchCreateDto.ManagerId
             );
@@ -37,7 +37,7 @@ namespace MovieHub.API.Services
             return _mapper.Map<BranchReadDto>(branch);
         }
 
-        public async Task UpdateBranchByIdAsync(
+        public async Task<BranchReadDto> UpdateBranchByIdAsync(
             int id,
             BranchUpdateDto branchUpdateDto
         )
@@ -60,7 +60,7 @@ namespace MovieHub.API.Services
             _mapper.Map(branchUpdateDto, branch);
 
             await _branchRepository.SaveChangesAsync();
-            return;
+            return _mapper.Map<BranchReadDto>(branch);
         }
 
         public async Task<IEnumerable<BranchReadDto>> GetAllBranchesAsync(

@@ -29,51 +29,47 @@ namespace MovieHub.API.Controllers
 
         // POST api/halls
         [HttpPost]
-        public async Task<ActionResult<int>> CreateHallAsync(
-            HallCreateDto hallCreateDto
+        public async Task<ActionResult<HallReadDto>> CreateHallAsync(
+            [FromBody] HallCreateDto hallCreateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var hallId = await _branchHallSeatService.CreateHallWithSeatsAsync(
-                hallCreateDto
+            return Created(
+                String.Empty,
+                await _branchHallSeatService.CreateHallWithSeatsAsync(
+                    hallCreateDto
+                )
             );
-            return Created(String.Empty, hallId);
         }
 
         //GET: api/halls/{id:int}
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<HallReadDto>> GetHallByIdAsync(int id)
+        public async Task<ActionResult<HallReadDto>> GetHallByIdAsync(
+            [FromRoute] int id
+        )
         {
             return Ok(await _hallService.GetHallByIdAsync(id));
         }
 
         //PATCH: api/halls/{id:int}
         [HttpPatch("{id:int}")]
-        public async Task<IActionResult> UpdateHallByIdAsync(
-            int id,
-            HallUpdateDto hallUpdateDto
+        public async Task<ActionResult<HallReadDto>> UpdateHallByIdAsync(
+            [FromRoute] int id,
+            [FromBody] HallUpdateDto hallUpdateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await _hallService.UpdateHallByIdAsync(id, hallUpdateDto);
-            return Ok();
+            return Ok(
+                await _hallService.UpdateHallByIdAsync(id, hallUpdateDto)
+            );
         }
 
-        //GET: api/halls/?branchId=123
+        //GET: api/halls/?branchId={branchId}&offset={offset}&limit={limit}
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<HallReadDto>>
         > GetHallsByBranchIdAsync(
             [FromQuery] int branchId,
-            int offset = DefaultConstants.Offset,
-            int limit = DefaultConstants.Limit
+            [FromQuery] int offset = DefaultConstants.Offset,
+            [FromQuery] int limit = DefaultConstants.Limit
         )
         {
             return Ok(
@@ -87,7 +83,7 @@ namespace MovieHub.API.Controllers
 
         //DELETE: api/halls/{id:int}
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteHallByIdAsync(int id)
+        public async Task<IActionResult> DeleteHallByIdAsync([FromRoute] int id)
         {
             await _hallShowTimeService.DeactivateHallByIdAsync(id);
             return Ok();

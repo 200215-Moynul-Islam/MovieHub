@@ -10,16 +10,16 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.Hall.MinRows,
             ValidationConstants.Hall.MaxRows
         )]
-        public int TotalRows { get; set; }
+        public int? TotalRows { get; set; }
 
         [Required]
         [Range(
             ValidationConstants.Hall.MinColumns,
             ValidationConstants.Hall.MaxColumns
         )]
-        public int TotalColumns { get; set; }
+        public int? TotalColumns { get; set; }
 
         [Required]
-        public int BranchId { get; set; }
+        public int? BranchId { get; set; }
     }
 }

@@ -12,17 +12,17 @@ namespace MovieHub.API.Models
             ValidationConstants.Hall.MinRows,
             ValidationConstants.Hall.MaxRows
         )]
-        public int TotalRows { get; set; }
+        public int? TotalRows { get; set; }
 
         [Required]
         [Range(
             ValidationConstants.Hall.MinColumns,
             ValidationConstants.Hall.MaxColumns
         )]
-        public int TotalColumns { get; set; }
+        public int? TotalColumns { get; set; }
 
         [Required]
-        public int BranchId { get; set; } // Foreign Key to Branch
+        public int? BranchId { get; set; } // Foreign Key to Branch
 
         // Navigation Properties
         [ForeignKey("BranchId")]

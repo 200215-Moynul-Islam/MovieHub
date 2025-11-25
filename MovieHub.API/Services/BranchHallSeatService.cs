@@ -10,36 +10,35 @@ namespace MovieHub.API.Services
         private readonly IMapper _mapper;
         private readonly IBranchRepository _branchRepository;
         private readonly IHallRepository _hallRepository;
-        private readonly ISeatRepository _seatRepository;
 
         public BranchHallSeatService(
             IMapper mapper,
             IBranchRepository branchRepository,
-            IHallRepository hallRepository,
-            ISeatRepository seatRepository
+            IHallRepository hallRepository
         )
         {
             _mapper = mapper;
             _branchRepository = branchRepository;
             _hallRepository = hallRepository;
-            _seatRepository = seatRepository;
         }
 
-        public async Task<int> CreateHallWithSeatsAsync(
+        public async Task<HallReadDto> CreateHallWithSeatsAsync(
             HallCreateDto hallCreateDto
         )
         {
-            await EnsureBranchExistsByIdOrThrowAsync(hallCreateDto.BranchId);
+            await EnsureBranchExistsByIdOrThrowAsync(
+                hallCreateDto.BranchId!.Value
+            );
             await EnsureHallNameIsUniqueForBranchOrThrowAsync(
-                hallCreateDto.Name,
-                hallCreateDto.BranchId
+                hallCreateDto.Name!,
+                hallCreateDto.BranchId!.Value
             );
 
             // Prepare the hall.
             var hall = _mapper.Map<Hall>(hallCreateDto);
 
-            // Prepare all the seats.
-            var seats = new List<Seat>();
+            // Prepare all the seats inside the hall.
+            hall.Seats = new List<Seat>();
             for (
                 int rowNumber = 1;
                 rowNumber <= hallCreateDto.TotalRows;
@@ -52,7 +51,7 @@ namespace MovieHub.API.Services
                     colNumber++
                 )
                 {
-                    seats.Add(
+                    hall.Seats.Add(
                         new Seat()
                         {
                             Hall = hall,
@@ -63,13 +62,9 @@ namespace MovieHub.API.Services
                 }
             }
 
-            await _hallRepository.ExecuteInTransactionAsync(async () =>
-            {
-                await _hallRepository.CreateAsync(hall);
-                await _seatRepository.CreateAsync(seats);
-                await _seatRepository.SaveChangesAsync();
-            });
-            return hall.Id;
+            await _hallRepository.CreateAsync(hall);
+            await _hallRepository.SaveChangesAsync();
+            return _mapper.Map<HallReadDto>(hall);
         }
 
         #region Private Methods

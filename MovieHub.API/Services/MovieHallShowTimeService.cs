@@ -25,7 +25,7 @@ namespace MovieHub.API.Services
             _showTimeRepository = showTimeRepository;
         }
 
-        public async Task<int> CreateShowTimeAsync(
+        public async Task<ShowTimeReadDto> CreateShowTimeAsync(
             ShowTimeCreateDto showTimeCreateDto
         )
         {
@@ -46,16 +46,16 @@ namespace MovieHub.API.Services
             var showTime = _mapper.Map<ShowTime>(showTimeCreateDto);
             await _showTimeRepository.CreateAsync(showTime);
             await _showTimeRepository.SaveChangesAsync();
-            return showTime.Id;
+            return _mapper.Map<ShowTimeReadDto>(showTime);
         }
 
-        public async Task UpdateShowTimeByIdAsync(
+        public async Task<ShowTimeReadDto> UpdateShowTimeByIdAsync(
             int showTimeId,
             ShowTimeUpdateDto showTimeUpdateDto
         )
         {
             var showTime = await GetShowTimeByIdOrThrowAsync(showTimeId);
-            await EnsureShowTimeHasNotStartedOrThrowAsync(showTime);
+            EnsureShowTimeHasNotStartedOrThrow(showTime);
 
             // Get the movie duration using the updated MovieId, or use the existing one if MovieId is not provided in the ShowTimeUpdateDto.
             var movieDuration = await GetMovieDurationByMovieIdOrThrowAsync(
@@ -91,7 +91,7 @@ namespace MovieHub.API.Services
 
             _mapper.Map(showTimeUpdateDto, showTime);
             await _showTimeRepository.SaveChangesAsync();
-            return;
+            return _mapper.Map<ShowTimeReadDto>(showTime);
         }
 
         #region Private Methods
@@ -172,9 +172,7 @@ namespace MovieHub.API.Services
             return showTime;
         }
 
-        private async Task EnsureShowTimeHasNotStartedOrThrowAsync(
-            ShowTime showTime
-        )
+        private void EnsureShowTimeHasNotStartedOrThrow(ShowTime showTime)
         {
             if (showTime.StartTime <= DateTime.UtcNow)
             {

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs.Base;
 
@@ -19,7 +20,13 @@ namespace MovieHub.API.DTOs
         public string? Location
         {
             get => _location;
-            set => _location = value?.Trim();
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _location = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
 
         public Guid? ManagerId { get; set; }

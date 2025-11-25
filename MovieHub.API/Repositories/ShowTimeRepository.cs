@@ -41,7 +41,7 @@ namespace MovieHub.API.Repositories
                     !(
                         st.StartTime >= endTime
                         || st.StartTime!.Value.AddMinutes(
-                            st.Movie.Duration + st.BufferMinutes!.Value
+                            st.Movie.Duration!.Value + st.BufferMinutes!.Value
                         ) <= startTime
                     )
                 );
@@ -61,7 +61,7 @@ namespace MovieHub.API.Repositories
                     !(
                         st.StartTime >= endTime
                         || st.StartTime!.Value.AddMinutes(
-                            st.Movie.Duration + st.BufferMinutes!.Value
+                            st.Movie.Duration!.Value + st.BufferMinutes!.Value
                         ) <= startTime
                     )
                 );

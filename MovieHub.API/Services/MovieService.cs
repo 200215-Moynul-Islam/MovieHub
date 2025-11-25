@@ -16,13 +16,15 @@ namespace MovieHub.API.Services
             _movieRepository = movieRepository;
         }
 
-        public async Task<int> CreateMovieAsync(MovieCreateDto movieCreateDto)
+        public async Task<MovieReadDto> CreateMovieAsync(
+            MovieCreateDto movieCreateDto
+        )
         {
-            await EnsureMovieTitleIsUniqueOrThrowAsync(movieCreateDto.Title);
+            await EnsureMovieTitleIsUniqueOrThrowAsync(movieCreateDto.Title!);
             var movie = _mapper.Map<Movie>(movieCreateDto);
             await _movieRepository.CreateAsync(movie);
             await _movieRepository.SaveChangesAsync();
-            return movie.Id;
+            return _mapper.Map<MovieReadDto>(movie);
         }
 
         public async Task<MovieReadDto> GetMovieByIdAsync(int id)
@@ -41,7 +43,7 @@ namespace MovieHub.API.Services
             );
         }
 
-        public async Task UpdateMovieByIdAsync(
+        public async Task<MovieReadDto> UpdateMovieByIdAsync(
             int id,
             MovieUpdateDto movieUpdateDto
         )
@@ -56,7 +58,7 @@ namespace MovieHub.API.Services
             var movie = await GetMovieByIdOrThrowAsync(id);
             _mapper.Map(movieUpdateDto, movie);
             await _movieRepository.SaveChangesAsync();
-            return;
+            return _mapper.Map<MovieReadDto>(movie);
         }
 
         #region Private Methods

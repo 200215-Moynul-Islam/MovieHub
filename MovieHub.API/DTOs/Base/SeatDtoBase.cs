@@ -10,9 +10,9 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.Seat.MaxSeatNumberLength,
             MinimumLength = ValidationConstants.Seat.MinSeatNumberLength
         )]
-        public string SeatNumber { get; set; } = string.Empty;
+        public string? SeatNumber { get; set; }
 
         [Required]
-        public int HallId { get; set; }
+        public int? HallId { get; set; }
     }
 }

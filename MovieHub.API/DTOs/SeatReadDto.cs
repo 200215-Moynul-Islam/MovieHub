@@ -6,6 +6,6 @@ namespace MovieHub.API.DTOs
     public class SeatReadDto : SeatDtoBase
     {
         [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
     }
 }

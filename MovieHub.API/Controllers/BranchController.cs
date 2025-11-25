@@ -27,11 +27,6 @@ namespace MovieHub.API.Controllers
             [FromBody] BranchCreateDto branchCreateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var createdBranch = await _branchService.CreateBranchAsync(
                 branchCreateDto
             );
@@ -45,7 +40,7 @@ namespace MovieHub.API.Controllers
         // GET: api/branches/{id:int}
         [HttpGet("{id:int}", Name = "GetBranchById")]
         public async Task<ActionResult<BranchReadDto>> GetBranchByIdAsync(
-            int id
+            [FromRoute] int id
         )
         {
             return Ok(await _branchService.GetBranchByIdAsync(id));
@@ -53,7 +48,9 @@ namespace MovieHub.API.Controllers
 
         // DELETE: api/branches/{id:int}
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteBranchByIdAsync(int id)
+        public async Task<IActionResult> DeleteBranchByIdAsync(
+            [FromRoute] int id
+        )
         {
             await _branchHallService.DeactivateBranchWithHallsByBranchIdAsync(
                 id
@@ -63,57 +60,36 @@ namespace MovieHub.API.Controllers
 
         // PATCH: api/branches/{id:int}
         [HttpPatch("{id:int}")]
-        public async Task<IActionResult> UpdateBranchByIdAsync(
-            int id,
+        public async Task<ActionResult<BranchReadDto>> UpdateBranchByIdAsync(
+            [FromRoute] int id,
             [FromBody] BranchUpdateDto branchUpdateDto
         )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            await _branchService.UpdateBranchByIdAsync(id, branchUpdateDto);
-            return Ok();
+            return Ok(
+                await _branchService.UpdateBranchByIdAsync(id, branchUpdateDto)
+            );
         }
 
-        // GET: api/branches
+        // GET: api/branches?offset={offset}&limit={limit}
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<BranchReadDto>>
         > GetAllBranchesAsync(
-            int offset = DefaultConstants.Offset,
-            int limit = DefaultConstants.Limit
+            [FromQuery] int offset = DefaultConstants.Offset,
+            [FromQuery] int limit = DefaultConstants.Limit
         )
         {
             return Ok(await _branchService.GetAllBranchesAsync(offset, limit));
         }
 
-        // PATCH: api/branches/{id:int}
+        // PATCH: api/branches/{id:int}/reset-manager
         [HttpPatch("{id:int}/reset-manager")]
-        public async Task<IActionResult> ResetBranchManagerByIdAsync(int id)
+        public async Task<
+            ActionResult<ShowTimeReadDto>
+        > ResetBranchManagerByIdAsync([FromRoute] int id)
         {
             await _branchService.ResetBranchManagerByIdAsync(id);
             return Ok();
-        }
-
-        //GET: api/branches/{id:int}/halls
-        [HttpGet("{id:int}/halls")]
-        public async Task<
-            ActionResult<IEnumerable<HallReadDto>>
-        > GetHallsByBranchIdAsync(
-            int id,
-            int offset = DefaultConstants.Offset,
-            int limit = DefaultConstants.Limit
-        )
-        {
-            return Ok(
-                await _branchHallService.GetHallsByBranchIdAsync(
-                    id,
-                    offset,
-                    limit
-                )
-            );
         }
     }
 }

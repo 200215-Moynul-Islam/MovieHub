@@ -6,7 +6,7 @@ namespace MovieHub.API.DTOs.Base
 {
     public abstract class MovieDtoBase
     {
-        private string _title = String.Empty;
+        private string? _title;
 
         [Required(ErrorMessage = ErrorMessages.Movie.TitleRequired)]
         [MaxLength(
@@ -17,13 +17,19 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.Movie.MovieTitleRegex,
             ErrorMessage = ErrorMessages.Movie.InvalidTitleFormat
         )]
-        public string Title
+        public string? Title
         {
             get => _title;
-            set => _title = Regex.Replace(value.Trim(), @"\s+", " ");
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _title = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
 
-        private string _genre = String.Empty;
+        private string? _genre;
 
         [Required(ErrorMessage = ErrorMessages.Movie.GenreRequired)]
         [MaxLength(
@@ -34,10 +40,16 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.Movie.GenreRegex,
             ErrorMessage = ErrorMessages.Movie.InvalidGenreFormat
         )]
-        public string Genre
+        public string? Genre
         {
             get => _genre;
-            set => _genre = Regex.Replace(value.Trim(), @"\s+", " ");
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _genre = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
 
         [Required(ErrorMessage = ErrorMessages.Movie.DurationRequired)]
@@ -46,9 +58,9 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.Movie.MaxDuration,
             ErrorMessage = ErrorMessages.Movie.DurationOutOfRange
         )] // Duration in minutes
-        public int Duration { get; set; }
+        public int? Duration { get; set; }
 
-        private string _director = String.Empty;
+        private string? _director;
 
         [Required(ErrorMessage = ErrorMessages.PersonNameRequired)]
         [MaxLength(
@@ -59,14 +71,21 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.PersonNameRegex,
             ErrorMessage = ErrorMessages.InvalidPersonNameFormat
         )]
-        public string Director
+        public string? Director
         {
             get => _director;
-            set => _director = Regex.Replace(value.Trim(), @"\s+", " ");
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _director = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
 
-        private string _description = String.Empty;
+        private string? _description;
 
+        [Required]
         [MinLength(
             ValidationConstants.Movie.MinDescriptionLength,
             ErrorMessage = ErrorMessages.Movie.DescriptionMinLengthRequired
@@ -75,13 +94,19 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.Movie.MaxDescriptionLength,
             ErrorMessage = ErrorMessages.Movie.DescriptionMaxLengthExceeded
         )]
-        public string Description
+        public string? Description
         {
             get => _description;
-            set => _description = Regex.Replace(value.Trim(), @"\s+", " ");
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _description = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
 
-        private string _posterUrl = String.Empty;
+        private string? _posterUrl;
 
         [Required(ErrorMessage = ErrorMessages.Movie.PosterUrlRequired)]
         [MaxLength(
@@ -89,13 +114,17 @@ namespace MovieHub.API.DTOs.Base
             ErrorMessage = ErrorMessages.Movie.PosterUrlMaxLengthExceeded
         )]
         [Url(ErrorMessage = ErrorMessages.Movie.InvalidPosterUrlFormat)]
-        public string PosterUrl
+        public string? PosterUrl
         {
             get => _posterUrl;
-            set => _posterUrl = value.Trim();
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _posterUrl = value is not null ? value.Trim() : value;
+            }
         }
 
-        private string _actors = String.Empty;
+        private string? _actors;
 
         [Required(ErrorMessage = ErrorMessages.Movie.ActorsRequired)]
         [MaxLength(
@@ -106,10 +135,16 @@ namespace MovieHub.API.DTOs.Base
             ValidationConstants.Movie.ActorsRegex,
             ErrorMessage = ErrorMessages.Movie.InvalidActorsFormat
         )]
-        public string Actors
+        public string? Actors
         {
             get => _actors;
-            set => _actors = Regex.Replace(value.Trim(), @"\s+", " ");
+            set
+            {
+                value = string.IsNullOrWhiteSpace(value) ? null : value;
+                _actors = value is not null
+                    ? Regex.Replace(value.Trim(), @"\s+", " ")
+                    : value;
+            }
         }
     }
 }
