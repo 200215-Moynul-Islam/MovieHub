@@ -78,6 +78,11 @@ namespace MovieHub.API.Mappings
             #region BookingSeat Mappings
             CreateMap<BookingSeat, BookingSeatReadDto>();
             #endregion
+
+            #region User Mappings
+            CreateMap<UserCreateDto, User>();
+            CreateMap<User, UserReadDto>();
+            #endregion
         }
     }
 }

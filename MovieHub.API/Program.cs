@@ -23,6 +23,7 @@ builder.Services.AddDbContext<MovieHubDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Register all the service class
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
 builder.Services.AddScoped<IHallService, HallService>();
 builder.Services.AddScoped<IShowTimeService, ShowTimeService>();
@@ -43,6 +44,7 @@ builder.Services.AddScoped<
 >();
 
 //Register all the repository class
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IHallRepository, HallRepositoriy>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();

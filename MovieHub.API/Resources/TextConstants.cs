@@ -74,6 +74,27 @@
             "Each booking must have at least one seat.";
         #endregion
 
+        #region User
+        public const string User_EmailRequired_ErrorMessage =
+            "Email is required.";
+        public const string User_EmailMaxLengthExceeded_ErrorMessage =
+            "Email address can not exceed 254 characters.";
+        public const string User_InvalidEmailFormat_ErrorMessage =
+            "Invalid Email address.";
+        public const string User_UsernameRequired_ErrorMessage =
+            "Username is required.";
+        public const string User_UsernameLengthOutOfRange_ErrorMessage =
+            "Username must be between 3 and 20 characters long.";
+        public const string User_InvalidUsernameFormat_ErrorMessage =
+            "Use letters, digits, dot and underscore. Username must start and end with a letter or digit.";
+        public const string User_PasswordRequired_ErrorMessage =
+            "Password is required.";
+        public const string User_PasswordLengthOutOfRange_ErrorMessage =
+            "Password must be at between 8 and 64 characters long.";
+        public const string User_InvalidPasswordFormat_ErrorMessage =
+            "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.";
+        #endregion
+
         #region CustomAttributes
         public const string CustomAttributes_FutureDate_DefaultErrorMessage =
             "{0} must be a future date/time.";
