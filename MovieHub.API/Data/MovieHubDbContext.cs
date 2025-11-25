@@ -16,7 +16,9 @@ namespace MovieHub.API.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<ShowTime> ShowTimes { get; set; }
-        // public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,11 +35,12 @@ namespace MovieHub.API.Data
                 .OnDelete(DeleteBehavior.Cascade); // Delete all associated Bookings when a ShowTime is deleted
 
             // Configure relationships for Booking with User
-            //modelBuilder.Entity<Booking>()
-            //    .HasOne(b => b.User)
-            //    .WithMany(u => u.Bookings)
-            //    .HasForeignKey(b => b.UserId)
-            //    .OnDelete(DeleteBehavior.SetNull); // Prevent deletion of User if it has associated Bookings
+            modelBuilder
+                .Entity<Booking>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.Bookings)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent deletion of User if it has associated Bookings
             #endregion
 
             #region BookingSeat
@@ -79,6 +82,13 @@ namespace MovieHub.API.Data
                 .WithMany(h => h.ShowTimes)
                 .HasForeignKey(st => st.HallId)
                 .OnDelete(DeleteBehavior.Restrict); // Prevent deletion of Hall if it has associated ShowTimes
+            #endregion
+
+            #region UserRole
+            // Configure composite primary key for UserRole
+            modelBuilder
+                .Entity<UserRole>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
             #endregion
         }
     }

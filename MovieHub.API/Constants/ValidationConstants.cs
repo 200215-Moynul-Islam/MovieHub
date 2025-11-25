@@ -55,5 +55,11 @@
         {
             public const int MinSeats = 1;
         }
+
+        public static class User
+        {
+            public const int MinUsernameLength = 3;
+            public const int MaxUsernameLength = 20;
+        }
     }
 }
