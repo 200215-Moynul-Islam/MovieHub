@@ -58,8 +58,15 @@
 
         public static class User
         {
+            public const int MaxEmailLength = 254;
             public const int MinUsernameLength = 3;
             public const int MaxUsernameLength = 20;
+            public const string UsernameRegex =
+                @"^[a-zA-Z0-9][a-zA-Z0-9._]*[a-zA-Z0-9]$";
+            public const int PasswordMinLength = 8;
+            public const int PasswordMaxLength = 64;
+            public const string PasswordRegex =
+                @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).+$";
         }
     }
 }

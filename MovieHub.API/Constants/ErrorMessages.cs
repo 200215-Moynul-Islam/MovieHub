@@ -81,6 +81,28 @@ namespace MovieHub.API.Constants
                 TextConstants.Booking_MinSeatsRequired_ErrorMessage;
         }
 
+        public static class User
+        {
+            public const string EmailRequired =
+                TextConstants.User_EmailRequired_ErrorMessage;
+            public const string EmailMaxLengthExceeded =
+                TextConstants.User_EmailMaxLengthExceeded_ErrorMessage;
+            public const string InvalidEmailFormat =
+                TextConstants.User_InvalidEmailFormat_ErrorMessage;
+            public const string UsernameRequired =
+                TextConstants.User_UsernameRequired_ErrorMessage;
+            public const string UsernameLengthOutOfRange =
+                TextConstants.User_UsernameLengthOutOfRange_ErrorMessage;
+            public const string InvalidUsernameFormat =
+                TextConstants.User_InvalidUsernameFormat_ErrorMessage;
+            public const string PasswordRequired =
+                TextConstants.User_PasswordRequired_ErrorMessage;
+            public const string PasswordLengthOutOfRange =
+                TextConstants.User_PasswordLengthOutOfRange_ErrorMessage;
+            public const string InvalidPasswordFormat =
+                TextConstants.User_InvalidPasswordFormat_ErrorMessage;
+        }
+
         public static class CustomAttributes
         {
             public const string FutureDate_Default =
