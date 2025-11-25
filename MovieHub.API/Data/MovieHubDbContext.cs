@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovieHub.API.Constants;
 using MovieHub.API.Models;
 
 namespace MovieHub.API.Data
@@ -82,6 +83,29 @@ namespace MovieHub.API.Data
                 .WithMany(h => h.ShowTimes)
                 .HasForeignKey(st => st.HallId)
                 .OnDelete(DeleteBehavior.Restrict); // Prevent deletion of Hall if it has associated ShowTimes
+            #endregion
+
+            #region Role
+            // Seeding the roles.
+            modelBuilder
+                .Entity<Role>()
+                .HasData(
+                    new Role
+                    {
+                        Id = DefaultConstants.Role.AdminRoleId,
+                        Name = DefaultConstants.Role.AdminRoleName,
+                    },
+                    new Role
+                    {
+                        Id = DefaultConstants.Role.MangerRoleId,
+                        Name = DefaultConstants.Role.MangerRoleName,
+                    },
+                    new Role
+                    {
+                        Id = DefaultConstants.Role.UserRoleId,
+                        Name = DefaultConstants.Role.UserRoleName,
+                    }
+                );
             #endregion
 
             #region UserRole
