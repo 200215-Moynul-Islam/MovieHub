@@ -14,6 +14,8 @@
             "Name cannot exceed 100 characters.";
         public const string InvalidPersonNameFormat_ErrorMessage =
             "Name must start with a letter and can include letters, spaces, apostrophes, hyphens, or periods.";
+        public const string EmailOrUsernameMaxLengthExceeded_ErrorMessage =
+            "Email/Username can not exceed 254 characters.";
 
         #region Branch
         public const string Branch_LocationRequired_ErrorMessage =
