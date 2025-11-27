@@ -100,6 +100,8 @@
             "{0} must be a future date/time.";
         public const string CustomAttributes_FutureDate_InvalidProperty_ErrorMessage =
             "{0} must be a DateTime property.";
+        public const string CustomAttributes_EmailOrUsername_DefaultErrorMessage =
+            "{0} field is not a valid Email or username.";
         #endregion
     }
 }
