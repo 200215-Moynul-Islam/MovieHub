@@ -1,9 +1,13 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MovieHub.API.Data;
 using MovieHub.API.Mappings;
 using MovieHub.API.Middleware;
 using MovieHub.API.Repositories;
 using MovieHub.API.Services;
+using MovieHub.API.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +22,37 @@ builder.Services.AddDbContext<MovieHubDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
+
+// Register Authentication
+builder
+    .Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        var config = builder.Configuration;
+        var key =
+            config["JwtSettings:Key"]
+            ?? throw new InvalidOperationException(
+                "Jwt Key is missing in configuration!"
+            );
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(key)
+            ),
+        };
+    });
+
+// Register Authorization
+builder.Services.AddAuthorization();
 
 // Register AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -43,13 +78,16 @@ builder.Services.AddScoped<
     UserShowTimeBookingService
 >();
 
-//Register all the repository class
+// Register all the repository class
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IHallRepository, HallRepositoriy>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IShowTimeRepository, ShowTimeRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+
+// Register all the utility class
+builder.Services.AddScoped<IJwtHelper, JwtHelper>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -69,6 +107,9 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 #endregion
 
 app.MapControllers();
