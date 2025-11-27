@@ -8,5 +8,8 @@ namespace MovieHub.API.Repositories
         Task SaveChangesAsync();
         Task<bool> ExistsByEmailAsync(string email);
         Task<bool> ExistsByUsernameAsync(string username);
+        Task<User?> GetUserWithRolesByEmailOrUsernameAsync(
+            string emailOrUsername
+        );
     }
 }

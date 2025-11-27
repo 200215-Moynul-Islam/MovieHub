@@ -17,6 +17,8 @@ namespace MovieHub.API.Constants
             TextConstants.PersonNameMaxLenghtExceeded_ErrorMessage;
         public const string InvalidPersonNameFormat =
             TextConstants.InvalidPersonNameFormat_ErrorMessage;
+        public const string EmailOrUsernameMaxLengthExceeded =
+            TextConstants.EmailOrUsernameMaxLengthExceeded_ErrorMessage;
 
         public static class Branch
         {
@@ -111,6 +113,9 @@ namespace MovieHub.API.Constants
             // Consider removing this to a exception message specicic file.
             public const string FutureDate_InvalidProperty =
                 TextConstants.CustomAttributes_FutureDate_InvalidProperty_ErrorMessage;
+
+            public const string EmailOrUsername_Default =
+                TextConstants.CustomAttributes_EmailOrUsername_DefaultErrorMessage;
         }
     }
 }

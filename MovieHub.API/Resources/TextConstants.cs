@@ -14,6 +14,8 @@
             "Name cannot exceed 100 characters.";
         public const string InvalidPersonNameFormat_ErrorMessage =
             "Name must start with a letter and can include letters, spaces, apostrophes, hyphens, or periods.";
+        public const string EmailOrUsernameMaxLengthExceeded_ErrorMessage =
+            "Email/Username can not exceed 254 characters.";
 
         #region Branch
         public const string Branch_LocationRequired_ErrorMessage =
@@ -90,7 +92,7 @@
         public const string User_PasswordRequired_ErrorMessage =
             "Password is required.";
         public const string User_PasswordLengthOutOfRange_ErrorMessage =
-            "Password must be at between 8 and 64 characters long.";
+            "Password must be between 8 and 64 characters long.";
         public const string User_InvalidPasswordFormat_ErrorMessage =
             "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.";
         #endregion
@@ -100,6 +102,8 @@
             "{0} must be a future date/time.";
         public const string CustomAttributes_FutureDate_InvalidProperty_ErrorMessage =
             "{0} must be a DateTime property.";
+        public const string CustomAttributes_EmailOrUsername_DefaultErrorMessage =
+            "{0} field is not a valid Email or username.";
         #endregion
     }
 }

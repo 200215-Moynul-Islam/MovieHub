@@ -33,5 +33,21 @@ namespace MovieHub.API.Repositories
         {
             return await _dbContext.Users.AnyAsync(u => u.Username == username);
         }
+
+        public async Task<User?> GetUserWithRolesByEmailOrUsernameAsync(
+            string emailOrUsername
+        )
+        {
+            return await _dbContext
+                .Users.Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .SingleOrDefaultAsync(u =>
+                    u.IsDeleted == false
+                    && (
+                        u.Email == emailOrUsername
+                        || u.Username == emailOrUsername
+                    )
+                );
+        }
     }
 }

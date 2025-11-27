@@ -7,6 +7,8 @@
         public const int MaxPersonNameLength = 100;
         public const string PersonNameRegex = @"^[A-Za-z][A-Za-z\s\.\'\-]*$";
 
+        public const int MaxEmailOrUsernameLength = User.MaxEmailLength;
+
         public static class Branch
         {
             public const int MaxLocationLength = 250;
@@ -67,8 +69,6 @@
             public const int PasswordMaxLength = 64;
             public const string PasswordRegex =
                 @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).+$";
-            public const int MinUsernameLength = 3;
-            public const int MaxUsernameLength = 20;
         }
     }
 }
