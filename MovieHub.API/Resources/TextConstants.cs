@@ -92,7 +92,7 @@
         public const string User_PasswordRequired_ErrorMessage =
             "Password is required.";
         public const string User_PasswordLengthOutOfRange_ErrorMessage =
-            "Password must be at between 8 and 64 characters long.";
+            "Password must be between 8 and 64 characters long.";
         public const string User_InvalidPasswordFormat_ErrorMessage =
             "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.";
         #endregion

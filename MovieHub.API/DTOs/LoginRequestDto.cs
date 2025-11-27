@@ -26,6 +26,11 @@ namespace MovieHub.API.DTOs
         }
 
         [Required]
+        [StringLength(
+            ValidationConstants.User.PasswordMaxLength,
+            MinimumLength = ValidationConstants.User.PasswordMinLength,
+            ErrorMessage = ErrorMessages.User.PasswordLengthOutOfRange
+        )]
         [RegularExpression(
             ValidationConstants.User.PasswordRegex,
             ErrorMessage = ErrorMessages.User.InvalidPasswordFormat
