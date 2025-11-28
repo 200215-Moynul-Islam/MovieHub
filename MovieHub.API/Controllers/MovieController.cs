@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
@@ -25,6 +26,7 @@ namespace MovieHub.API.Controllers
         }
 
         // POST api/movies
+        [Authorize(Roles = $"{DefaultConstants.Role.AdminRoleName}")]
         [HttpPost]
         public async Task<ActionResult<MovieReadDto>> CreateMovieAsync(
             [FromBody] MovieCreateDto movieCreateDto
@@ -88,6 +90,7 @@ namespace MovieHub.API.Controllers
         }
 
         // PATCH: api/movies/{id:int}
+        [Authorize(Roles = $"{DefaultConstants.Role.AdminRoleName}")]
         [HttpPatch("{id:int}")]
         public async Task<ActionResult<MovieReadDto>> UpdateMovieByIdAsync(
             [FromRoute] int id,
@@ -100,6 +103,7 @@ namespace MovieHub.API.Controllers
         }
 
         // DELETE: api/movies/{id:int}
+        [Authorize(Roles = $"{DefaultConstants.Role.AdminRoleName}")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteMovieByIdAsync(
             [FromRoute] int id
