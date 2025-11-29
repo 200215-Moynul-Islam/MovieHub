@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
 
 namespace MovieHub.API.Controllers
 {
+    [Authorize(Roles = DefaultConstants.Role.AdminRoleName)]
     [ApiController]
     [Route("api/branches")]
     public class BranchController : ControllerBase
@@ -38,6 +40,7 @@ namespace MovieHub.API.Controllers
         }
 
         // GET: api/branches/{id:int}
+        [AllowAnonymous]
         [HttpGet("{id:int}", Name = "GetBranchById")]
         public async Task<ActionResult<BranchReadDto>> GetBranchByIdAsync(
             [FromRoute] int id
@@ -71,6 +74,7 @@ namespace MovieHub.API.Controllers
         }
 
         // GET: api/branches?offset={offset}&limit={limit}
+        [AllowAnonymous]
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<BranchReadDto>>
@@ -85,7 +89,7 @@ namespace MovieHub.API.Controllers
         // PATCH: api/branches/{id:int}/reset-manager
         [HttpPatch("{id:int}/reset-manager")]
         public async Task<
-            ActionResult<ShowTimeReadDto>
+            ActionResult<IActionResult>
         > ResetBranchManagerByIdAsync([FromRoute] int id)
         {
             await _branchService.ResetBranchManagerByIdAsync(id);
