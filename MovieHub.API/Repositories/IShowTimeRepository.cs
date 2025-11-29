@@ -20,5 +20,6 @@ namespace MovieHub.API.Repositories
         );
         Task<ShowTime?> GetShowTimeWithHallAndBookedSeatsAsync(int showTimeId);
         Task<ShowTime?> GetShowTimeDetailsByIdAsync(int id);
+        Task<Guid?> GetManagerIdByIdAsync(int id);
     }
 }
