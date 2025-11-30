@@ -15,5 +15,6 @@ namespace MovieHub.API.Repositories
             int offset,
             int limit
         );
+        Task<Guid?> GetManagerIdByIdAsync(int id);
     }
 }

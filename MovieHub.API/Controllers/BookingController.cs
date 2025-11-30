@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
@@ -5,6 +7,7 @@ using MovieHub.API.Services;
 
 namespace MovieHub.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/bookings")]
     public class BookingController : ControllerBase
@@ -27,6 +30,14 @@ namespace MovieHub.API.Controllers
             [FromBody] BookingCreateDto bookingCreateDto
         )
         {
+            if (
+                bookingCreateDto.UserId
+                != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value)
+            )
+            {
+                return Forbid();
+            }
+
             return Created(
                 String.Empty,
                 await _userShowTimeBookingService.CreateBookingAsync(
@@ -45,6 +56,18 @@ namespace MovieHub.API.Controllers
             [FromQuery] int limit = DefaultConstants.Limit
         )
         {
+            if (
+                !User.IsInRole(DefaultConstants.Role.AdminRoleName)
+                && !User.IsInRole(DefaultConstants.Role.MangerRoleName)
+                && userId
+                    != Guid.Parse(
+                        User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+                    )
+            )
+            {
+                return Forbid();
+            }
+
             return Ok(
                 await _userBookingService.GetAllBookingsWithSeatsByUserIdAsync(
                     userId,

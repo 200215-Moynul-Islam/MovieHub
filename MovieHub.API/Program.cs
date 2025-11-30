@@ -59,6 +59,10 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Register all the service class
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<
+    ICustomAuthorizationService,
+    CustomAuthorizationService
+>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
 builder.Services.AddScoped<IHallService, HallService>();

@@ -8,28 +8,11 @@ namespace MovieHub.API.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
         private readonly IAuthService _authService;
 
-        public AuthController(
-            IUserService userService,
-            IAuthService authService
-        )
+        public AuthController(IAuthService authService)
         {
-            _userService = userService;
             _authService = authService;
-        }
-
-        // POST: api/auth/register
-        [HttpPost("register")]
-        public async Task<ActionResult<UserReadDto>> RegisterUserAsync(
-            UserCreateDto userCreateDto
-        )
-        {
-            return Created(
-                String.Empty,
-                await _userService.RegisterUserAsync(userCreateDto)
-            );
         }
 
         // POST: api/auth/login

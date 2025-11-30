@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
@@ -5,6 +6,7 @@ using MovieHub.API.Services;
 
 namespace MovieHub.API.Controllers
 {
+    [Authorize(Roles = DefaultConstants.Role.AdminRoleName)]
     [ApiController]
     [Route("api/halls")]
     public class HallController : ControllerBase
@@ -42,6 +44,7 @@ namespace MovieHub.API.Controllers
         }
 
         //GET: api/halls/{id:int}
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<HallReadDto>> GetHallByIdAsync(
             [FromRoute] int id
@@ -62,7 +65,8 @@ namespace MovieHub.API.Controllers
             );
         }
 
-        //GET: api/halls/?branchId={branchId}&offset={offset}&limit={limit}
+        //GET: api/halls?branchId={branchId}&offset={offset}&limit={limit}
+        [AllowAnonymous]
         [HttpGet]
         public async Task<
             ActionResult<IEnumerable<HallReadDto>>

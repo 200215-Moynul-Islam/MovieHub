@@ -91,5 +91,13 @@ namespace MovieHub.API.Repositories
                 .Where(st => st.Id == id)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<Guid?> GetManagerIdByIdAsync(int id)
+        {
+            return await _dbSet
+                .Where(st => st.Id == id && st.Hall.Branch.IsDeleted == false)
+                .Select(st => st.Hall.Branch.ManagerId)
+                .FirstOrDefaultAsync();
+        }
     }
 }

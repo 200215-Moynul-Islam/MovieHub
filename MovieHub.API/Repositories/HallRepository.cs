@@ -47,5 +47,17 @@ namespace MovieHub.API.Repositories
                 .Take(limit)
                 .ToListAsync();
         }
+
+        public async Task<Guid?> GetManagerIdByIdAsync(int id)
+        {
+            return await _dbContext
+                .Halls.Where(h =>
+                    h.IsDeleted == false
+                    && h.Branch.IsDeleted == false
+                    && h.Id == id
+                )
+                .Select(h => h.Branch.ManagerId)
+                .FirstOrDefaultAsync();
+        }
     }
 }
