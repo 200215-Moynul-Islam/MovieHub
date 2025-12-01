@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -103,8 +105,8 @@ namespace MovieHub.API.Services
                 await _movieRepository.GetMovieDurationByMovieIdAsync(movieId);
             if (movieDuration is null)
             {
-                throw new Exception(
-                    $"Movie with id '{movieId}' does not exist."
+                throw new NotFoundException(
+                    BusinessErrorMessages.Movie.NotFound
                 );
             }
             return movieDuration.Value;
@@ -114,7 +116,9 @@ namespace MovieHub.API.Services
         {
             if (!await _hallRepository.ExistsByIdAsync(id))
             {
-                throw new Exception($"Hall with id '{id}' does not exist.");
+                throw new NotFoundException(
+                    BusinessErrorMessages.Hall.NotFound
+                );
             }
         }
 
@@ -132,8 +136,8 @@ namespace MovieHub.API.Services
                 )
             )
             {
-                throw new Exception(
-                    "Cannot schedule this show. It overlaps with another show in the same hall."
+                throw new ConflictException(
+                    BusinessErrorMessages.ShowTime.Conflict
                 );
             }
         }
@@ -154,8 +158,8 @@ namespace MovieHub.API.Services
                 )
             )
             {
-                throw new Exception(
-                    "Cannot schedule this show. It overlaps with another show in the same hall."
+                throw new ConflictException(
+                    BusinessErrorMessages.ShowTime.Conflict
                 );
             }
         }
@@ -165,8 +169,8 @@ namespace MovieHub.API.Services
             var showTime = await _showTimeRepository.GetByIdAsync(showTimeId);
             if (showTime is null)
             {
-                throw new Exception(
-                    $"ShowTime with id '{showTimeId}' does not exist."
+                throw new NotFoundException(
+                    BusinessErrorMessages.ShowTime.NotFound
                 );
             }
             return showTime;
@@ -176,7 +180,9 @@ namespace MovieHub.API.Services
         {
             if (showTime.StartTime <= DateTime.UtcNow)
             {
-                throw new Exception("This ShowTime has already started.");
+                throw new ConflictException(
+                    BusinessErrorMessages.ShowTime.Started
+                );
             }
         }
         #endregion

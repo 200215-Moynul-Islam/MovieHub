@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -66,8 +68,8 @@ namespace MovieHub.API.Services
         {
             if (await _movieRepository.TitleExistsCaseInsensitiveAsync(title))
             {
-                throw new Exception(
-                    $"Movie with title '{title}' already exists."
+                throw new ConflictException(
+                    BusinessErrorMessages.Movie.NameUnavailable
                 );
             }
         }
@@ -77,7 +79,9 @@ namespace MovieHub.API.Services
             var movie = await _movieRepository.GetByIdAsync(id);
             if (movie is null)
             {
-                throw new Exception($"Movie with id '{id}' does not exists.");
+                throw new NotFoundException(
+                    BusinessErrorMessages.Movie.NotFound
+                );
             }
             return movie;
         }

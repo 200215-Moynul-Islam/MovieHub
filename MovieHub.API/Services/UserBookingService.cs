@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Repositories;
 
 namespace MovieHub.API.Services
@@ -44,7 +46,9 @@ namespace MovieHub.API.Services
         {
             if (!await _userRepository.ExistsByIdAsync(id))
             {
-                throw new Exception($"User with Id {id} does not exist.");
+                throw new NotFoundException(
+                    BusinessErrorMessages.User.NotFound
+                );
             }
         }
         #endregion

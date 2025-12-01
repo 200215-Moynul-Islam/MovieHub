@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -69,7 +71,9 @@ namespace MovieHub.API.Services
             var branch = await _branchRepository.GetByIdAsync(id);
             if (branch is null)
             {
-                throw new Exception($"Branch with id '{id}' does not exists.");
+                throw new NotFoundException(
+                    BusinessErrorMessages.Branch.NotFound
+                );
             }
             return branch;
         }
@@ -78,9 +82,9 @@ namespace MovieHub.API.Services
         {
             if (await _branchRepository.NameExistsCaseInsensitiveAsync(name))
             {
-                throw new Exception(
-                    $"Branch with name '{name}' already exists."
-                ); // Use specific exception and avoid magic exception message.
+                throw new ConflictException(
+                    BusinessErrorMessages.Branch.NameUnavailable
+                );
             }
         }
 
@@ -97,8 +101,8 @@ namespace MovieHub.API.Services
                 !await _userRepository.IsManagerExistByIdAsync(managerId!.Value)
             )
             {
-                throw new Exception(
-                    $"Manager with ID '{managerId}' does not exist."
+                throw new NotFoundException(
+                    BusinessErrorMessages.User.ManagerNotFound
                 );
             }
 
@@ -108,9 +112,9 @@ namespace MovieHub.API.Services
                 )
             )
             {
-                throw new Exception(
-                    $"Manager with ID '{managerId}' is already assigned to another branch."
-                ); // Use specific exception and avoid magic exception message.
+                throw new ConflictException(
+                    BusinessErrorMessages.User.ManagerUnavailable
+                );
             }
         }
         #endregion

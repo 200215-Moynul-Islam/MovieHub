@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -53,7 +55,9 @@ namespace MovieHub.API.Services
         {
             if (!await _userRepository.ExistsByIdAsync(id))
             {
-                throw new Exception($"User with Id {id} does not exist.");
+                throw new NotFoundException(
+                    BusinessErrorMessages.User.NotFound
+                );
             }
         }
 
@@ -67,8 +71,8 @@ namespace MovieHub.API.Services
                 );
             if (showTime is null)
             {
-                throw new Exception(
-                    $"ShowTime with id '{showTimeId}' does not exist."
+                throw new NotFoundException(
+                    BusinessErrorMessages.ShowTime.NotFound
                 );
             }
             return showTime;
@@ -78,8 +82,8 @@ namespace MovieHub.API.Services
         {
             if (showTime.StartTime <= DateTime.UtcNow)
             {
-                throw new Exception(
-                    "Booking failed. This show is no longer available for booking as it has already started."
+                throw new ConflictException(
+                    BusinessErrorMessages.ShowTime.Started
                 );
             }
         }
@@ -97,8 +101,8 @@ namespace MovieHub.API.Services
                 .ToList();
             if (invalidDesiredSeatIds.Any())
             {
-                throw new Exception(
-                    $"Booking failed. Following seat Ids do not exist for the show: {string.Join(", ", invalidDesiredSeatIds)}"
+                throw new NotFoundException(
+                    BusinessErrorMessages.Booking.NotFoundSeatsFailure
                 );
             }
         }
@@ -117,8 +121,8 @@ namespace MovieHub.API.Services
                 .ToList();
             if (unavailableDesiredSeatIds.Any())
             {
-                throw new Exception(
-                    $"Booking faild. Following seat Ids are not available: {String.Join(", ", unavailableDesiredSeatIds)}"
+                throw new ConflictException(
+                    BusinessErrorMessages.Booking.UnavailableSeatsFailure
                 );
             }
         }

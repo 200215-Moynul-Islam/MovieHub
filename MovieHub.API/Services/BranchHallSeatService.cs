@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -73,7 +75,9 @@ namespace MovieHub.API.Services
             bool exists = await _branchRepository.ExistsByIdAsync(id);
             if (!exists)
             {
-                throw new Exception($"Branch with id '{id}' does not exist.");
+                throw new NotFoundException(
+                    BusinessErrorMessages.Branch.NotFound
+                );
             }
         }
 
@@ -89,7 +93,9 @@ namespace MovieHub.API.Services
                 )
             )
             {
-                throw new Exception($"Hall with name '{name}' already exists."); // Use specific exception and avoid magic exception message.
+                throw new ConflictException(
+                    BusinessErrorMessages.Hall.NameUnavailable
+                );
             }
         }
 
@@ -97,8 +103,9 @@ namespace MovieHub.API.Services
         {
             if (rowNumber < 1)
             {
-                throw new Exception(
-                    "Number must be greater greater than 0 (zero)."
+                throw new ArgumentOutOfRangeException(
+                    null,
+                    BusinessErrorMessages.Seat.RowNumberOutOfRange
                 );
             }
 

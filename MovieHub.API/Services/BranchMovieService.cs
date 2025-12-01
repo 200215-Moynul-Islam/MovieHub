@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Repositories;
 
 namespace MovieHub.API.Services
@@ -54,8 +56,8 @@ namespace MovieHub.API.Services
             bool exists = await _branchRepository.ExistsByIdAsync(branchId);
             if (!exists)
             {
-                throw new Exception(
-                    $"Branch with id '{branchId}' does not exist."
+                throw new NotFoundException(
+                    BusinessErrorMessages.Branch.NotFound
                 );
             }
         }
@@ -64,8 +66,8 @@ namespace MovieHub.API.Services
         {
             if (!await _movieRepository.ExistsByIdAsync(movieId))
             {
-                throw new Exception(
-                    $"Movie with id '{movieId}' does not exists."
+                throw new NotFoundException(
+                    BusinessErrorMessages.Movie.NotFound
                 );
             }
         }

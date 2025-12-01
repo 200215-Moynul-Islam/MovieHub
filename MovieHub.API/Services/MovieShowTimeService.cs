@@ -1,3 +1,5 @@
+using MovieHub.API.Constants;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Repositories;
 
 namespace MovieHub.API.Services
@@ -29,8 +31,8 @@ namespace MovieHub.API.Services
         {
             if (!await _movieRepository.ExistsByIdAsync(movieId))
             {
-                throw new Exception(
-                    $"Movie with id '{movieId}' does not exists."
+                throw new NotFoundException(
+                    BusinessErrorMessages.Movie.NotFound
                 );
             }
         }
@@ -45,7 +47,9 @@ namespace MovieHub.API.Services
                 )
             )
             {
-                throw new Exception($"This movie has upcoming shows.");
+                throw new ConflictException(
+                    BusinessErrorMessages.Movie.HasUpcomingShowTimes
+                );
             }
         }
         #endregion

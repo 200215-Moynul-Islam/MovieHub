@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -38,7 +40,9 @@ namespace MovieHub.API.Services
             var hall = await _hallRepository.GetByIdAsync(id);
             if (hall is null)
             {
-                throw new Exception($"Hall with id '{id}' does not exists.");
+                throw new NotFoundException(
+                    BusinessErrorMessages.Hall.NotFound
+                );
             }
             return hall;
         }

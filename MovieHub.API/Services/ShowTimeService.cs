@@ -1,5 +1,7 @@
 using AutoMapper;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -34,7 +36,9 @@ namespace MovieHub.API.Services
                 await _showTimeRepository.GetShowTimeDetailsByIdAsync(id);
             if (showtime is null)
             {
-                throw new Exception($"ShowTime with id '{id}' does not exist.");
+                throw new NotFoundException(
+                    BusinessErrorMessages.ShowTime.NotFound
+                );
             }
             return showtime;
         }
