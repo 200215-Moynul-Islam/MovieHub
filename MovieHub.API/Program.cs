@@ -66,6 +66,7 @@ builder.Services.AddScoped<
 >();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
+builder.Services.AddScoped<IUserBranchService, UserBranchService>();
 builder.Services.AddScoped<IHallService, HallService>();
 builder.Services.AddScoped<IShowTimeService, ShowTimeService>();
 builder.Services.AddScoped<IBranchHallService, BranchHallService>();
