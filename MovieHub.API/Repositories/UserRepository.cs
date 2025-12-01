@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MovieHub.API.Constants;
 using MovieHub.API.Data;
 using MovieHub.API.Models;
 
@@ -48,6 +49,24 @@ namespace MovieHub.API.Repositories
                         || u.Username == emailOrUsername
                     )
                 );
+        }
+
+        public async Task<bool> ExistsByIdAsync(Guid id)
+        {
+            return await _dbContext.Users.AnyAsync(u =>
+                u.Id == id && u.IsDeleted == false
+            );
+        }
+
+        public async Task<bool> IsManagerExistByIdAsync(Guid id)
+        {
+            return await _dbContext.Users.AnyAsync(u =>
+                u.Id == id
+                && u.IsDeleted == false
+                && u.UserRoles.Any(ur =>
+                    ur.Role.Name == DefaultConstants.Role.MangerRoleName
+                )
+            );
         }
     }
 }

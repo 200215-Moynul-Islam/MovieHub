@@ -8,14 +8,17 @@ namespace MovieHub.API.Services
     {
         private readonly IMapper _mapper;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserBookingService(
             IMapper mapper,
-            IBookingRepository bookingRepository
+            IBookingRepository bookingRepository,
+            IUserRepository userRepository
         )
         {
             _mapper = mapper;
             _bookingRepository = bookingRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<
@@ -26,7 +29,7 @@ namespace MovieHub.API.Services
             int limit
         )
         {
-            // TODO: Validate whether user exists when user table is ready.
+            await EnsureUserExistsByIdOrThrowAsync(userId);
             return _mapper.Map<IEnumerable<BookingReadDto>>(
                 await _bookingRepository.GetAllBookingsWithSeatsByUserIdAsync(
                     userId,
@@ -35,5 +38,15 @@ namespace MovieHub.API.Services
                 )
             );
         }
+
+        #region Private Methods
+        private async Task EnsureUserExistsByIdOrThrowAsync(Guid id)
+        {
+            if (!await _userRepository.ExistsByIdAsync(id))
+            {
+                throw new Exception($"User with Id {id} does not exist.");
+            }
+        }
+        #endregion
     }
 }

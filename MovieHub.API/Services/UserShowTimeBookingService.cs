@@ -10,23 +10,28 @@ namespace MovieHub.API.Services
         private readonly IMapper _mapper;
         private readonly IShowTimeRepository _showTimeRepository;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserShowTimeBookingService(
             IMapper mapper,
             IShowTimeRepository showTimeRepository,
-            IBookingRepository bookingRepository
+            IBookingRepository bookingRepository,
+            IUserRepository userRepository
         )
         {
             _mapper = mapper;
             _showTimeRepository = showTimeRepository;
             _bookingRepository = bookingRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<BookingReadDto> CreateBookingAsync(
             BookingCreateDto bookingCreateDto
         )
         {
-            // TODO: Validate UserId when User table is implemented.
+            await EnsureUserExistsByIdOrThrowAsync(
+                bookingCreateDto.UserId!.Value
+            );
             var showTime = await GetShowTimeWithHallAndBookedSeatsOrThrowAsync(
                 bookingCreateDto.ShowTimeId!.Value
             );
@@ -44,6 +49,14 @@ namespace MovieHub.API.Services
         }
 
         #region Private Methods
+        private async Task EnsureUserExistsByIdOrThrowAsync(Guid id)
+        {
+            if (!await _userRepository.ExistsByIdAsync(id))
+            {
+                throw new Exception($"User with Id {id} does not exist.");
+            }
+        }
+
         private async Task<ShowTime> GetShowTimeWithHallAndBookedSeatsOrThrowAsync(
             int showTimeId
         )

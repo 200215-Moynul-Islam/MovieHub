@@ -11,5 +11,7 @@ namespace MovieHub.API.Repositories
         Task<User?> GetUserWithRolesByEmailOrUsernameAsync(
             string emailOrUsername
         );
+        Task<bool> ExistsByIdAsync(Guid id);
+        Task<bool> IsManagerExistByIdAsync(Guid id);
     }
 }
