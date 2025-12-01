@@ -13,14 +13,17 @@ namespace MovieHub.API.Controllers
     {
         private readonly IBranchService _branchService;
         private readonly IBranchHallService _branchHallService;
+        private readonly IUserBranchService _userBranchService;
 
         public BranchController(
             IBranchService branchService,
-            IBranchHallService branchHallService
+            IBranchHallService branchHallService,
+            IUserBranchService userBranchService
         )
         {
             _branchService = branchService;
             _branchHallService = branchHallService;
+            _userBranchService = userBranchService;
         }
 
         // POST: api/branches
@@ -29,7 +32,7 @@ namespace MovieHub.API.Controllers
             [FromBody] BranchCreateDto branchCreateDto
         )
         {
-            var createdBranch = await _branchService.CreateBranchAsync(
+            var createdBranch = await _userBranchService.CreateBranchAsync(
                 branchCreateDto
             );
             return CreatedAtRoute(
@@ -69,7 +72,10 @@ namespace MovieHub.API.Controllers
         )
         {
             return Ok(
-                await _branchService.UpdateBranchByIdAsync(id, branchUpdateDto)
+                await _userBranchService.UpdateBranchByIdAsync(
+                    id,
+                    branchUpdateDto
+                )
             );
         }
 
