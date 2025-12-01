@@ -105,5 +105,66 @@
         public const string CustomAttributes_EmailOrUsername_DefaultErrorMessage =
             "{0} field is not a valid Email or username.";
         #endregion
+
+        #region BusinessErrorMessages
+        #region User
+        public const string User_UsernameUnavailable_ErrorMessage =
+            "A user is already registered with the same username.";
+        public const string User_InvalidEmailOrUsername_ErrorMessage =
+            "Invalid Email/Username.";
+        public const string User_InvalidEmailOrUsernameOrPassword_ErrorMessage =
+            "Invalid Email/Username or Password.";
+        public const string User_EmailUnavailable_ErrorMessage =
+            "This email is already registered.";
+        public const string User_NotFound_ErrorMessage = "User not found.";
+        public const string User_ManagerNotFound_ErrorMessage =
+            "Manager not found.";
+        public const string User_ManagerUnavailable_ErrorMassage =
+            "This manager is already assigned to another branch.";
+        #endregion
+
+        #region Branch
+        public const string Branch_NameUnavailable_ErrorMessage =
+            "A branch with the same name already exists.";
+        public const string Branch_NotFound_ErrorMessage = "Branch not found.";
+        #endregion
+
+        #region Hall
+        public const string Hall_NameUnavailable_ErrorMessage =
+            "A hall with the same name already exists in the this branch.";
+        public const string Hall_NotFound_ErrorMessage = "Hall not found.";
+        public const string Hall_HasUpcomingShowTimes_ErrorMessage =
+            $"Hall has upcoming showtimes.";
+        #endregion
+
+        #region Seat
+        public const string Seat_RowNumberOutOfRange_ErrorMessage =
+            "Row number of a seat must be greater than 0 (zero).";
+        #endregion
+
+        #region Movie
+        public const string Movie_NameUnavailable_ErrorMessage =
+            "A movie with the same name already exists.";
+        public const string Movie_NotFound_ErrorMessage = "Movie not found.";
+        public const string Movie_HasUpcomingShowTimes_ErrorMessage =
+            "This movie has upcoming showtimes.";
+        #endregion
+
+        #region ShowTime
+        public const string ShowTime_NotFound_ErrorMessage =
+            "ShowTime not found.";
+        public const string ShowTime_Conflict_ErrorMessage =
+            "The selected time slot overlaps with another showtime.";
+        public const string ShowTime_Started_ErrorMessage =
+            "This ShowTime has already started.";
+        #endregion
+
+        #region Booking
+        public const string Booking_NotFoundSeatsFailure_ErrorMessage =
+            "Booking failed. One or more seats are not found.";
+        public const string Booking_UnavailableSeatsFailure_ErrorMessage =
+            "Booking failed. One or more seats are unavailable.";
+        #endregion
+        #endregion
     }
 }
