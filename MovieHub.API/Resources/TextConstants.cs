@@ -2,6 +2,9 @@
 {
     public class TextConstants
     {
+        public const string InternalServerErrorMessage =
+            "Internal server error.";
+
         public const string NameRequired_ErrorMessage = "Name is required.";
         public const string NameMaxLengthExceeded_ErrorMessage =
             "Name cannot exceed 100 characters.";

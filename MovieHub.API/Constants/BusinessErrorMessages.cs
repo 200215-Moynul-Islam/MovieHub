@@ -4,6 +4,9 @@ namespace MovieHub.API.Constants
 {
     public class BusinessErrorMessages
     {
+        public const string InternalServerError =
+            TextConstants.InternalServerErrorMessage;
+
         public class User
         {
             public const string UsernameUnavailable =
