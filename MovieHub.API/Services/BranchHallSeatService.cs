@@ -103,8 +103,7 @@ namespace MovieHub.API.Services
         {
             if (rowNumber < 1)
             {
-                throw new ArgumentOutOfRangeException(
-                    null,
+                throw new InvalidOperationException(
                     BusinessErrorMessages.Seat.RowNumberOutOfRange
                 );
             }

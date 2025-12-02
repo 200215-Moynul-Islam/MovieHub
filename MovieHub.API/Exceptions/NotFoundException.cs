@@ -1,6 +1,6 @@
 namespace MovieHub.API.Exceptions
 {
-    public class NotFoundException : Exception
+    public class NotFoundException : BusinessException
     {
         public NotFoundException(string message)
             : base(message) { }
