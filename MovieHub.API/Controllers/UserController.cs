@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
+using MovieHub.API.Utilities;
 
 namespace MovieHub.API.Controllers
 {
@@ -21,9 +22,11 @@ namespace MovieHub.API.Controllers
             UserCreateDto userCreateDto
         )
         {
-            return Created(
-                String.Empty,
-                await _userService.RegisterUserAsync(userCreateDto)
+            return StatusCode(
+                StatusCodes.Status201Created,
+                ResponseHelper.Success(
+                    data: await _userService.RegisterUserAsync(userCreateDto)
+                )
             );
         }
     }

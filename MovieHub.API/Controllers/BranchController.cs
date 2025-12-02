@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
+using MovieHub.API.Utilities;
 
 namespace MovieHub.API.Controllers
 {
@@ -35,10 +36,9 @@ namespace MovieHub.API.Controllers
             var createdBranch = await _userBranchService.CreateBranchAsync(
                 branchCreateDto
             );
-            return CreatedAtRoute(
-                "GetBranchById",
-                new { id = createdBranch.Id },
-                createdBranch
+            return StatusCode(
+                StatusCodes.Status201Created,
+                ResponseHelper.Success(data: createdBranch)
             );
         }
 
@@ -49,7 +49,11 @@ namespace MovieHub.API.Controllers
             [FromRoute] int id
         )
         {
-            return Ok(await _branchService.GetBranchByIdAsync(id));
+            return Ok(
+                ResponseHelper.Success(
+                    data: await _branchService.GetBranchByIdAsync(id)
+                )
+            );
         }
 
         // DELETE: api/branches/{id:int}
@@ -61,7 +65,7 @@ namespace MovieHub.API.Controllers
             await _branchHallService.DeactivateBranchWithHallsByBranchIdAsync(
                 id
             );
-            return Ok();
+            return Ok(ResponseHelper.Success());
         }
 
         // PATCH: api/branches/{id:int}
@@ -72,9 +76,11 @@ namespace MovieHub.API.Controllers
         )
         {
             return Ok(
-                await _userBranchService.UpdateBranchByIdAsync(
-                    id,
-                    branchUpdateDto
+                ResponseHelper.Success(
+                    data: await _userBranchService.UpdateBranchByIdAsync(
+                        id,
+                        branchUpdateDto
+                    )
                 )
             );
         }
@@ -89,7 +95,14 @@ namespace MovieHub.API.Controllers
             [FromQuery] int limit = DefaultConstants.Limit
         )
         {
-            return Ok(await _branchService.GetAllBranchesAsync(offset, limit));
+            return Ok(
+                ResponseHelper.Success(
+                    data: await _branchService.GetAllBranchesAsync(
+                        offset,
+                        limit
+                    )
+                )
+            );
         }
 
         // PATCH: api/branches/{id:int}/reset-manager
@@ -99,7 +112,7 @@ namespace MovieHub.API.Controllers
         > ResetBranchManagerByIdAsync([FromRoute] int id)
         {
             await _branchService.ResetBranchManagerByIdAsync(id);
-            return Ok();
+            return Ok(ResponseHelper.Success());
         }
     }
 }

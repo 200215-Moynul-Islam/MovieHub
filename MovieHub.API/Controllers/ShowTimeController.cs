@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
+using MovieHub.API.Utilities;
 
 namespace MovieHub.API.Controllers
 {
@@ -43,14 +44,18 @@ namespace MovieHub.API.Controllers
                 )
             )
             {
-                // Try to return an error message like $"You are not authorized to access the hall with Id {showTimeCreateDto.HallId}.". But Forbid method does not allow that.
-                return Forbid();
+                return StatusCode(
+                    StatusCodes.Status403Forbidden,
+                    ResponseHelper.Fail()
+                );
             }
 
-            return Created(
-                String.Empty,
-                await _movieHallShowTimeService.CreateShowTimeAsync(
-                    showTimeCreateDto
+            return StatusCode(
+                StatusCodes.Status201Created,
+                ResponseHelper.Success(
+                    data: await _movieHallShowTimeService.CreateShowTimeAsync(
+                        showTimeCreateDto
+                    )
                 )
             );
         }
@@ -62,7 +67,11 @@ namespace MovieHub.API.Controllers
             ActionResult<ShowTimeDetailsReadDto>
         > GetShowTimeDetailsByIdAsync([FromRoute] int id)
         {
-            return Ok(await _showTimeService.GetShowTimeDetailsByIdAsync(id));
+            return Ok(
+                ResponseHelper.Success(
+                    data: await _showTimeService.GetShowTimeDetailsByIdAsync(id)
+                )
+            );
         }
 
         // PATCH: api/showtimes/{id:int}
@@ -82,8 +91,10 @@ namespace MovieHub.API.Controllers
                 )
             )
             {
-                // Try to return an error message like $"You are not authorized to access the showtime with Id {id}." But Forbid method does not allow that.
-                return Forbid();
+                return StatusCode(
+                    StatusCodes.Status403Forbidden,
+                    ResponseHelper.Fail()
+                );
             }
             if (
                 !User.IsInRole(DefaultConstants.Role.AdminRoleName)
@@ -94,14 +105,18 @@ namespace MovieHub.API.Controllers
                 )
             )
             {
-                // Try to return an error message like $"You are not authorized to access the hall with Id {showTimeCreateDto.HallId}.". But Forbid method does not allow that.
-                return Forbid();
+                return StatusCode(
+                    StatusCodes.Status403Forbidden,
+                    ResponseHelper.Fail()
+                );
             }
 
             return Ok(
-                await _movieHallShowTimeService.UpdateShowTimeByIdAsync(
-                    id,
-                    showTimeUpdateDto
+                ResponseHelper.Success(
+                    data: await _movieHallShowTimeService.UpdateShowTimeByIdAsync(
+                        id,
+                        showTimeUpdateDto
+                    )
                 )
             );
         }

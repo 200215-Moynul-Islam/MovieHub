@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
+using MovieHub.API.Utilities;
 
 namespace MovieHub.API.Controllers
 {
@@ -32,9 +33,11 @@ namespace MovieHub.API.Controllers
             [FromBody] MovieCreateDto movieCreateDto
         )
         {
-            return Created(
-                String.Empty,
-                await _movieService.CreateMovieAsync(movieCreateDto)
+            return StatusCode(
+                StatusCodes.Status201Created,
+                ResponseHelper.Success(
+                    data: await _movieService.CreateMovieAsync(movieCreateDto)
+                )
             );
         }
 
@@ -44,7 +47,11 @@ namespace MovieHub.API.Controllers
             [FromRoute] int id
         )
         {
-            return Ok(await _movieService.GetMovieByIdAsync(id));
+            return Ok(
+                ResponseHelper.Success(
+                    data: await _movieService.GetMovieByIdAsync(id)
+                )
+            );
         }
 
         // GET: api/movies/{id:int}/upcoming-showtimes?branchId={branchId}
@@ -57,9 +64,11 @@ namespace MovieHub.API.Controllers
         )
         {
             return Ok(
-                await _branchMovieService.GetMovieWithUpcomingShowTimesByIdForBranchAsync(
-                    id,
-                    branchId
+                ResponseHelper.Success(
+                    data: await _branchMovieService.GetMovieWithUpcomingShowTimesByIdForBranchAsync(
+                        id,
+                        branchId
+                    )
                 )
             );
         }
@@ -73,7 +82,11 @@ namespace MovieHub.API.Controllers
             int limit = DefaultConstants.Limit
         )
         {
-            return Ok(await _movieService.GetAllMoviesAsync(offset, limit));
+            return Ok(
+                ResponseHelper.Success(
+                    data: await _movieService.GetAllMoviesAsync(offset, limit)
+                )
+            );
         }
 
         //GET: api/movies/upcoming?branchId={branchId}
@@ -83,8 +96,10 @@ namespace MovieHub.API.Controllers
         > GetScheduledMoviesByBranchIdAsync([FromQuery] int branchId)
         {
             return Ok(
-                await _branchMovieService.GetScheduledMoviesByBranchIdAsync(
-                    branchId
+                ResponseHelper.Success(
+                    data: await _branchMovieService.GetScheduledMoviesByBranchIdAsync(
+                        branchId
+                    )
                 )
             );
         }
@@ -98,7 +113,12 @@ namespace MovieHub.API.Controllers
         )
         {
             return Ok(
-                await _movieService.UpdateMovieByIdAsync(id, movieUpdateDto)
+                ResponseHelper.Success(
+                    data: await _movieService.UpdateMovieByIdAsync(
+                        id,
+                        movieUpdateDto
+                    )
+                )
             );
         }
 
@@ -110,7 +130,7 @@ namespace MovieHub.API.Controllers
         )
         {
             await _movieShowTimeService.DeactivateMovieByIdAsync(id);
-            return Ok();
+            return Ok(ResponseHelper.Success());
         }
     }
 }

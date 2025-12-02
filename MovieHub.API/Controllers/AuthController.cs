@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
+using MovieHub.API.Utilities;
 
 namespace MovieHub.API.Controllers
 {
@@ -21,7 +22,11 @@ namespace MovieHub.API.Controllers
             LoginRequestDto loginRequestDto
         )
         {
-            return Ok(await _authService.LoginAsync(loginRequestDto));
+            return Ok(
+                ResponseHelper.Success(
+                    data: await _authService.LoginAsync(loginRequestDto)
+                )
+            );
         }
     }
 }
