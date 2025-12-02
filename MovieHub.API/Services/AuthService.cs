@@ -1,5 +1,7 @@
 using System.Security.Claims;
+using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 using MovieHub.API.Utilities;
@@ -62,7 +64,9 @@ namespace MovieHub.API.Services
                 );
             if (user == null)
             {
-                throw new Exception("Incorrect Email/Username.");
+                throw new InvalidCredentialsException(
+                    BusinessErrorMessages.User.InvalidEmailOrUsername
+                );
             }
             return user;
         }
@@ -74,7 +78,9 @@ namespace MovieHub.API.Services
         {
             if (!BCrypt.Net.BCrypt.Verify(password, passwordHash))
             {
-                throw new Exception("Incorrect Email/Username or Password.");
+                throw new InvalidCredentialsException(
+                    BusinessErrorMessages.User.InvalidCredential
+                );
             }
             return;
         }

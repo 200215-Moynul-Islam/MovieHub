@@ -1,6 +1,7 @@
 using AutoMapper;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -45,7 +46,9 @@ namespace MovieHub.API.Services
         {
             if (await _userRepository.ExistsByEmailAsync(userCreateDto.Email!))
             {
-                throw new Exception("This email is already registered.");
+                throw new ConflictException(
+                    BusinessErrorMessages.User.EmailUnavailable
+                );
             }
 
             if (
@@ -54,7 +57,9 @@ namespace MovieHub.API.Services
                 )
             )
             {
-                throw new Exception("This username is not available.");
+                throw new ConflictException(
+                    BusinessErrorMessages.User.UsernameUnavailable
+                );
             }
         }
         #endregion

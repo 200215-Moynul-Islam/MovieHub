@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
+using MovieHub.API.Utilities;
 
 namespace MovieHub.API.Controllers
 {
@@ -35,10 +36,12 @@ namespace MovieHub.API.Controllers
             [FromBody] HallCreateDto hallCreateDto
         )
         {
-            return Created(
-                String.Empty,
-                await _branchHallSeatService.CreateHallWithSeatsAsync(
-                    hallCreateDto
+            return StatusCode(
+                StatusCodes.Status201Created,
+                ResponseHelper.Success(
+                    data: await _branchHallSeatService.CreateHallWithSeatsAsync(
+                        hallCreateDto
+                    )
                 )
             );
         }
@@ -50,7 +53,11 @@ namespace MovieHub.API.Controllers
             [FromRoute] int id
         )
         {
-            return Ok(await _hallService.GetHallByIdAsync(id));
+            return Ok(
+                ResponseHelper.Success(
+                    data: await _hallService.GetHallByIdAsync(id)
+                )
+            );
         }
 
         //PATCH: api/halls/{id:int}
@@ -61,7 +68,12 @@ namespace MovieHub.API.Controllers
         )
         {
             return Ok(
-                await _hallService.UpdateHallByIdAsync(id, hallUpdateDto)
+                ResponseHelper.Success(
+                    data: await _hallService.UpdateHallByIdAsync(
+                        id,
+                        hallUpdateDto
+                    )
+                )
             );
         }
 
@@ -77,10 +89,12 @@ namespace MovieHub.API.Controllers
         )
         {
             return Ok(
-                await _branchHallService.GetHallsByBranchIdAsync(
-                    branchId,
-                    offset,
-                    limit
+                ResponseHelper.Success(
+                    data: await _branchHallService.GetHallsByBranchIdAsync(
+                        branchId,
+                        offset,
+                        limit
+                    )
                 )
             );
         }
@@ -90,7 +104,7 @@ namespace MovieHub.API.Controllers
         public async Task<IActionResult> DeleteHallByIdAsync([FromRoute] int id)
         {
             await _hallShowTimeService.DeactivateHallByIdAsync(id);
-            return Ok();
+            return Ok(ResponseHelper.Success());
         }
     }
 }

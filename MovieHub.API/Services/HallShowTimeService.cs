@@ -1,3 +1,5 @@
+using MovieHub.API.Constants;
+using MovieHub.API.Exceptions;
 using MovieHub.API.Models;
 using MovieHub.API.Repositories;
 
@@ -31,8 +33,8 @@ namespace MovieHub.API.Services
         {
             if (!await _hallRepository.ExistsByIdAsync(hallId))
             {
-                throw new Exception(
-                    $"Hall with id '{hallId}' does not exists."
+                throw new NotFoundException(
+                    BusinessErrorMessages.Hall.NotFound
                 );
             }
         }
@@ -47,8 +49,8 @@ namespace MovieHub.API.Services
                 )
             )
             {
-                throw new Exception(
-                    $"Hall with id '{hallId}' has upcoming shows."
+                throw new ConflictException(
+                    BusinessErrorMessages.Hall.HasUpcomingShowTimes
                 );
             }
         }

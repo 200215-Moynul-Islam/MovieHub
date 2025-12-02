@@ -1,0 +1,8 @@
+namespace MovieHub.API.Exceptions
+{
+    public class InvalidCredentialsException : BusinessException
+    {
+        public InvalidCredentialsException(string message)
+            : base(message) { }
+    }
+}

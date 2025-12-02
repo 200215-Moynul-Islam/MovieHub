@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieHub.API.Constants;
 using MovieHub.API.DTOs;
 using MovieHub.API.Services;
+using MovieHub.API.Utilities;
 
 namespace MovieHub.API.Controllers
 {
@@ -35,13 +36,18 @@ namespace MovieHub.API.Controllers
                 != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value)
             )
             {
-                return Forbid();
+                return StatusCode(
+                    StatusCodes.Status403Forbidden,
+                    ResponseHelper.Fail()
+                );
             }
 
-            return Created(
-                String.Empty,
-                await _userShowTimeBookingService.CreateBookingAsync(
-                    bookingCreateDto
+            return StatusCode(
+                StatusCodes.Status201Created,
+                ResponseHelper.Success(
+                    data: await _userShowTimeBookingService.CreateBookingAsync(
+                        bookingCreateDto
+                    )
                 )
             );
         }
@@ -65,14 +71,19 @@ namespace MovieHub.API.Controllers
                     )
             )
             {
-                return Forbid();
+                return StatusCode(
+                    StatusCodes.Status403Forbidden,
+                    ResponseHelper.Fail()
+                );
             }
 
             return Ok(
-                await _userBookingService.GetAllBookingsWithSeatsByUserIdAsync(
-                    userId,
-                    offset,
-                    limit
+                ResponseHelper.Success(
+                    data: await _userBookingService.GetAllBookingsWithSeatsByUserIdAsync(
+                        userId,
+                        offset,
+                        limit
+                    )
                 )
             );
         }
